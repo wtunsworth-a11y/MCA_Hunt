@@ -1,0 +1,4 @@
+# Local tooling / test artifacts (not part of the app)
+node_modules/
+*.log
+.DS_Store

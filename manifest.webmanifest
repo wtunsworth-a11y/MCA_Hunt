@@ -1,0 +1,14 @@
+{
+  "name": "MCA Hunting & Wild Resource Use Survey",
+  "short_name": "MCA Hunt",
+  "description": "Offline field survey for hunting, fishing and gathering in the Managalas Conservation Area.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f6f4",
+  "theme_color": "#256d40",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

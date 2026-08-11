@@ -1,0 +1,13 @@
+{
+  "_comment": "Zone and Ward pick-lists for Module A. These are PLACEHOLDER values (see Section 7 open items). Replace the `zones` and `wards` arrays with the real MCA lists once supplied — no code changes are needed; the app loads this file at startup. Each entry: { code, label }. `code` is written into exports and used as the zone prefix in the respondent ID; keep it short and stable. Optionally scope wards to a zone with a `zone` property (e.g. { code, label, zone: 'z01' }); wards without a `zone` show for every zone.",
+  "zones": [
+    { "code": "z01", "label": "Zone 1 (placeholder)" },
+    { "code": "z02", "label": "Zone 2 (placeholder)" },
+    { "code": "z03", "label": "Zone 3 (placeholder)" }
+  ],
+  "wards": [
+    { "code": "w01", "label": "Ward 1 (placeholder)" },
+    { "code": "w02", "label": "Ward 2 (placeholder)" },
+    { "code": "w03", "label": "Ward 3 (placeholder)" }
+  ]
+}

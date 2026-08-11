@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#256d40">
+  <title>MCA Hunting Survey</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSI5NiIgZmlsbD0iIzI1NmQ0MCIvPgogIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMTUwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMTgiLz4KICA8Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjcwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMTgiLz4KICA8Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjE0IiBmaWxsPSIjZmZmZmZmIi8+CiAgPGxpbmUgeDE9IjI1NiIgeTE9IjcwIiB4Mj0iMjU2IiB5Mj0iMTUwIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMTgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxsaW5lIHgxPSIyNTYiIHkxPSIzNjIiIHgyPSIyNTYiIHkyPSI0NDIiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGxpbmUgeDE9IjcwIiB5MT0iMjU2IiB4Mj0iMTUwIiB5Mj0iMjU2IiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMTgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxsaW5lIHgxPSIzNjIiIHkxPSIyNTYiIHgyPSI0NDIiIHkyPSIyNTYiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSI5NiIgZmlsbD0iIzI1NmQ0MCIvPgogIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMTUwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMTgiLz4KICA8Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjcwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMTgiLz4KICA8Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjE0IiBmaWxsPSIjZmZmZmZmIi8+CiAgPGxpbmUgeDE9IjI1NiIgeTE9IjcwIiB4Mj0iMjU2IiB5Mj0iMTUwIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMTgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxsaW5lIHgxPSIyNTYiIHkxPSIzNjIiIHgyPSIyNTYiIHkyPSI0NDIiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGxpbmUgeDE9IjcwIiB5MT0iMjU2IiB4Mj0iMTUwIiB5Mj0iMjU2IiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMTgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxsaW5lIHgxPSIzNjIiIHkxPSIyNTYiIHgyPSI0NDIiIHkyPSIyNTYiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=">
+  <style>
+/* MCA Hunting Survey PWA — mobile-first, large touch targets, offline field UI */
+:root {
+  --bg: #f4f6f4;
+  --card: #ffffff;
+  --ink: #16261c;
+  --muted: #5c6b60;
+  --line: #d6ddd6;
+  --green: #256d40;
+  --green-d: #1c5531;
+  --amber: #b26a00;
+  --red: #b3261e;
+  --sel: #e3f2e8;
+  --sel-line: #256d40;
+  --radius: 12px;
+  --tap: 48px;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body {
+  margin: 0; padding: 0; background: var(--bg); color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px; line-height: 1.4;
+}
+h1 { font-size: 1.5rem; margin: .2rem 0 .6rem; }
+h2 { font-size: 1.2rem; margin: .8rem 0 .4rem; color: var(--green-d); }
+button { font-family: inherit; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 20; display: flex; justify-content: space-between;
+  align-items: center; gap: .5rem; padding: .6rem .9rem; background: var(--green);
+  color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.15);
+}
+.topbar .brand { font-weight: 700; }
+.topbar .who { font-size: .85rem; opacity: .95; display: flex; align-items: center; gap: .4rem; }
+
+.screen { max-width: 720px; margin: 0 auto; padding: .8rem .9rem 4rem; }
+.setup { text-align: center; padding-top: 2rem; }
+.setup p { color: var(--muted); }
+
+/* Buttons */
+.btn {
+  min-height: var(--tap); padding: .6rem 1rem; border: 1px solid var(--line);
+  background: var(--card); color: var(--ink); border-radius: var(--radius);
+  font-size: 1rem; cursor: pointer;
+}
+.btn.primary { background: var(--green); color: #fff; border-color: var(--green-d); font-weight: 600; }
+.btn.danger { color: var(--red); border-color: #e6c3c1; }
+.btn.ghost { background: transparent; }
+.btn.big { width: 100%; font-size: 1.1rem; margin: .4rem 0 1rem; }
+.btn.small { min-height: 40px; padding: .4rem .8rem; font-size: .95rem; }
+.btn.tiny { min-height: 34px; padding: .2rem .6rem; font-size: .85rem; border-radius: 8px; }
+.btn.tiny.ghost { color: #fff; border-color: rgba(255,255,255,.5); }
+
+/* Interview list */
+.ivlist { list-style: none; padding: 0; margin: .4rem 0; }
+.ivrow {
+  display: flex; align-items: center; gap: .5rem; background: var(--card);
+  border: 1px solid var(--line); border-radius: var(--radius); padding: .6rem .7rem; margin-bottom: .5rem;
+}
+.ivmain { flex: 1; cursor: pointer; }
+.ivcode { font-weight: 700; }
+.ivmeta { font-size: .8rem; color: var(--muted); display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; margin-top: .2rem; }
+.empty { color: var(--muted); padding: .6rem; }
+.exportbar { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.foot { color: var(--muted); font-size: .8rem; margin-top: 1.4rem; }
+
+/* Badges */
+.badge { display: inline-block; padding: .1rem .5rem; border-radius: 999px; font-size: .75rem; font-weight: 600; }
+.badge.ok { background: #d9f0e1; color: var(--green-d); }
+.badge.done { background: #e5ecff; color: #234; }
+.badge.warn { background: #ffe9c9; color: var(--amber); }
+.badge.miss { background: #fbdedb; color: var(--red); }
+
+/* Stepper */
+.stepper { display: flex; flex-wrap: wrap; gap: .35rem; margin: .2rem 0 .6rem; }
+.stepdot {
+  width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line);
+  background: var(--card); color: var(--muted); font-weight: 700; cursor: pointer;
+}
+.stepdot.active { background: var(--green); color: #fff; border-color: var(--green-d); }
+
+/* Fields */
+.field { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: .7rem .8rem; margin-bottom: .7rem; }
+.q { font-weight: 600; margin-bottom: .35rem; }
+.q.small { font-size: .95rem; }
+.help { color: var(--muted); font-size: .82rem; margin-bottom: .4rem; }
+.note { background: #eef4ef; border-left: 4px solid var(--green); padding: .5rem .7rem; border-radius: 8px; color: var(--muted); margin-bottom: .7rem; font-size: .9rem; }
+.subq { margin-top: .5rem; }
+
+/* Option buttons (radio / checkbox as big tap targets) */
+.options { display: flex; flex-direction: column; gap: .4rem; }
+.opt {
+  display: flex; align-items: center; gap: .6rem; min-height: var(--tap);
+  padding: .5rem .7rem; border: 1.5px solid var(--line); border-radius: 10px; cursor: pointer; background: #fff;
+}
+.opt.inline { display: inline-flex; margin: .2rem .4rem .2rem 0; }
+/* Instant selected-highlight without needing a re-render (modern browsers).
+   The .sel class (applied at render time) remains as a fallback. */
+.opt.sel, .opt:has(input:checked) { border-color: var(--sel-line); background: var(--sel); }
+.opt input { width: 22px; height: 22px; accent-color: var(--green); flex: 0 0 auto; }
+.opt span { flex: 1; }
+
+/* Text / select */
+.txt, .drop { width: 100%; min-height: var(--tap); padding: .5rem .6rem; border: 1.5px solid var(--line); border-radius: 10px; font-size: 1rem; background: #fff; color: var(--ink); }
+textarea.txt { min-height: 84px; resize: vertical; }
+.txt.tiny { min-height: 38px; font-size: .9rem; }
+.txt.num { max-width: 110px; }
+.mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+.mono.big { font-size: 1.2rem; font-weight: 700; letter-spacing: .5px; }
+.small { font-size: .82rem; }
+
+/* Profile meta box */
+.metabox .gpsrow { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+
+/* Category block (Module B) */
+.catblock { border: 1px solid var(--line); border-radius: var(--radius); padding: .5rem .6rem; margin-bottom: .8rem; background: #fbfdfb; }
+.cathead { font-weight: 700; color: var(--green-d); border-bottom: 1px solid var(--line); padding-bottom: .3rem; margin-bottom: .5rem; }
+.catblock .field { border: none; padding: .3rem 0; margin: 0; background: transparent; }
+
+/* Trip block (Module F) */
+.tripblock { border: 2px solid var(--sel-line); border-radius: var(--radius); padding: .5rem .7rem; margin-bottom: .9rem; }
+.triphead { font-weight: 700; color: var(--green-d); margin-bottom: .5rem; }
+.tripblock .field { background: #fbfdfb; }
+
+/* Catch list */
+.catchrow { display: flex; gap: .4rem; align-items: center; margin-bottom: .4rem; }
+.catchrow .drop { flex: 1; }
+
+/* Grids (Modules C, E, G, H) */
+.legend { margin-bottom: .5rem; font-size: .85rem; }
+.legend ul { columns: 2; padding-left: 1.1rem; margin: .4rem 0; }
+.gridwrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--line); border-radius: 10px; }
+table.grid { border-collapse: collapse; min-width: max-content; }
+table.grid th, table.grid td { border: 1px solid var(--line); text-align: center; }
+table.grid thead th { position: sticky; top: 0; background: #eef4ef; font-size: .8rem; padding: .3rem .35rem; z-index: 2; }
+table.grid th.rowhead {
+  position: sticky; left: 0; background: #eef4ef; text-align: left; padding: .4rem .5rem;
+  font-size: .85rem; white-space: nowrap; z-index: 1;
+}
+table.grid thead th.rowhead { z-index: 3; }
+table.grid th.disabled { color: #b7c2ba; }
+.cell { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; cursor: pointer; }
+.cell input { width: 22px; height: 22px; accent-color: var(--green); }
+.cell.sel, .cell:has(input:checked) { background: var(--sel); }
+.cellsel { min-height: 40px; border: 1px solid var(--line); border-radius: 8px; background: #fff; font-size: .95rem; padding: .1rem .2rem; }
+.na { color: #c2ccc4; }
+
+/* Navigation */
+.navbtns { display: flex; gap: .6rem; margin-top: 1rem; }
+.navbtns .btn { flex: 1; }
+
+/* Consent */
+.consent { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: .9rem; line-height: 1.55; }
+
+/* Review */
+table.review { width: 100%; border-collapse: collapse; margin-top: .5rem; }
+table.review td { border-bottom: 1px solid var(--line); padding: .35rem .4rem; vertical-align: top; }
+table.review td:first-child { color: var(--muted); width: 42%; word-break: break-all; }
+
+@media (min-width: 560px) {
+  .options.cols2 { display: grid; grid-template-columns: 1fr 1fr; }
+}
+
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+  // Reference lists (Zone/Ward) inlined so the single file works offline.
+  window.__MCA_REFERENCE__ = {
+  "_comment": "Zone and Ward pick-lists for Module A. These are PLACEHOLDER values (see Section 7 open items). Replace the `zones` and `wards` arrays with the real MCA lists once supplied — no code changes are needed; the app loads this file at startup. Each entry: { code, label }. `code` is written into exports and used as the zone prefix in the respondent ID; keep it short and stable. Optionally scope wards to a zone with a `zone` property (e.g. { code, label, zone: 'z01' }); wards without a `zone` show for every zone.",
+  "zones": [
+    { "code": "z01", "label": "Zone 1 (placeholder)" },
+    { "code": "z02", "label": "Zone 2 (placeholder)" },
+    { "code": "z03", "label": "Zone 3 (placeholder)" }
+  ],
+  "wards": [
+    { "code": "w01", "label": "Ward 1 (placeholder)" },
+    { "code": "w02", "label": "Ward 2 (placeholder)" },
+    { "code": "w03", "label": "Ward 3 (placeholder)" }
+  ]
+}
+;
+  </script>
+  <script>
+/*
+ * config.js — single source of truth for the fixed reference lists and option
+ * sets used throughout the MCA Hunting & Wild Resource Use survey PWA.
+ *
+ * Per Section 7 of the handover, the species-category and method lists are
+ * "pilot-refinable": keep them editable here rather than scattered through the
+ * code so a category/method can be added, removed or renamed without a rebuild.
+ *
+ * Zone and Ward lists are NOT here — they are loaded at runtime from
+ * data/reference.json (see 3.3) so the real lists can be dropped in without
+ * touching code. This file only holds what Section 4 fixes for v1.
+ */
+
+const CONFIG = {
+  // Bumped when the instrument/schema changes, written into every record as
+  // `app_version` so exports can be traced to the build that produced them.
+  appVersion: '1.0.0',
+
+  // --- Fixed species categories (Section 4). Order is the canonical order used
+  // for every grid row and every CSV column suffix. Edit here to refine. ---
+  categories: [
+    { code: 'pigeon',        label: 'Pigeon' },
+    { code: 'wallaby',       label: 'Wallaby' },
+    { code: 'tree_kangaroo', label: 'Tree kangaroo' },
+    { code: 'bandicoot',     label: 'Bandicoot' },
+    { code: 'hornbill',      label: 'Hornbill' },
+    { code: 'parrot',        label: 'Parrot' },
+    { code: 'cuscus',        label: 'Cuscus' },
+    { code: 'fish',          label: 'Fish' },
+    { code: 'snake',         label: 'Snake' },
+    { code: 'bushfowl',      label: 'Bushfowl' },
+  ],
+
+  // --- Fixed method codes 1..15 (Section 4). Codes are strings to match the
+  // field-name suffixes exactly (c_method_pigeon_1 ... _15). ---
+  methods: [
+    { code: '1',  label: 'Bow and arrow' },
+    { code: '2',  label: 'Spear' },
+    { code: '3',  label: 'Trap/snare (vine or bush material)' },
+    { code: '4',  label: 'Trap/snare (wire or plastic)' },
+    { code: '5',  label: 'Slingshot (handheld)' },
+    { code: '6',  label: 'Slingshot (mounted/larger)' },
+    { code: '7',  label: 'Hunting dogs' },
+    { code: '8',  label: 'Bush knife / hand capture' },
+    { code: '9',  label: 'Smoking out burrow or hole' },
+    { code: '10', label: 'Line or hook' },
+    { code: '11', label: 'Net' },
+    { code: '12', label: 'Shotgun (factory-made)' },
+    { code: '13', label: 'Shotgun (homemade)' },
+    { code: '14', label: 'Spear gun' },
+    { code: '15', label: 'Other (specify)' },
+  ],
+
+  // Month suffixes for Module E (jan..dec).
+  months: [
+    { code: 'jan', label: 'Jan' }, { code: 'feb', label: 'Feb' },
+    { code: 'mar', label: 'Mar' }, { code: 'apr', label: 'Apr' },
+    { code: 'may', label: 'May' }, { code: 'jun', label: 'Jun' },
+    { code: 'jul', label: 'Jul' }, { code: 'aug', label: 'Aug' },
+    { code: 'sep', label: 'Sep' }, { code: 'oct', label: 'Oct' },
+    { code: 'nov', label: 'Nov' }, { code: 'dec', label: 'Dec' },
+  ],
+
+  // Life stages, used by Module A activity grid and Module G abundance grid.
+  // `minBand` is the earliest age_band at which this life stage becomes
+  // relevant — used to grey out rows/columns beyond the respondent's age band.
+  lifeStages: [
+    { code: 'under_25', label: 'Under 25' },
+    { code: '25_39',    label: '25–39' },
+    { code: '40_59',    label: '40–59' },
+    { code: '60_plus',  label: '60+' },
+  ],
+
+  ageBands: [
+    { code: 'under_25', label: 'Under 25' },
+    { code: '25_39',    label: '25–39' },
+    { code: '40_59',    label: '40–59' },
+    { code: '60_plus',  label: '60+' },
+  ],
+
+  // Abundance codes for Module G's grid (M/S/F/N/X).
+  abundanceCodes: [
+    { code: 'M', label: 'M — more abundant then' },
+    { code: 'S', label: 'S — about the same' },
+    { code: 'F', label: 'F — fewer then' },
+    { code: 'N', label: 'N — not sure' },
+    { code: 'X', label: 'X — did not take then' },
+  ],
+
+  // Consent script read aloud before an interview begins (3.1 step 2).
+  consentScript:
+    'My name is [interviewer name] and I am helping with a survey run by the ' +
+    'Managalas and Oro Province Project, part of CIFOR-ICRAF, funded by the ' +
+    'European Union.\n\n' +
+    'We are asking people across the Managalas Conservation Area about hunting, ' +
+    'fishing and gathering — what people take, the methods they use, and how ' +
+    'these things have changed over time.\n\n' +
+    'Taking part is completely voluntary. You do not have to answer any question ' +
+    'you do not want to, and you can stop at any time. We will NOT ask where you ' +
+    'hunt, fish or gather, and we will not record that anywhere.\n\n' +
+    'Your answers are grouped with everyone else’s for analysis. Giving your ' +
+    'name is optional. The interview takes about 30 to 45 minutes.\n\n' +
+    'Do you agree to take part?',
+
+  // Reusable option sets referenced by the schema (js/schema.js). Kept here so
+  // wording changes live in one place.
+  options: {
+    sex: [
+      { code: 'male',   label: 'Male' },
+      { code: 'female', label: 'Female' },
+    ],
+    activity_under_25: [
+      { code: 'primary',              label: 'Primary activity' },
+      { code: 'occasional',           label: 'Occasional' },
+      { code: 'seasonal',             label: 'Seasonal' },
+      { code: 'none',                 label: 'None' },
+      { code: 'too_young_to_recall',  label: 'Too young to recall' },
+    ],
+    activity_other: [
+      { code: 'primary',    label: 'Primary activity' },
+      { code: 'occasional', label: 'Occasional' },
+      { code: 'seasonal',   label: 'Seasonal' },
+      { code: 'none',       label: 'None' },
+    ],
+    b_taken: [
+      { code: 'yes',              label: 'Yes' },
+      { code: 'used_to_not_now',  label: 'No, used to but not now' },
+      { code: 'never_but_knows',  label: 'Never personally, but knows of it' },
+    ],
+    c_trip_style: [
+      { code: 'targeted',              label: 'Targeted' },
+      { code: 'general_opportunistic', label: 'General / opportunistic' },
+      { code: 'half_and_half',         label: 'Half and half' },
+    ],
+    yes_no_notsure: [
+      { code: 'yes',      label: 'Yes' },
+      { code: 'no',       label: 'No' },
+      { code: 'not_sure', label: 'Not sure' },
+    ],
+    c_usual_company: [
+      { code: 'alone',       label: 'Alone' },
+      { code: 'with_others', label: 'With others' },
+      { code: 'depends',     label: 'Depends' },
+    ],
+    d_main_area: [
+      { code: 'own_clan_only',        label: 'Own clan land only' },
+      { code: 'own_plus_permission',  label: 'Own clan + others with permission' },
+      { code: 'own_plus_shared_open', label: 'Own clan + shared/open areas' },
+      { code: 'other',                label: 'Other' },
+    ],
+    d_restricted_places: [
+      { code: 'tambu_sacred',             label: 'Tambu / sacred places' },
+      { code: 'clan_no_take_not_sacred',  label: 'Clan no-take areas (not sacred)' },
+      { code: 'none',                     label: 'None' },
+      { code: 'other',                    label: 'Other' },
+    ],
+    f_source: [
+      { code: 'mostly_dedicated',  label: 'Mostly dedicated hunting/fishing/gathering trips' },
+      { code: 'mostly_incidental', label: 'Mostly incidental (while doing other things)' },
+      { code: 'half_and_half',     label: 'Half and half' },
+    ],
+    f_when_recent: [
+      { code: 'today_yesterday', label: 'Today or yesterday' },
+      { code: 'this_week',       label: 'This week' },
+      { code: 'this_month',      label: 'This month' },
+      { code: 'more_than_month', label: 'More than a month ago' },
+    ],
+    // "successful" adds the more_than_year option.
+    f_when_successful: [
+      { code: 'today_yesterday', label: 'Today or yesterday' },
+      { code: 'this_week',       label: 'This week' },
+      { code: 'this_month',      label: 'This month' },
+      { code: 'more_than_month', label: 'More than a month ago' },
+      { code: 'more_than_year',  label: 'More than a year ago' },
+    ],
+    f_duration: [
+      { code: 'under_2h',                  label: 'Under 2 hours' },
+      { code: '2_6h',                      label: '2–6 hours' },
+      { code: 'more_than_6h_same_day',     label: 'More than 6 hours, same day' },
+      { code: 'overnight_one_night',       label: 'Overnight (one night)' },
+      { code: 'longer_than_one_night',     label: 'Longer than one night' },
+    ],
+    f_typical_duration: [
+      { code: 'under_2h',                  label: 'Under 2 hours' },
+      { code: '2_6h',                      label: '2–6 hours' },
+      { code: 'more_than_6h_same_day',     label: 'More than 6 hours, same day' },
+      { code: 'overnight_one_night',       label: 'Overnight (one night)' },
+      { code: 'longer_than_one_night',     label: 'Longer than one night' },
+      { code: 'not_applicable_incidental', label: 'Not applicable (incidental)' },
+    ],
+    f_trip_style: [
+      { code: 'targeted', label: 'Targeted' },
+      { code: 'general',  label: 'General' },
+    ],
+    f_share: [
+      { code: 'all',        label: 'All' },
+      { code: 'most',       label: 'Most' },
+      { code: 'about_half', label: 'About half' },
+      { code: 'small_part', label: 'Small part' },
+      { code: 'none',       label: 'None' },
+    ],
+    f_typical_frequency: [
+      { code: 'most_days',                 label: 'Most days' },
+      { code: 'few_times_week',            label: 'A few times a week' },
+      { code: 'about_weekly',              label: 'About weekly' },
+      { code: 'few_times_month',           label: 'A few times a month' },
+      { code: 'less_often',                label: 'Less often' },
+      { code: 'not_applicable_incidental', label: 'Not applicable (incidental)' },
+    ],
+    g_people_change: [
+      { code: 'more_now',   label: 'More people now' },
+      { code: 'about_same', label: 'About the same' },
+      { code: 'fewer_now',  label: 'Fewer people now' },
+      { code: 'not_sure',   label: 'Not sure' },
+    ],
+    h_rule_score: [
+      { code: '0', label: '0 — Allowed' },
+      { code: '1', label: '1 — Allowed with conditions' },
+      { code: '2', label: '2 — Not allowed' },
+    ],
+    h_who_decides: [
+      { code: 'clan_leaders',          label: 'Clan leaders' },
+      { code: 'whole_clan_consensus',  label: 'Whole clan (consensus)' },
+      { code: 'camc_mcf',              label: 'CAMC / MCF' },
+      { code: 'other',                 label: 'Other' },
+    ],
+    i_part_used: [
+      { code: 'feathers',     label: 'Feathers' },
+      { code: 'skin_fur',     label: 'Skin / fur' },
+      { code: 'teeth_claws',  label: 'Teeth / claws' },
+      { code: 'shell',        label: 'Shell' },
+      { code: 'whole_animal', label: 'Whole animal' },
+      { code: 'other',        label: 'Other' },
+    ],
+    i_who_does: [
+      { code: 'anyone_in_clan',      label: 'Anyone in the clan' },
+      { code: 'particular_families', label: 'Particular families' },
+      { code: 'particular_role',     label: 'A particular role/person' },
+      { code: 'other',               label: 'Other' },
+    ],
+    i_income_importance: [
+      { code: 'not_a_source',      label: 'Not a source of income' },
+      { code: 'small_occasional',  label: 'Small / occasional' },
+      { code: 'regular_minor',     label: 'Regular but minor' },
+      { code: 'important_regular', label: 'Important and regular' },
+    ],
+  },
+};
+
+// Helper: given an age_band code, return the set of life-stage codes that are
+// enterable (up to and including that band). Used by Module A and G (3.4).
+CONFIG.enterableLifeStages = function (ageBand) {
+  const order = ['under_25', '25_39', '40_59', '60_plus'];
+  const idx = order.indexOf(ageBand);
+  if (idx < 0) return order.slice(); // unknown/blank age band → allow all
+  return order.slice(0, idx + 1);
+};
+
+// Loaded from data/reference.json at startup (zones + wards). Populated by
+// app.js; kept on CONFIG so the rest of the app reads lists from one place.
+CONFIG.zones = [];
+CONFIG.wards = [];
+
+window.CONFIG = CONFIG;
+
+
+/*
+ * db.js — local-first storage for interviews using IndexedDB.
+ *
+ * One object store, `interviews`, keyed by interview_id. Each record is the
+ * full interview object (metadata + flat `data` map of field -> value). The
+ * respondent name is kept in its own top-level `resp_name` field, deliberately
+ * separate from `data`, so a name-excluded export is trivial (see 3.7).
+ *
+ * Everything is client-side; there is no network dependency (5.). All writes go
+ * through put(), which the app calls on every field change for autosave (5.).
+ */
+
+const DB = (function () {
+  const DB_NAME = 'mca_hunt';
+  const DB_VERSION = 1;
+  const STORE = 'interviews';
+  let _db = null;
+
+  function open() {
+    if (_db) return Promise.resolve(_db);
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(STORE)) {
+          const store = db.createObjectStore(STORE, { keyPath: 'interview_id' });
+          store.createIndex('by_status', 'interview_status', { unique: false });
+          store.createIndex('by_updated', 'updated_at', { unique: false });
+        }
+      };
+      req.onsuccess = (e) => { _db = e.target.result; resolve(_db); };
+      req.onerror = (e) => reject(e.target.error);
+    });
+  }
+
+  function tx(mode) {
+    return open().then((db) => db.transaction(STORE, mode).objectStore(STORE));
+  }
+
+  function put(record) {
+    record.updated_at = new Date().toISOString();
+    return tx('readwrite').then((store) => new Promise((resolve, reject) => {
+      const req = store.put(record);
+      req.onsuccess = () => resolve(record);
+      req.onerror = (e) => reject(e.target.error);
+    }));
+  }
+
+  function get(id) {
+    return tx('readonly').then((store) => new Promise((resolve, reject) => {
+      const req = store.get(id);
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = (e) => reject(e.target.error);
+    }));
+  }
+
+  function getAll() {
+    return tx('readonly').then((store) => new Promise((resolve, reject) => {
+      const req = store.getAll();
+      req.onsuccess = () => {
+        const list = (req.result || []).sort((a, b) =>
+          (b.updated_at || '').localeCompare(a.updated_at || ''));
+        resolve(list);
+      };
+      req.onerror = (e) => reject(e.target.error);
+    }));
+  }
+
+  function remove(id) {
+    return tx('readwrite').then((store) => new Promise((resolve, reject) => {
+      const req = store.delete(id);
+      req.onsuccess = () => resolve();
+      req.onerror = (e) => reject(e.target.error);
+    }));
+  }
+
+  return { open, put, get, getAll, remove };
+})();
+
+window.DB = DB;
+
+
+/*
+ * schema.js — declarative definition of the interview form, Modules A–I.
+ *
+ * The renderer in app.js walks SCHEMA to build each screen. The CSV column
+ * order lives in export.js, but BOTH sides generate repeated field names
+ * (grids, per-category blocks, trip blocks) through the shared NAMES helpers
+ * below, so form fields and export columns cannot drift apart.
+ *
+ * Field-name conventions come straight from Section 4 of the handover.
+ */
+
+// --- Shared field-name generators (used by renderer AND exporter) ----------
+const NAMES = {
+  method: (cat, m) => `c_method_${cat}_${m}`,          // Module C grid
+  month: (cat, mo) => `e_month_${cat}_${mo}`,          // Module E grid
+  abundance: (cat, life) => `g_abundance_${cat}_${life}`, // Module G grid
+  catch: (trip, cat) => `f_${trip}_catch_${cat}`,      // Module F harvest counts
+  // Module B per-category block
+  bTaken: (cat) => `b_taken_${cat}`,
+  bUseFood: (cat) => `b_use_food_${cat}`,
+  bUseBilas: (cat) => `b_use_bilas_${cat}`,
+  bUseCustomary: (cat) => `b_use_customary_${cat}`,
+  bUseSale: (cat) => `b_use_sale_${cat}`,
+  bUseOther: (cat) => `b_use_other_${cat}`,
+  // Module H per-category block
+  hFood: (cat) => `h_food_${cat}`,
+  hBilas: (cat) => `h_bilas_${cat}`,
+  hSale: (cat) => `h_sale_${cat}`,
+  hNotes: (cat) => `h_notes_${cat}`,
+  // Module F trip block (recent / successful)
+  fTrip: (trip, key) => `f_${trip}_${key}`,
+};
+
+const SCHEMA = {
+  NAMES,
+
+  // Resolve an options reference (string key) to [{code,label}].
+  resolveOptions(ref) {
+    if (Array.isArray(ref)) return ref;
+    const o = CONFIG.options[ref];
+    if (o) return o;
+    switch (ref) {
+      case 'ageBands':      return CONFIG.ageBands;
+      case 'zones':         return CONFIG.zones;
+      case 'wards':         return CONFIG.wards;
+      case 'methods':       return CONFIG.methods;
+      case 'categories':    return CONFIG.categories;
+      case 'abundanceCodes':return CONFIG.abundanceCodes;
+      case 'months':        return CONFIG.months;
+      case 'lifeStages':    return CONFIG.lifeStages;
+      default:              return [];
+    }
+  },
+
+  // Ordered list of modules. Each `fields` entry is a render descriptor.
+  modules: [
+    {
+      id: 'A', title: 'Module A — Profile',
+      fields: [
+        { kind: 'profile_meta' },
+        { kind: 'text', name: 'resp_name', label: 'Respondent name (optional)',
+          help: 'Optional. Stored separately and can be excluded from exports. Not used to make the ID code.' },
+        { kind: 'single', name: 'sex', label: 'Sex', options: 'sex' },
+        { kind: 'single', name: 'age_band', label: 'Age band', options: 'ageBands' },
+        { kind: 'single', name: 'zone', label: 'Zone', options: 'zones', dropdown: true },
+        { kind: 'single', name: 'ward', label: 'Ward', options: 'wards', dropdown: true, scopeByZone: true },
+        { kind: 'text', name: 'clan', label: 'Clan', help: 'Free text.' },
+        { kind: 'activity_grid', label: 'Life-stage activity',
+          help: 'How involved in hunting/fishing/gathering at each life stage? Only stages up to your age band are shown.' },
+      ],
+    },
+    {
+      id: 'B', title: 'Module B — Target: species categories and use',
+      fields: [
+        { kind: 'note', text: 'For each category: was it ever taken, and what is it used for? Every category is asked, by design.' },
+        { kind: 'per_category',
+          taken: { field: NAMES.bTaken, label: 'Taken?', options: 'b_taken' },
+          uses: [
+            { field: NAMES.bUseFood, label: 'Food' },
+            { field: NAMES.bUseBilas, label: 'Bilas' },
+            { field: NAMES.bUseCustomary, label: 'Customary/ceremonial' },
+            { field: NAMES.bUseSale, label: 'Sale/income' },
+          ],
+          otherText: { field: NAMES.bUseOther, label: 'Other use (specify)' },
+        },
+        { kind: 'text', name: 'b_other_category_name',
+          label: 'One extra category (if the respondent names one not in the list)',
+          help: 'Asked once. Leave blank if none.' },
+        { kind: 'single', name: 'b_other_category_taken', label: 'Extra category — taken?',
+          options: 'b_taken', showIf: { field: 'b_other_category_name', notEmpty: true } },
+        { kind: 'boolean', name: 'b_other_category_use_food', label: 'Extra category — Food',
+          showIf: { field: 'b_other_category_name', notEmpty: true } },
+        { kind: 'boolean', name: 'b_other_category_use_bilas', label: 'Extra category — Bilas',
+          showIf: { field: 'b_other_category_name', notEmpty: true } },
+        { kind: 'boolean', name: 'b_other_category_use_customary', label: 'Extra category — Customary',
+          showIf: { field: 'b_other_category_name', notEmpty: true } },
+        { kind: 'boolean', name: 'b_other_category_use_sale', label: 'Extra category — Sale',
+          showIf: { field: 'b_other_category_name', notEmpty: true } },
+        { kind: 'text', name: 'b_other_category_use_other', label: 'Extra category — Other use (specify)',
+          showIf: { field: 'b_other_category_name', notEmpty: true } },
+      ],
+    },
+    {
+      id: 'C', title: 'Module C — Tool: methods',
+      fields: [
+        { kind: 'note', text: 'Tick every method used for each category.' },
+        { kind: 'grid_bool', name: 'c_method', rows: 'categories', cols: 'methods',
+          nameFn: NAMES.method },
+        { kind: 'single', name: 'c_trip_style', label: 'Typical trip style', options: 'c_trip_style' },
+        { kind: 'single', name: 'c_method_changed', label: 'Have the methods you use changed?',
+          options: 'yes_no_notsure' },
+        { kind: 'multi', name: 'c_method_changed_previous', label: 'Previous method(s) used',
+          options: 'methods', showIf: { field: 'c_method_changed', equals: 'yes' } },
+        { kind: 'single', name: 'c_usual_company', label: 'Usually hunt/fish/gather…',
+          options: 'c_usual_company' },
+        { kind: 'single', name: 'c_preferred_method', label: 'Preferred method', options: 'methods' },
+        { kind: 'textarea', name: 'c_preferred_method_why', label: 'Why? (record verbatim)',
+          help: 'Write the respondent’s words. Do not summarise.' },
+      ],
+    },
+    {
+      id: 'D', title: 'Module D — Tenure',
+      fields: [
+        { kind: 'note', text: 'This module never records WHERE places are — only the kind of tenure.' },
+        { kind: 'single', name: 'd_main_area', label: 'Main area used', options: 'd_main_area' },
+        { kind: 'text', name: 'd_main_area_other', label: 'Other (specify)',
+          showIf: { field: 'd_main_area', equals: 'other' } },
+        { kind: 'multi', name: 'd_restricted_places', label: 'Any restricted places?',
+          options: 'd_restricted_places' },
+        { kind: 'text', name: 'd_restricted_places_other', label: 'Other (specify)',
+          showIf: { field: 'd_restricted_places', includes: 'other' } },
+      ],
+    },
+    {
+      id: 'E', title: 'Module E — Timing',
+      fields: [
+        { kind: 'note', text: 'Tick the months each category is typically taken.' },
+        { kind: 'grid_bool', name: 'e_month', rows: 'categories', cols: 'months',
+          nameFn: NAMES.month },
+      ],
+    },
+    {
+      id: 'F', title: 'Module F — Harvest recall',
+      fields: [
+        { kind: 'single', name: 'f_source', label: 'Most take comes from…', options: 'f_source' },
+        { kind: 'trip_block', trip: 'recent', heading: 'Most recent trip' },
+        { kind: 'trip_block', trip: 'successful', heading: 'Most successful trip (last 12 months)' },
+        { kind: 'note', text: 'Typical pattern (asked once):' },
+        { kind: 'single', name: 'f_typical_frequency', label: 'How often, typically?',
+          options: 'f_typical_frequency' },
+        { kind: 'single', name: 'f_typical_duration', label: 'Typical trip duration',
+          options: 'f_typical_duration' },
+      ],
+    },
+    {
+      id: 'G', title: 'Module G — Change over time',
+      fields: [
+        { kind: 'note', text: 'M = more abundant then · S = same · F = fewer then · N = not sure · X = did not take then. Only life stages up to your age band are shown.' },
+        { kind: 'grid_single', name: 'g_abundance', rows: 'categories', cols: 'lifeStages',
+          ageGated: true, options: 'abundanceCodes', nameFn: NAMES.abundance },
+        { kind: 'single', name: 'g_people_change', label: 'Are more or fewer people hunting/fishing/gathering now?',
+          options: 'g_people_change' },
+        { kind: 'textarea', name: 'g_change_text', label: 'Anything about how things have changed? (verbatim)',
+          help: 'Record verbatim. Do not convert time references (e.g. “before the road”) to dates.' },
+      ],
+    },
+    {
+      id: 'H', title: 'Module H — Management and rules',
+      fields: [
+        { kind: 'single', name: 'h_rules_exist', label: 'Are there rules about taking these species?',
+          options: 'yes_no_notsure' },
+        { kind: 'rules_grid', showIf: { field: 'h_rules_exist', equals: 'yes' } },
+        { kind: 'single', name: 'h_who_decides', label: 'Who decides the rules?', options: 'h_who_decides',
+          showIf: { field: 'h_rules_exist', equals: 'yes' } },
+        { kind: 'text', name: 'h_who_decides_other', label: 'Other (specify)',
+          showIf: { field: 'h_who_decides', equals: 'other' } },
+        { kind: 'single', name: 'h_rules_changed', label: 'Have the rules changed?', options: 'yes_no_notsure',
+          showIf: { field: 'h_rules_exist', equals: 'yes' } },
+        { kind: 'textarea', name: 'h_rules_changed_text', label: 'How have they changed?',
+          showIf: { field: 'h_rules_changed', equals: 'yes' } },
+      ],
+    },
+    {
+      id: 'I', title: 'Module I — Bilas, customary and income use',
+      fields: [
+        { kind: 'note', text: 'Asked once, across the categories used for bilas/customary/sale.' },
+        { kind: 'multi', name: 'i_part_used', label: 'Which parts are used?', options: 'i_part_used' },
+        { kind: 'text', name: 'i_part_used_other', label: 'Other (specify)',
+          showIf: { field: 'i_part_used', includes: 'other' } },
+        { kind: 'text', name: 'i_occasion', label: 'On what occasions?' },
+        { kind: 'single', name: 'i_who_does', label: 'Who does this?', options: 'i_who_does' },
+        { kind: 'text', name: 'i_who_does_other', label: 'Other (specify)',
+          showIf: { field: 'i_who_does', equals: 'other' } },
+        { kind: 'single', name: 'i_income_importance', label: 'Importance as income',
+          options: 'i_income_importance' },
+      ],
+    },
+  ],
+
+  // Field descriptors for one Module F trip block, expanded per trip via NAMES.
+  // `when` options differ for successful (adds more_than_year).
+  tripBlockFields(trip) {
+    return [
+      { kind: 'single', name: NAMES.fTrip(trip, 'when'), label: 'When was it?',
+        options: trip === 'successful' ? 'f_when_successful' : 'f_when_recent' },
+      { kind: 'single', name: NAMES.fTrip(trip, 'duration'), label: 'How long did it take?',
+        options: 'f_duration' },
+      { kind: 'single', name: NAMES.fTrip(trip, 'style'), label: 'Trip style', options: 'f_trip_style' },
+      { kind: 'catch_list', trip: trip, label: 'What was caught? (add a row per category)' },
+      { kind: 'single', name: NAMES.fTrip(trip, 'share_eaten'), label: 'Share eaten', options: 'f_share' },
+      { kind: 'single', name: NAMES.fTrip(trip, 'share_given'), label: 'Share given away', options: 'f_share' },
+      { kind: 'single', name: NAMES.fTrip(trip, 'share_bilas'), label: 'Share used for bilas', options: 'f_share' },
+      { kind: 'single', name: NAMES.fTrip(trip, 'share_sold'), label: 'Share sold', options: 'f_share' },
+    ];
+  },
+};
+
+window.SCHEMA = SCHEMA;
+window.NAMES = NAMES;
+
+
+/*
+ * export.js — flatten stored interviews to the canonical, flat coded-column
+ * layout of Section 4 and emit CSV (priority) or JSON (secondary/raw).
+ *
+ * The column list here is the authoritative export contract. Repeated columns
+ * (grids, per-category blocks, trip catch) are generated with the same NAMES
+ * helpers the form renderer uses, so headers always match the fields collected.
+ *
+ * Design rules honoured:
+ *  - resp_name lives outside `data` and can be excluded from an export (3.7).
+ *  - No location field exists anywhere (3.2 / 3.7).
+ *  - Booleans export as 1/0; multi-selects as ';'-joined codes; catch lists as
+ *    per-category integer counts (f_<trip>_catch_<category>).
+ */
+
+const EXPORTER = (function () {
+  const cats = () => CONFIG.categories.map((c) => c.code);
+  const methods = () => CONFIG.methods.map((m) => m.code);
+  const months = () => CONFIG.months.map((m) => m.code);
+  const lifeStages = () => CONFIG.lifeStages.map((l) => l.code);
+
+  // Column descriptors: { name, source } where source tells the flattener where
+  // to read the value from a record. Built once per export (categories/methods
+  // are config-driven so this reflects any pilot refinement automatically).
+  function buildColumns() {
+    const cols = [];
+    const add = (name, source) => cols.push({ name, source: source || 'data' });
+
+    // Module A + record-level identifiers
+    add('interview_id', 'record');
+    add('resp_id_code', 'record');
+    add('resp_name', 'name');
+    add('gps_lat', 'gps'); add('gps_lon', 'gps');
+    add('gps_accuracy', 'gps'); add('gps_time', 'gps');
+    add('sex'); add('age_band'); add('zone'); add('ward'); add('clan');
+    ['activity_under_25', 'activity_25_39', 'activity_40_59', 'activity_60_plus'].forEach((n) => add(n));
+
+    // Module B
+    cats().forEach((c) => {
+      add(NAMES.bTaken(c), 'bool');
+      add(NAMES.bUseFood(c), 'bool');
+      add(NAMES.bUseBilas(c), 'bool');
+      add(NAMES.bUseCustomary(c), 'bool');
+      add(NAMES.bUseSale(c), 'bool');
+      add(NAMES.bUseOther(c));
+    });
+    add('b_other_category_name');
+    add('b_other_category_taken');
+    add('b_other_category_use_food', 'bool');
+    add('b_other_category_use_bilas', 'bool');
+    add('b_other_category_use_customary', 'bool');
+    add('b_other_category_use_sale', 'bool');
+    add('b_other_category_use_other');
+
+    // Module C grid + trip questions
+    cats().forEach((c) => methods().forEach((m) => add(NAMES.method(c, m), 'bool')));
+    add('c_trip_style');
+    add('c_method_changed');
+    add('c_method_changed_previous', 'multi');
+    add('c_usual_company');
+    add('c_preferred_method');
+    add('c_preferred_method_why');
+
+    // Module D
+    add('d_main_area');
+    add('d_main_area_other');
+    add('d_restricted_places', 'multi');
+    add('d_restricted_places_other');
+
+    // Module E grid
+    cats().forEach((c) => months().forEach((mo) => add(NAMES.month(c, mo), 'bool')));
+
+    // Module F
+    add('f_source');
+    ['recent', 'successful'].forEach((trip) => {
+      add(NAMES.fTrip(trip, 'when'));
+      add(NAMES.fTrip(trip, 'duration'));
+      add(NAMES.fTrip(trip, 'style'));
+      cats().forEach((c) => add(NAMES.catch(trip, c), 'catch'));
+      add(NAMES.fTrip(trip, 'share_eaten'));
+      add(NAMES.fTrip(trip, 'share_given'));
+      add(NAMES.fTrip(trip, 'share_bilas'));
+      add(NAMES.fTrip(trip, 'share_sold'));
+    });
+    add('f_typical_frequency');
+    add('f_typical_duration');
+
+    // Module G grid
+    cats().forEach((c) => lifeStages().forEach((l) => add(NAMES.abundance(c, l))));
+    add('g_people_change');
+    add('g_change_text');
+
+    // Module H
+    add('h_rules_exist');
+    cats().forEach((c) => {
+      add(NAMES.hFood(c)); add(NAMES.hBilas(c)); add(NAMES.hSale(c)); add(NAMES.hNotes(c));
+    });
+    add('h_who_decides');
+    add('h_who_decides_other');
+    add('h_rules_changed');
+    add('h_rules_changed_text');
+
+    // Module I
+    add('i_part_used', 'multi');
+    add('i_part_used_other');
+    add('i_occasion');
+    add('i_who_does');
+    add('i_who_does_other');
+    add('i_income_importance');
+
+    // Metadata
+    add('interviewer_id', 'record');
+    add('interview_start_time', 'record');
+    add('interview_end_time', 'record');
+    add('interview_status', 'record');
+    add('sync_status', 'record');
+    add('app_version', 'record');
+
+    return cols;
+  }
+
+  // Read a single column value from a record, as a string suitable for CSV.
+  function valueFor(record, col, includeName) {
+    const data = record.data || {};
+    switch (col.source) {
+      case 'record':
+        return record[col.name] == null ? '' : String(record[col.name]);
+      case 'name':
+        return includeName && record.resp_name ? String(record.resp_name) : '';
+      case 'gps': {
+        const g = record.gps || {};
+        const map = { gps_lat: 'lat', gps_lon: 'lon', gps_accuracy: 'accuracy', gps_time: 'time' };
+        const v = g[map[col.name]];
+        return v == null ? '' : String(v);
+      }
+      case 'bool': {
+        const v = data[col.name];
+        if (v === true) return '1';
+        if (v === false) return '0';
+        return v == null ? '' : String(v);
+      }
+      case 'multi': {
+        const v = data[col.name];
+        return Array.isArray(v) ? v.join(';') : (v == null ? '' : String(v));
+      }
+      case 'catch': {
+        // col.name = f_<trip>_catch_<category>; sum counts from the trip's list.
+        const m = col.name.match(/^f_(recent|successful)_catch_(.+)$/);
+        if (!m) return '';
+        const list = data[`f_${m[1]}_catch`];
+        if (!Array.isArray(list)) return '';
+        const total = list
+          .filter((row) => row && row.category === m[2])
+          .reduce((sum, row) => sum + (parseInt(row.count, 10) || 0), 0);
+        return total ? String(total) : '';
+      }
+      default: {
+        const v = data[col.name];
+        if (v === true) return '1';
+        if (v === false) return '0';
+        return v == null ? '' : String(v);
+      }
+    }
+  }
+
+  function csvCell(s) {
+    if (s == null) s = '';
+    s = String(s);
+    if (/[",\n\r]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+    return s;
+  }
+
+  // Build a CSV string for the given records. includeName controls whether the
+  // resp_name column carries values (the column header is always present).
+  function toCSV(records, includeName) {
+    const cols = buildColumns();
+    const header = cols.map((c) => csvCell(c.name)).join(',');
+    const lines = [header];
+    records.forEach((r) => {
+      lines.push(cols.map((c) => csvCell(valueFor(r, c, includeName))).join(','));
+    });
+    return lines.join('\r\n');
+  }
+
+  function toJSON(records, includeName) {
+    const clean = records.map((r) => {
+      const copy = JSON.parse(JSON.stringify(r));
+      if (!includeName) delete copy.resp_name;
+      return copy;
+    });
+    return JSON.stringify(clean, null, 2);
+  }
+
+  function timestamp() {
+    return new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+  }
+
+  // Trigger a client-side file download (works offline; no backend).
+  function download(filename, text, mime) {
+    const blob = new Blob([text], { type: mime || 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 1000);
+  }
+
+  return { buildColumns, valueFor, toCSV, toJSON, download, timestamp };
+})();
+
+window.EXPORTER = EXPORTER;
+
+
+/*
+ * app.js — controller, router and renderer for the MCA Hunting survey PWA.
+ *
+ * Fully client-side and offline-first: reference lists load from a bundled JSON
+ * file, all state lives in IndexedDB (js/db.js), and every field change
+ * autosaves. No network call is made at the point of data entry.
+ */
+(function () {
+  'use strict';
+
+  const $app = () => document.getElementById('app');
+  const esc = (s) => String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+  // --- Local device / interviewer identity (localStorage) ------------------
+  const LS = {
+    interviewer: 'mca_interviewer_id',
+    device: 'mca_device_prefix',
+    seq: 'mca_seq',
+  };
+
+  function devicePrefix() {
+    let p = localStorage.getItem(LS.device);
+    if (!p) {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      p = Array.from({ length: 3 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+      localStorage.setItem(LS.device, p);
+    }
+    return p;
+  }
+  function nextSeq() {
+    const n = (parseInt(localStorage.getItem(LS.seq), 10) || 0) + 1;
+    localStorage.setItem(LS.seq, String(n));
+    return n;
+  }
+  function interviewerId() { return localStorage.getItem(LS.interviewer) || ''; }
+
+  // Build a respondent ID code: <ZONE>-<DEVICE>-<SEQ> (see 3.5). Generated
+  // locally, collision-safe via the per-device prefix, never typed by hand.
+  function makeRespIdCode(zoneCode, seq) {
+    const zone = (zoneCode || 'ZZ').toUpperCase();
+    return `${zone}-${devicePrefix()}-${String(seq).padStart(3, '0')}`;
+  }
+
+  // --- App state -----------------------------------------------------------
+  const state = { view: 'home', current: null, step: 0 };
+
+  // --- Reference list loading (zones/wards) --------------------------------
+  async function loadReference() {
+    // Single-file build inlines the reference data on window.__MCA_REFERENCE__,
+    // so it works when opened directly from disk (file://) with no fetch.
+    if (window.__MCA_REFERENCE__) {
+      const ref = window.__MCA_REFERENCE__;
+      CONFIG.zones = Array.isArray(ref.zones) ? ref.zones : [];
+      CONFIG.wards = Array.isArray(ref.wards) ? ref.wards : [];
+      return;
+    }
+    try {
+      const res = await fetch('data/reference.json', { cache: 'no-cache' });
+      const ref = await res.json();
+      CONFIG.zones = Array.isArray(ref.zones) ? ref.zones : [];
+      CONFIG.wards = Array.isArray(ref.wards) ? ref.wards : [];
+    } catch (e) {
+      // Offline-safe: if the file can't be read, dropdowns simply show empty.
+      CONFIG.zones = CONFIG.zones || [];
+      CONFIG.wards = CONFIG.wards || [];
+    }
+  }
+
+  // --- Interview model -----------------------------------------------------
+  function newInterview() {
+    const now = new Date().toISOString();
+    return {
+      interview_id: (crypto.randomUUID ? crypto.randomUUID()
+        : 'id-' + Date.now() + '-' + Math.random().toString(36).slice(2)),
+      resp_id_code: '',
+      resp_name: '',
+      gps: null,
+      gps_status: 'pending',
+      data: {},
+      _seq: null,
+      interviewer_id: interviewerId(),
+      interview_start_time: now,
+      interview_end_time: '',
+      interview_status: 'in_progress',
+      sync_status: 'not_exported',
+      app_version: CONFIG.appVersion,
+      created_at: now,
+      updated_at: now,
+      _step: 0,
+    };
+  }
+
+  let saveTimer = null;
+  // Immediate persist — used for every discrete choice (radio, checkbox, grid
+  // cell, select) and navigation, so at most the current unsaved keystroke can
+  // ever be lost if the app is killed (5. autosave).
+  function save() {
+    if (state.current) DB.put(state.current);
+  }
+  // Debounced persist — only for live free-text typing, to avoid a write per
+  // keystroke. Flushes 250ms after typing stops.
+  function saveDebounced() {
+    if (!state.current) return;
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => { if (state.current) DB.put(state.current); }, 250);
+  }
+
+  function setData(field, value) {
+    state.current.data[field] = value;
+    // Regenerate the respondent ID whenever the zone is (re)selected.
+    if (field === 'zone') {
+      if (state.current._seq == null) state.current._seq = nextSeq();
+      state.current.resp_id_code = makeRespIdCode(value, state.current._seq);
+    }
+    save();
+  }
+
+  // --- GPS capture (3.2) ---------------------------------------------------
+  function captureGPS() {
+    if (!state.current) return;
+    state.current.gps_status = 'pending';
+    if (!navigator.geolocation) {
+      state.current.gps_status = 'missing';
+      save(); if (state.view === 'module') renderModule(true);
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        state.current.gps = {
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+          accuracy: pos.coords.accuracy,
+          time: new Date(pos.timestamp).toISOString(),
+        };
+        state.current.gps_status = 'ok';
+        save();
+        if (state.view === 'module') renderModule(true);
+      },
+      () => {
+        state.current.gps_status = 'missing';
+        save();
+        if (state.view === 'module') renderModule(true);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+    );
+  }
+
+  // --- showIf evaluation ---------------------------------------------------
+  function visible(field, data) {
+    const c = field.showIf;
+    if (!c) return true;
+    const v = data[c.field];
+    if (c.equals != null) return v === c.equals;
+    if (c.notEmpty) return !!(v && String(v).trim());
+    if (c.includes) return Array.isArray(v) && v.includes(c.includes);
+    return true;
+  }
+
+  // Fields whose change must re-render the module (they gate other fields, or
+  // drive the age-based grids / the respondent ID).
+  function triggerFields(module) {
+    const set = new Set(['age_band', 'zone']);
+    module.fields.forEach((f) => { if (f.showIf) set.add(f.showIf.field); });
+    return set;
+  }
+
+  // --- Field renderers (return HTML strings) -------------------------------
+  function radioGroup(field, options, current) {
+    return `<div class="options">` + options.map((o) => `
+      <label class="opt ${current === o.code ? 'sel' : ''}">
+        <input type="radio" name="${esc(field)}" value="${esc(o.code)}"
+          data-field="${esc(field)}" ${current === o.code ? 'checked' : ''}>
+        <span>${esc(o.label)}</span>
+      </label>`).join('') + `</div>`;
+  }
+
+  function multiGroup(field, options, currentArr) {
+    const cur = Array.isArray(currentArr) ? currentArr : [];
+    return `<div class="options">` + options.map((o) => `
+      <label class="opt ${cur.includes(o.code) ? 'sel' : ''}">
+        <input type="checkbox" data-field="${esc(field)}" data-multi="1" value="${esc(o.code)}"
+          ${cur.includes(o.code) ? 'checked' : ''}>
+        <span>${esc(o.label)}</span>
+      </label>`).join('') + `</div>`;
+  }
+
+  function boolButton(field, label, checked) {
+    return `<label class="opt inline ${checked ? 'sel' : ''}">
+      <input type="checkbox" data-field="${esc(field)}" ${checked ? 'checked' : ''}>
+      <span>${esc(label)}</span></label>`;
+  }
+
+  function selectEl(field, options, current) {
+    const opts = ['<option value="">— select —</option>'].concat(
+      options.map((o) => `<option value="${esc(o.code)}" ${current === o.code ? 'selected' : ''}>${esc(o.label)}</option>`)
+    ).join('');
+    return `<select class="drop" data-field="${esc(field)}">${opts}</select>`;
+  }
+
+  function textEl(field, value, multiline) {
+    if (multiline) {
+      return `<textarea class="txt" data-field="${esc(field)}" rows="3">${esc(value || '')}</textarea>`;
+    }
+    return `<input class="txt" type="text" data-field="${esc(field)}" value="${esc(value || '')}">`;
+  }
+
+  function labelBlock(label, help, inner) {
+    return `<div class="field">
+      ${label ? `<div class="q">${esc(label)}</div>` : ''}
+      ${help ? `<div class="help">${esc(help)}</div>` : ''}
+      ${inner}</div>`;
+  }
+
+  // Module A profile meta (ID + GPS status + retry)
+  function renderProfileMeta() {
+    const r = state.current;
+    let gps = '';
+    if (r.gps_status === 'ok' && r.gps) {
+      gps = `<span class="badge ok">GPS captured</span>
+        <span class="mono">${r.gps.lat.toFixed(5)}, ${r.gps.lon.toFixed(5)} (±${Math.round(r.gps.accuracy)}m)</span>`;
+    } else if (r.gps_status === 'pending') {
+      gps = `<span class="badge warn">Getting GPS…</span>`;
+    } else {
+      gps = `<span class="badge miss">GPS missing</span>`;
+    }
+    return `<div class="field metabox">
+      <div class="q">Respondent ID</div>
+      <div class="mono big">${esc(r.resp_id_code || '— set once Zone is chosen —')}</div>
+      <div class="q" style="margin-top:.6rem">Interview location (GPS)</div>
+      <div class="gpsrow">${gps}
+        <button class="btn tiny" data-action="gps-retry" type="button">Retry GPS</button></div>
+      <div class="help">GPS records where the interview happens — never where people hunt/fish/gather.</div>
+    </div>`;
+  }
+
+  // Category × method / category × month boolean grid
+  function renderGridBool(field) {
+    const rows = SCHEMA.resolveOptions(field.rows);
+    const cols = SCHEMA.resolveOptions(field.cols);
+    const data = state.current.data;
+    let legend = '';
+    if (field.cols === 'methods') {
+      legend = `<details class="legend"><summary>Method code legend</summary><ul>` +
+        cols.map((c) => `<li><b>${esc(c.code)}</b> — ${esc(c.label)}</li>`).join('') + `</ul></details>`;
+    }
+    let html = `${legend}<div class="gridwrap"><table class="grid"><thead><tr><th class="rowhead">Category</th>` +
+      cols.map((c) => `<th title="${esc(c.label)}">${esc(field.cols === 'methods' ? c.code : c.label)}</th>`).join('') +
+      `</tr></thead><tbody>`;
+    rows.forEach((r) => {
+      html += `<tr><th class="rowhead">${esc(r.label)}</th>`;
+      cols.forEach((c) => {
+        const name = field.nameFn(r.code, c.code);
+        const on = data[name] === true;
+        html += `<td><label class="cell ${on ? 'sel' : ''}">
+          <input type="checkbox" data-field="${esc(name)}" ${on ? 'checked' : ''}>
+          <span aria-hidden="true"></span></label></td>`;
+      });
+      html += `</tr>`;
+    });
+    html += `</tbody></table></div>`;
+    return html;
+  }
+
+  // Category × life-stage single-choice (M/S/F/N/X), age-gated columns (Module G)
+  function renderGridSingle(field) {
+    const rows = SCHEMA.resolveOptions(field.rows);
+    const cols = SCHEMA.resolveOptions(field.cols);
+    const opts = SCHEMA.resolveOptions(field.options);
+    const data = state.current.data;
+    const allowed = field.ageGated
+      ? CONFIG.enterableLifeStages(data.age_band) : cols.map((c) => c.code);
+    let html = `<div class="gridwrap"><table class="grid"><thead><tr><th class="rowhead">Category</th>` +
+      cols.map((c) => `<th class="${allowed.includes(c.code) ? '' : 'disabled'}">${esc(c.label)}</th>`).join('') +
+      `</tr></thead><tbody>`;
+    rows.forEach((r) => {
+      html += `<tr><th class="rowhead">${esc(r.label)}</th>`;
+      cols.forEach((c) => {
+        const name = field.nameFn(r.code, c.code);
+        const on = allowed.includes(c.code);
+        const cur = data[name] || '';
+        const optHtml = ['<option value="">–</option>'].concat(
+          opts.map((o) => `<option value="${esc(o.code)}" ${cur === o.code ? 'selected' : ''}>${esc(o.code)}</option>`)
+        ).join('');
+        html += `<td>${on
+          ? `<select class="cellsel" data-field="${esc(name)}">${optHtml}</select>`
+          : `<span class="na">–</span>`}</td>`;
+      });
+      html += `</tr>`;
+    });
+    html += `</tbody></table></div>`;
+    return html;
+  }
+
+  // Module H rules grid: category × (food/bilas/sale coded 0/1/2) + notes
+  function renderRulesGrid(field) {
+    const rows = CONFIG.categories;
+    const opts = CONFIG.options.h_rule_score;
+    const data = state.current.data;
+    const sel = (name) => {
+      const cur = data[name] || '';
+      const o = ['<option value="">–</option>'].concat(
+        opts.map((x) => `<option value="${esc(x.code)}" ${cur === x.code ? 'selected' : ''}>${esc(x.code)}</option>`)
+      ).join('');
+      return `<select class="cellsel" data-field="${esc(name)}">${o}</select>`;
+    };
+    let html = `<div class="help">0 = allowed · 1 = allowed with conditions · 2 = not allowed</div>
+      <div class="gridwrap"><table class="grid"><thead><tr>
+      <th class="rowhead">Category</th><th>Food</th><th>Bilas</th><th>Sale</th><th>Notes</th></tr></thead><tbody>`;
+    rows.forEach((r) => {
+      html += `<tr><th class="rowhead">${esc(r.label)}</th>
+        <td>${sel(NAMES.hFood(r.code))}</td>
+        <td>${sel(NAMES.hBilas(r.code))}</td>
+        <td>${sel(NAMES.hSale(r.code))}</td>
+        <td><input class="txt tiny" type="text" data-field="${esc(NAMES.hNotes(r.code))}"
+          value="${esc(data[NAMES.hNotes(r.code)] || '')}"></td></tr>`;
+    });
+    html += `</tbody></table></div>`;
+    return html;
+  }
+
+  // Module A life-stage activity grid (age-gated rows)
+  function renderActivityGrid(field) {
+    const data = state.current.data;
+    const allowed = CONFIG.enterableLifeStages(data.age_band);
+    const fieldFor = { under_25: 'activity_under_25', '25_39': 'activity_25_39',
+      '40_59': 'activity_40_59', '60_plus': 'activity_60_plus' };
+    let html = `<div class="field"><div class="q">${esc(field.label)}</div>
+      <div class="help">${esc(field.help || '')}</div>`;
+    CONFIG.lifeStages.forEach((ls) => {
+      if (!allowed.includes(ls.code)) return;
+      const fname = fieldFor[ls.code];
+      const opts = ls.code === 'under_25'
+        ? CONFIG.options.activity_under_25 : CONFIG.options.activity_other;
+      html += `<div class="subq"><div class="q small">${esc(ls.label)}</div>
+        ${radioGroup(fname, opts, data[fname])}</div>`;
+    });
+    html += `</div>`;
+    return html;
+  }
+
+  // Module B per-category block
+  function renderPerCategory(field) {
+    const data = state.current.data;
+    let html = '';
+    CONFIG.categories.forEach((c) => {
+      html += `<div class="catblock"><div class="cathead">${esc(c.label)}</div>`;
+      html += labelBlock(field.taken.label,
+        '', radioGroup(field.taken.field(c.code), SCHEMA.resolveOptions(field.taken.options), data[field.taken.field(c.code)]));
+      html += `<div class="field"><div class="q">Used for</div><div class="options">` +
+        field.uses.map((u) => boolButton(u.field(c.code), u.label, data[u.field(c.code)] === true)).join('') +
+        `</div></div>`;
+      html += labelBlock(field.otherText.label, '', textEl(field.otherText.field(c.code), data[field.otherText.field(c.code)]));
+      html += `</div>`;
+    });
+    return html;
+  }
+
+  // Module F catch list (repeatable {category, count})
+  function renderCatchList(field) {
+    const data = state.current.data;
+    const key = `f_${field.trip}_catch`;
+    const list = Array.isArray(data[key]) ? data[key] : [];
+    let rows = list.map((row, i) => {
+      const opts = ['<option value="">— category —</option>'].concat(
+        CONFIG.categories.map((c) => `<option value="${esc(c.code)}" ${row.category === c.code ? 'selected' : ''}>${esc(c.label)}</option>`)
+      ).join('');
+      return `<div class="catchrow">
+        <select class="drop" data-catch="category" data-trip="${esc(field.trip)}" data-idx="${i}">${opts}</select>
+        <input class="txt num" type="number" min="0" inputmode="numeric" placeholder="count"
+          data-catch="count" data-trip="${esc(field.trip)}" data-idx="${i}" value="${esc(row.count == null ? '' : row.count)}">
+        <button class="btn tiny danger" type="button" data-action="catch-remove" data-trip="${esc(field.trip)}" data-idx="${i}">✕</button>
+      </div>`;
+    }).join('');
+    return `<div class="field"><div class="q">${esc(field.label)}</div>
+      <div class="catchlist">${rows || '<div class="help">No catch rows yet.</div>'}</div>
+      <button class="btn small" type="button" data-action="catch-add" data-trip="${esc(field.trip)}">+ Add catch row</button></div>`;
+  }
+
+  // Generic field dispatcher
+  function renderField(field) {
+    const data = state.current.data;
+    if (!visible(field, data)) return '';
+    switch (field.kind) {
+      case 'profile_meta': return renderProfileMeta();
+      case 'note': return `<div class="note">${esc(field.text)}</div>`;
+      case 'single': {
+        let opts = SCHEMA.resolveOptions(field.options);
+        // Wards may optionally be scoped to the selected zone (reference.json
+        // entries with a `zone` property); entries without one show for all.
+        if (field.scopeByZone && data.zone) {
+          const scoped = opts.filter((o) => !o.zone || o.zone === data.zone);
+          if (scoped.length) opts = scoped;
+        }
+        return labelBlock(field.label, field.help,
+          field.dropdown ? selectEl(field.name, opts, data[field.name])
+            : radioGroup(field.name, opts, data[field.name]));
+      }
+      case 'multi':
+        return labelBlock(field.label, field.help,
+          multiGroup(field.name, SCHEMA.resolveOptions(field.options), data[field.name]));
+      case 'boolean':
+        return `<div class="field"><div class="options">${boolButton(field.name, field.label, data[field.name] === true)}</div></div>`;
+      case 'text':
+        return labelBlock(field.label, field.help, textEl(field.name, data[field.name], false));
+      case 'textarea':
+        return labelBlock(field.label, field.help, textEl(field.name, data[field.name], true));
+      case 'activity_grid': return renderActivityGrid(field);
+      case 'per_category': return renderPerCategory(field);
+      case 'grid_bool': return labelBlock('', '', renderGridBool(field));
+      case 'grid_single': return labelBlock('', '', renderGridSingle(field));
+      case 'rules_grid': return renderRulesGrid(field);
+      case 'catch_list': return renderCatchList(field);
+      case 'trip_block': {
+        const inner = SCHEMA.tripBlockFields(field.trip).map(renderField).join('');
+        return `<div class="tripblock"><div class="triphead">${esc(field.heading)}</div>${inner}</div>`;
+      }
+      default: return '';
+    }
+  }
+
+  // --- Screens -------------------------------------------------------------
+  function header() {
+    return `<div class="topbar">
+      <div class="brand">MCA Hunting Survey</div>
+      <div class="who">${esc(interviewerId() || '')} <button class="btn tiny ghost" data-action="change-interviewer">change</button></div>
+    </div>`;
+  }
+
+  function statusBadge(r) {
+    if (r.interview_status === 'complete') {
+      return r.sync_status === 'exported'
+        ? '<span class="badge ok">complete · exported</span>'
+        : '<span class="badge done">complete · not exported</span>';
+    }
+    return '<span class="badge warn">in progress</span>';
+  }
+
+  async function renderHome() {
+    state.view = 'home';
+    const list = await DB.getAll();
+    const rowsHtml = list.length ? list.map((r) => `
+      <li class="ivrow" data-id="${esc(r.interview_id)}">
+        <div class="ivmain" data-action="open" data-id="${esc(r.interview_id)}">
+          <div class="ivcode">${esc(r.resp_id_code || '(no ID yet)')}</div>
+          <div class="ivmeta">${statusBadge(r)} <span class="mono">${esc((r.updated_at || '').slice(0, 16).replace('T', ' '))}</span>
+            ${r.gps_status === 'missing' ? '<span class="badge miss">no GPS</span>' : ''}</div>
+        </div>
+        <button class="btn tiny danger" data-action="delete" data-id="${esc(r.interview_id)}">Delete</button>
+      </li>`).join('') : '<li class="empty">No interviews on this device yet.</li>';
+
+    $app().innerHTML = header() + `
+      <div class="screen">
+        <button class="btn primary big" data-action="new">+ New interview</button>
+        <h2>Interviews on this device (${list.length})</h2>
+        <ul class="ivlist">${rowsHtml}</ul>
+        <div class="exportbar">
+          <button class="btn" data-action="export-csv">Export CSV (with names)</button>
+          <button class="btn" data-action="export-csv-anon">Export CSV (no names)</button>
+          <button class="btn ghost" data-action="export-json">Export JSON</button>
+        </div>
+        <div class="foot">Offline-first · data stays on this device until you export. App v${esc(CONFIG.appVersion)}</div>
+      </div>`;
+  }
+
+  function renderConsent() {
+    state.view = 'consent';
+    $app().innerHTML = header() + `
+      <div class="screen">
+        <h2>Consent</h2>
+        <div class="consent">${esc(CONFIG.consentScript).replace(/\n/g, '<br>')}</div>
+        <div class="navbtns">
+          <button class="btn danger" data-action="consent-decline">Consent declined — cancel</button>
+          <button class="btn primary" data-action="consent-give">Consent given — start</button>
+        </div>
+      </div>`;
+  }
+
+  function stepper() {
+    const mods = SCHEMA.modules;
+    return `<div class="stepper">` + mods.map((m, i) => `
+      <button class="stepdot ${i === state.step ? 'active' : ''}" data-action="goto-step" data-step="${i}">${esc(m.id)}</button>`).join('') + `</div>`;
+  }
+
+  function renderModule(preserveScroll) {
+    state.view = 'module';
+    const y = preserveScroll ? window.scrollY : 0;
+    const mod = SCHEMA.modules[state.step];
+    const body = mod.fields.map(renderField).join('');
+    const last = state.step === SCHEMA.modules.length - 1;
+    $app().innerHTML = header() + `
+      <div class="screen">
+        ${stepper()}
+        <h2>${esc(mod.title)}</h2>
+        <div class="modbody">${body}</div>
+        <div class="navbtns">
+          <button class="btn" data-action="prev">${state.step === 0 ? 'Home' : 'Back'}</button>
+          <button class="btn primary" data-action="next">${last ? 'Review' : 'Next'}</button>
+        </div>
+        <div class="foot">Every question can be left blank. Progress saves automatically.</div>
+      </div>`;
+    window.scrollTo(0, y);
+  }
+
+  function renderReview() {
+    state.view = 'review';
+    const r = state.current;
+    const cols = EXPORTER.buildColumns();
+    const rowsHtml = cols.map((c) => {
+      const v = EXPORTER.valueFor(r, c, true);
+      if (v === '' || v == null) return '';
+      return `<tr><td class="mono small">${esc(c.name)}</td><td>${esc(v)}</td></tr>`;
+    }).filter(Boolean).join('');
+    $app().innerHTML = header() + `
+      <div class="screen">
+        <h2>Review — ${esc(r.resp_id_code || '(no ID)')}</h2>
+        <div class="help">Only answered fields are shown (${rowsHtml ? '' : 'none yet'}).</div>
+        <table class="review"><tbody>${rowsHtml}</tbody></table>
+        <div class="navbtns">
+          <button class="btn" data-action="back-to-form">Back to edit</button>
+          <button class="btn primary" data-action="complete">Complete interview</button>
+        </div>
+      </div>`;
+  }
+
+  // --- First-run interviewer setup ----------------------------------------
+  function renderInterviewerSetup() {
+    state.view = 'setup';
+    $app().innerHTML = `
+      <div class="screen setup">
+        <h1>MCA Hunting Survey</h1>
+        <p>Before you start, enter your interviewer name or ID. It is stored on this device and recorded with each interview.</p>
+        <input class="txt" id="setup-name" type="text" placeholder="e.g. Jane K. or INT-03" value="${esc(interviewerId())}">
+        <button class="btn primary big" data-action="save-interviewer">Save and continue</button>
+      </div>`;
+  }
+
+  // --- Event handling ------------------------------------------------------
+  function onChange(e) {
+    const t = e.target;
+    // Catch-list row edits
+    if (t.dataset && t.dataset.catch) {
+      const trip = t.dataset.trip, idx = parseInt(t.dataset.idx, 10);
+      const key = `f_${trip}_catch`;
+      const list = Array.isArray(state.current.data[key]) ? state.current.data[key] : [];
+      if (!list[idx]) list[idx] = { category: '', count: '' };
+      list[idx][t.dataset.catch] = t.value;
+      state.current.data[key] = list;
+      save();
+      return;
+    }
+    if (!t.dataset || !t.dataset.field) return;
+    const field = t.dataset.field;
+    let rerender = false;
+    if (t.type === 'radio') {
+      setData(field, t.value);
+      rerender = true;
+    } else if (t.type === 'checkbox' && t.dataset.multi) {
+      const cur = Array.isArray(state.current.data[field]) ? state.current.data[field].slice() : [];
+      const i = cur.indexOf(t.value);
+      if (t.checked && i < 0) cur.push(t.value);
+      if (!t.checked && i >= 0) cur.splice(i, 1);
+      setData(field, cur);
+      rerender = true;
+    } else if (t.type === 'checkbox') {
+      setData(field, t.checked);
+    } else {
+      // select / text / textarea / number
+      setData(field, t.value);
+      rerender = true; // change fires on blur for text/select — safe to refresh dependents
+    }
+    if (rerender && state.view === 'module') {
+      const mod = SCHEMA.modules[state.step];
+      if (triggerFields(mod).has(field) || field.startsWith('activity_')) renderModule(true);
+    }
+  }
+
+  function onInput(e) {
+    const t = e.target;
+    if (t.dataset && t.dataset.catch) return; // handled on change
+    if (!t.dataset || !t.dataset.field) return;
+    // Live-save text typing without re-rendering (keeps focus). Debounced so we
+    // don't write on every keystroke; blur ('change') will do a final save.
+    if (t.type === 'text' || t.tagName === 'TEXTAREA' || t.type === 'number') {
+      state.current.data[t.dataset.field] = t.value;
+      saveDebounced();
+    }
+  }
+
+  async function onClick(e) {
+    const a = e.target.closest('[data-action]');
+    if (!a) return;
+    const action = a.dataset.action;
+
+    switch (action) {
+      case 'save-interviewer': {
+        const v = document.getElementById('setup-name').value.trim();
+        if (!v) { alert('Please enter a name or ID.'); return; }
+        localStorage.setItem(LS.interviewer, v);
+        renderHome();
+        return;
+      }
+      case 'change-interviewer': renderInterviewerSetup(); return;
+      case 'new': renderConsent(); return;
+      case 'consent-decline': renderHome(); return; // no record saved
+      case 'consent-give': {
+        state.current = newInterview();
+        state.step = 0;
+        await DB.put(state.current);
+        captureGPS();
+        renderModule();
+        return;
+      }
+      case 'open': {
+        const rec = await DB.get(a.dataset.id);
+        if (!rec) return;
+        state.current = rec;
+        state.step = rec.interview_status === 'complete' ? 0 : (rec._step || 0);
+        if (rec.interview_status === 'complete') renderReview(); else renderModule();
+        return;
+      }
+      case 'delete': {
+        if (confirm('Delete this interview permanently?')) { await DB.remove(a.dataset.id); renderHome(); }
+        return;
+      }
+      case 'gps-retry': captureGPS(); return;
+      case 'prev':
+        if (state.step === 0) { renderHome(); }
+        else { state.step--; state.current._step = state.step; save(); renderModule(); }
+        return;
+      case 'next':
+        if (state.step === SCHEMA.modules.length - 1) { renderReview(); }
+        else { state.step++; state.current._step = state.step; save(); renderModule(); }
+        return;
+      case 'goto-step':
+        state.step = parseInt(a.dataset.step, 10);
+        state.current._step = state.step; save(); renderModule();
+        return;
+      case 'catch-add': {
+        const key = `f_${a.dataset.trip}_catch`;
+        const list = Array.isArray(state.current.data[key]) ? state.current.data[key] : [];
+        list.push({ category: '', count: '' });
+        state.current.data[key] = list; save(); renderModule(true);
+        return;
+      }
+      case 'catch-remove': {
+        const key = `f_${a.dataset.trip}_catch`;
+        const list = Array.isArray(state.current.data[key]) ? state.current.data[key] : [];
+        list.splice(parseInt(a.dataset.idx, 10), 1);
+        state.current.data[key] = list; save(); renderModule(true);
+        return;
+      }
+      case 'back-to-form': renderModule(); return;
+      case 'complete': {
+        state.current.interview_status = 'complete';
+        state.current.interview_end_time = new Date().toISOString();
+        await DB.put(state.current);
+        state.current = null;
+        renderHome();
+        return;
+      }
+      case 'export-csv': return doExport('csv', true);
+      case 'export-csv-anon': return doExport('csv', false);
+      case 'export-json': return doExport('json', true);
+    }
+  }
+
+  async function doExport(kind, includeName) {
+    const all = await DB.getAll();
+    const completed = all.filter((r) => r.interview_status === 'complete');
+    const records = completed.length ? completed : all; // fall back to all if none complete
+    if (!records.length) { alert('No interviews to export yet.'); return; }
+    const ts = EXPORTER.timestamp();
+    if (kind === 'csv') {
+      const csv = EXPORTER.toCSV(records, includeName);
+      EXPORTER.download(`mca_hunt_${includeName ? 'named' : 'anon'}_${ts}.csv`, csv, 'text/csv;charset=utf-8');
+    } else {
+      const json = EXPORTER.toJSON(records, includeName);
+      EXPORTER.download(`mca_hunt_${ts}.json`, json, 'application/json');
+    }
+    // Mark exported completed interviews as synced/exported.
+    for (const r of completed) {
+      if (r.sync_status !== 'exported') { r.sync_status = 'exported'; await DB.put(r); }
+    }
+    if (state.view === 'home') renderHome();
+  }
+
+  // --- Bootstrap -----------------------------------------------------------
+  async function init() {
+    await DB.open();
+    await loadReference();
+    document.addEventListener('change', onChange);
+    document.addEventListener('input', onInput);
+    document.addEventListener('click', onClick);
+    if (!interviewerId()) renderInterviewerSetup(); else renderHome();
+
+    // Only register the service worker for the hosted build (http/https).
+    // The single-file build opened from disk (file://) skips this — it is
+    // already fully offline and SW registration would just error.
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', init);
+})();
+
+  </script>
+</body>
+</html>
