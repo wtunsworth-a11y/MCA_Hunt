@@ -19,7 +19,7 @@ set up.
   happen.
 - You will be asked to allow **Location** — please tap **Allow**. The app only
   records where the *interview* takes place. **It never records where anyone
-  hunts, fishes or gathers.**
+  hunts.**
 
 ---
 

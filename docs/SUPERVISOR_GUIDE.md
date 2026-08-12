@@ -115,7 +115,7 @@ needs to serve the files over `http(s)`, not be opened from disk.)*
 - Multi-answer questions are `;`-joined codes in one cell
   (e.g. `feathers;teeth_claws`).
 - Module F catch counts are per category: `f_recent_catch_pigeon`,
-  `f_successful_catch_fish`, etc.
+  `f_successful_catch_bats`, etc.
 - `gps_lat` / `gps_lon` are the **interview** location only. There is **no**
   hunting-location column anywhere, by design.
 - Metadata columns at the end: `interviewer_id`, start/end times,
@@ -125,7 +125,7 @@ needs to serve the files over `http(s)`, not be opened from disk.)*
 
 ## 5. Privacy checklist
 
-- The app captures **no hunting/fishing/gathering location** — ever.
+- The app captures **no hunting location** — ever.
 - Names are optional and separable; prefer the anonymised export for analysis.
 - Nothing is uploaded anywhere automatically. Data moves only when an
   interviewer taps Export and shares the file. Handle those CSVs according to

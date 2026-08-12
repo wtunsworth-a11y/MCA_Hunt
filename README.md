@@ -1,8 +1,8 @@
-# MCA Hunting & Wild Resource Use Survey — Offline PWA
+# MCA Hunting Survey — Offline PWA
 
-A fully offline, installable web app that digitises the **MCA Hunting and Wild
-Resource Use Interview Questionnaire (v2)** for field use in the Managalas
-Conservation Area, Oro Province, Papua New Guinea.
+A fully offline, installable web app that digitises the **MCA Hunting Interview
+Questionnaire** for field use in the Managalas Conservation Area, Oro Province,
+Papua New Guinea. Scope: **hunting only** (the targeted taking of animals).
 
 Built for the Managalas and Oro Province Project (MOPP) — CIFOR-ICRAF, funded by
 the European Union under the EU-FCCB Nexus Programme.
@@ -111,7 +111,7 @@ Everything below is designed to be edited **without touching the app logic**.
 
 ## Privacy & design rules honoured (hard rules from the handover)
 
-- **No hunting/fishing/gathering location is ever captured** — there is no such
+- **No hunting location is ever captured** — there is no such
   field anywhere in the app or the export.
 - The **only** location captured is the device GPS at the **start of Module A**
   (`gps_lat/lon/accuracy/time`), recording where the *interview* happens. It is
