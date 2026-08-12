@@ -1,7 +1,7 @@
 {
-  "name": "MCA Hunting & Wild Resource Use Survey",
+  "name": "MCA Hunting Survey",
   "short_name": "MCA Hunt",
-  "description": "Offline field survey for hunting, fishing and gathering in the Managalas Conservation Area.",
+  "description": "Offline field survey for hunting in the Managalas Conservation Area.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",

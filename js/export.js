@@ -33,11 +33,15 @@ const EXPORTER = (function () {
     add('gps_lat', 'gps'); add('gps_lon', 'gps');
     add('gps_accuracy', 'gps'); add('gps_time', 'gps');
     add('sex'); add('age_band'); add('zone'); add('ward'); add('clan');
-    ['activity_under_25', 'activity_25_39', 'activity_40_59', 'activity_60_plus'].forEach((n) => add(n));
+    // Module A — per age: frequency + season
+    ['under_25', '25_39', '40_59', '60_plus'].forEach((b) => {
+      add(NAMES.activity(b)); add(NAMES.season(b));
+    });
 
     // Module B
     cats().forEach((c) => {
-      add(NAMES.bTaken(c), 'bool');
+      add(NAMES.bTaken(c));
+      add(NAMES.bTakenReason(c));
       add(NAMES.bUseFood(c), 'bool');
       add(NAMES.bUseBilas(c), 'bool');
       add(NAMES.bUseCustomary(c), 'bool');
@@ -51,26 +55,34 @@ const EXPORTER = (function () {
     add('b_other_category_use_customary', 'bool');
     add('b_other_category_use_sale', 'bool');
     add('b_other_category_use_other');
+    add('b_changes_notes');
 
-    // Module C grid + trip questions
+    // Module C grid + trip questions (c_trip_style removed)
     cats().forEach((c) => methods().forEach((m) => add(NAMES.method(c, m), 'bool')));
-    add('c_trip_style');
     add('c_method_changed');
     add('c_method_changed_previous', 'multi');
     add('c_usual_company');
     add('c_preferred_method');
     add('c_preferred_method_why');
+    add('c_changes_notes');
 
     // Module D
     add('d_main_area');
     add('d_main_area_other');
     add('d_restricted_places', 'multi');
     add('d_restricted_places_other');
+    add('d_seasonal_limits');
+    add('d_seasonal_limits_text');
+    add('d_number_limits');
+    add('d_number_limits_text');
+    add('d_trip_limits');
+    add('d_trip_limits_text');
 
     // Module E grid
     cats().forEach((c) => months().forEach((mo) => add(NAMES.month(c, mo), 'bool')));
+    add('e_changes_notes');
 
-    // Module F
+    // Module F (f_typical_frequency removed; shares are integer parts 0..10)
     add('f_source');
     ['recent', 'successful'].forEach((trip) => {
       add(NAMES.fTrip(trip, 'when'));
@@ -82,7 +94,6 @@ const EXPORTER = (function () {
       add(NAMES.fTrip(trip, 'share_bilas'));
       add(NAMES.fTrip(trip, 'share_sold'));
     });
-    add('f_typical_frequency');
     add('f_typical_duration');
 
     // Module G grid

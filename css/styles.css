@@ -146,6 +146,33 @@ table.grid th.disabled { color: #b7c2ba; }
 .cellsel { min-height: 40px; border: 1px solid var(--line); border-radius: 8px; background: #fff; font-size: .95rem; padding: .1rem .2rem; }
 .na { color: #c2ccc4; }
 
+/* Rotated tool-name headers (Module C) — full names, no numeric legend */
+table.grid.rothead thead th { vertical-align: bottom; padding: 6px 2px; }
+table.grid th.rot { height: 150px; }
+table.grid th.rot .lbl {
+  writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap;
+  display: inline-block; text-align: left; font-weight: 600; line-height: 1.1;
+}
+
+/* Module A per-age season sub-question */
+.seasonq { margin: .4rem 0 .2rem .4rem; padding-left: .5rem; border-left: 3px solid var(--sel); }
+
+/* Module F share allocation (divide into 10 parts) */
+.sharebar { display: flex; height: 18px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); margin: .3rem 0; background: #fff; }
+.sharebar .seg { display: block; }
+.sharebar .seg.empty { background: repeating-linear-gradient(45deg,#f2f5f2,#f2f5f2 6px,#e8ede8 6px,#e8ede8 12px); }
+.seg-eaten { background: #256d40; }
+.seg-given { background: #4f9e6a; }
+.seg-bilas { background: #b26a00; }
+.seg-sold  { background: #3b6ea5; }
+.sharetotal { font-weight: 700; font-size: .9rem; margin-bottom: .4rem; }
+.sharetotal.ok { color: var(--green-d); }
+.sharetotal.warn { color: var(--amber); }
+.sharerow { display: flex; align-items: center; gap: .6rem; padding: .35rem 0; border-top: 1px solid var(--line); }
+.sharelabel { flex: 1; }
+.sharerow .btn.tiny { min-width: 44px; font-size: 1.2rem; line-height: 1; }
+.shareval { min-width: 1.6rem; text-align: center; font-weight: 700; font-size: 1.1rem; }
+
 /* Navigation */
 .navbtns { display: flex; gap: .6rem; margin-top: 1rem; }
 .navbtns .btn { flex: 1; }

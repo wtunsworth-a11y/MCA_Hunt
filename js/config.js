@@ -1,23 +1,23 @@
 /*
  * config.js — single source of truth for the fixed reference lists and option
- * sets used throughout the MCA Hunting & Wild Resource Use survey PWA.
+ * sets used throughout the MCA Hunting Survey PWA.
  *
- * Per Section 7 of the handover, the species-category and method lists are
- * "pilot-refinable": keep them editable here rather than scattered through the
- * code so a category/method can be added, removed or renamed without a rebuild.
+ * Scope (v2): HUNTING ONLY — the targeted taking of animals. Fishing and
+ * gathering are out of scope. The species-category and method lists are
+ * pilot-refinable: keep them editable here so a category/method can be added,
+ * renamed or removed without a rebuild.
  *
- * Zone and Ward lists are NOT here — they are loaded at runtime from
- * data/reference.json (see 3.3) so the real lists can be dropped in without
- * touching code. This file only holds what Section 4 fixes for v1.
+ * Zone and Ward lists are NOT here — they load at runtime from
+ * data/reference.json so the real lists can be dropped in without touching code.
  */
 
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '1.0.0',
+  appVersion: '2.0.0',
 
-  // --- Fixed species categories (Section 4). Order is the canonical order used
-  // for every grid row and every CSV column suffix. Edit here to refine. ---
+  // --- Fixed species categories. Order is the canonical order used for every
+  // grid row and every CSV column suffix. Edit here to refine. ---
   categories: [
     { code: 'pigeon',        label: 'Pigeon' },
     { code: 'wallaby',       label: 'Wallaby' },
@@ -26,13 +26,13 @@ const CONFIG = {
     { code: 'hornbill',      label: 'Hornbill' },
     { code: 'parrot',        label: 'Parrot' },
     { code: 'cuscus',        label: 'Cuscus' },
-    { code: 'fish',          label: 'Fish' },
+    { code: 'bats',          label: 'Bats' },
     { code: 'snake',         label: 'Snake' },
     { code: 'bushfowl',      label: 'Bushfowl' },
   ],
 
-  // --- Fixed method codes 1..15 (Section 4). Codes are strings to match the
-  // field-name suffixes exactly (c_method_pigeon_1 ... _15). ---
+  // --- Hunting tools/methods (1..18). Codes are strings to match the field-name
+  // suffixes exactly (c_method_pigeon_1 ... _18). ---
   methods: [
     { code: '1',  label: 'Bow and arrow' },
     { code: '2',  label: 'Spear' },
@@ -41,14 +41,17 @@ const CONFIG = {
     { code: '5',  label: 'Slingshot (handheld)' },
     { code: '6',  label: 'Slingshot (mounted/larger)' },
     { code: '7',  label: 'Hunting dogs' },
-    { code: '8',  label: 'Bush knife / hand capture' },
-    { code: '9',  label: 'Smoking out burrow or hole' },
-    { code: '10', label: 'Line or hook' },
-    { code: '11', label: 'Net' },
-    { code: '12', label: 'Shotgun (factory-made)' },
-    { code: '13', label: 'Shotgun (homemade)' },
-    { code: '14', label: 'Spear gun' },
-    { code: '15', label: 'Other (specify)' },
+    { code: '8',  label: 'Bush knife' },
+    { code: '9',  label: 'Hand capture' },
+    { code: '10', label: 'Smoking out burrow or hole' },
+    { code: '11', label: 'Burn grass' },
+    { code: '12', label: 'Cut down tree' },
+    { code: '13', label: 'Glue' },
+    { code: '14', label: 'Net' },
+    { code: '15', label: 'Shotgun (factory-made)' },
+    { code: '16', label: 'Shotgun (homemade)' },
+    { code: '17', label: 'Spear gun' },
+    { code: '18', label: 'Other (specify)' },
   ],
 
   // Month suffixes for Module E (jan..dec).
@@ -61,9 +64,9 @@ const CONFIG = {
     { code: 'nov', label: 'Nov' }, { code: 'dec', label: 'Dec' },
   ],
 
-  // Life stages, used by Module A activity grid and Module G abundance grid.
-  // `minBand` is the earliest age_band at which this life stage becomes
-  // relevant — used to grey out rows/columns beyond the respondent's age band.
+  // Age bands, used by Module A (activity by age) and Module G (abundance).
+  // `code`s are kept for the data schema; the UI calls them "age", not
+  // "life stage".
   lifeStages: [
     { code: 'under_25', label: 'Under 25' },
     { code: '25_39',    label: '25–39' },
@@ -84,53 +87,50 @@ const CONFIG = {
     { code: 'S', label: 'S — about the same' },
     { code: 'F', label: 'F — fewer then' },
     { code: 'N', label: 'N — not sure' },
-    { code: 'X', label: 'X — did not take then' },
+    { code: 'X', label: 'X — did not hunt then' },
   ],
 
-  // Consent script read aloud before an interview begins (3.1 step 2).
+  // Consent script read aloud before an interview begins.
   consentScript:
     'My name is [interviewer name] and I am helping with a survey run by the ' +
     'Managalas and Oro Province Project, part of CIFOR-ICRAF, funded by the ' +
     'European Union.\n\n' +
-    'We are asking people across the Managalas Conservation Area about hunting, ' +
-    'fishing and gathering — what people take, the methods they use, and how ' +
-    'these things have changed over time.\n\n' +
+    'We are asking people across the Managalas Conservation Area about hunting — ' +
+    'what animals people hunt, the tools they use, and how these things have ' +
+    'changed over time.\n\n' +
     'Taking part is completely voluntary. You do not have to answer any question ' +
     'you do not want to, and you can stop at any time. We will NOT ask where you ' +
-    'hunt, fish or gather, and we will not record that anywhere.\n\n' +
+    'hunt, and we will not record that anywhere.\n\n' +
     'Your answers are grouped with everyone else’s for analysis. Giving your ' +
     'name is optional. The interview takes about 30 to 45 minutes.\n\n' +
     'Do you agree to take part?',
 
-  // Reusable option sets referenced by the schema (js/schema.js). Kept here so
-  // wording changes live in one place.
+  // Reusable option sets referenced by the schema (js/schema.js).
   options: {
     sex: [
       { code: 'male',   label: 'Male' },
       { code: 'female', label: 'Female' },
     ],
-    activity_under_25: [
-      { code: 'primary',              label: 'Primary activity' },
-      { code: 'occasional',           label: 'Occasional' },
-      { code: 'seasonal',             label: 'Seasonal' },
-      { code: 'none',                 label: 'None' },
-      { code: 'too_young_to_recall',  label: 'Too young to recall' },
+    // Module A — how often the respondent hunted at a given age (frequency,
+    // with definitions). Same set for every age band.
+    activity: [
+      { code: 'regular',    label: 'Regular — more than once a month' },
+      { code: 'occasional', label: 'Occasional — 6–12 times a year' },
+      { code: 'seldom',     label: 'Seldom — fewer than 6 times a year' },
+      { code: 'did_not',    label: 'Did not hunt' },
     ],
-    activity_other: [
-      { code: 'primary',    label: 'Primary activity' },
-      { code: 'occasional', label: 'Occasional' },
-      { code: 'seasonal',   label: 'Seasonal' },
-      { code: 'none',       label: 'None' },
+    // Module A — seasonality at a given age (asked only if they hunted then).
+    season: [
+      { code: 'year_round', label: 'Year-round' },
+      { code: 'wet',        label: 'Mainly wet season' },
+      { code: 'dry',        label: 'Mainly dry season' },
     ],
+    // Module B — was this animal ever hunted, and if not, why.
     b_taken: [
-      { code: 'yes',              label: 'Yes' },
-      { code: 'used_to_not_now',  label: 'No, used to but not now' },
-      { code: 'never_but_knows',  label: 'Never personally, but knows of it' },
-    ],
-    c_trip_style: [
-      { code: 'targeted',              label: 'Targeted' },
-      { code: 'general_opportunistic', label: 'General / opportunistic' },
-      { code: 'half_and_half',         label: 'Half and half' },
+      { code: 'yes',                  label: 'Yes' },
+      { code: 'not_personally_known', label: 'Not personally, but knows of it' },
+      { code: 'never_saw_it',         label: 'Never saw it' },
+      { code: 'other_reasons',        label: 'Didn’t hunt it, for other reasons' },
     ],
     yes_no_notsure: [
       { code: 'yes',      label: 'Yes' },
@@ -155,7 +155,7 @@ const CONFIG = {
       { code: 'other',                    label: 'Other' },
     ],
     f_source: [
-      { code: 'mostly_dedicated',  label: 'Mostly dedicated hunting/fishing/gathering trips' },
+      { code: 'mostly_dedicated',  label: 'Mostly dedicated hunting trips' },
       { code: 'mostly_incidental', label: 'Mostly incidental (while doing other things)' },
       { code: 'half_and_half',     label: 'Half and half' },
     ],
@@ -165,7 +165,6 @@ const CONFIG = {
       { code: 'this_month',      label: 'This month' },
       { code: 'more_than_month', label: 'More than a month ago' },
     ],
-    // "successful" adds the more_than_year option.
     f_when_successful: [
       { code: 'today_yesterday', label: 'Today or yesterday' },
       { code: 'this_week',       label: 'This week' },
@@ -180,32 +179,18 @@ const CONFIG = {
       { code: 'overnight_one_night',       label: 'Overnight (one night)' },
       { code: 'longer_than_one_night',     label: 'Longer than one night' },
     ],
+    // Reworded: present-day typical trip, with a "no longer hunt" escape.
     f_typical_duration: [
-      { code: 'under_2h',                  label: 'Under 2 hours' },
-      { code: '2_6h',                      label: '2–6 hours' },
-      { code: 'more_than_6h_same_day',     label: 'More than 6 hours, same day' },
-      { code: 'overnight_one_night',       label: 'Overnight (one night)' },
-      { code: 'longer_than_one_night',     label: 'Longer than one night' },
-      { code: 'not_applicable_incidental', label: 'Not applicable (incidental)' },
+      { code: 'under_2h',              label: 'Under 2 hours' },
+      { code: '2_6h',                  label: '2–6 hours' },
+      { code: 'more_than_6h_same_day', label: 'More than 6 hours, same day' },
+      { code: 'overnight_one_night',   label: 'Overnight (one night)' },
+      { code: 'longer_than_one_night', label: 'Longer than one night' },
+      { code: 'no_longer_hunt',        label: 'I no longer hunt / not applicable' },
     ],
     f_trip_style: [
       { code: 'targeted', label: 'Targeted' },
       { code: 'general',  label: 'General' },
-    ],
-    f_share: [
-      { code: 'all',        label: 'All' },
-      { code: 'most',       label: 'Most' },
-      { code: 'about_half', label: 'About half' },
-      { code: 'small_part', label: 'Small part' },
-      { code: 'none',       label: 'None' },
-    ],
-    f_typical_frequency: [
-      { code: 'most_days',                 label: 'Most days' },
-      { code: 'few_times_week',            label: 'A few times a week' },
-      { code: 'about_weekly',              label: 'About weekly' },
-      { code: 'few_times_month',           label: 'A few times a month' },
-      { code: 'less_often',                label: 'Less often' },
-      { code: 'not_applicable_incidental', label: 'Not applicable (incidental)' },
     ],
     g_people_change: [
       { code: 'more_now',   label: 'More people now' },
@@ -245,19 +230,35 @@ const CONFIG = {
       { code: 'important_regular', label: 'Important and regular' },
     ],
   },
+
+  // The four "use" purposes in Module B (worn vs used definitions per feedback).
+  useTypes: [
+    { key: 'food',      field: (c) => `b_use_food_${c}`,      label: 'Food' },
+    { key: 'bilas',     field: (c) => `b_use_bilas_${c}`,     label: 'Bilas (worn)' },
+    { key: 'customary', field: (c) => `b_use_customary_${c}`, label: 'Ceremonial (used: tools, instruments, display)' },
+    { key: 'sale',      field: (c) => `b_use_sale_${c}`,      label: 'Sale / income' },
+  ],
+
+  // The four "shares" in Module F, allocated as parts out of 10.
+  shareUses: [
+    { key: 'eaten', label: 'Eaten' },
+    { key: 'given', label: 'Given away' },
+    { key: 'bilas', label: 'Bilas / ceremonial' },
+    { key: 'sold',  label: 'Sold' },
+  ],
+  shareTotal: 10,
 };
 
-// Helper: given an age_band code, return the set of life-stage codes that are
-// enterable (up to and including that band). Used by Module A and G (3.4).
+// Helper: given an age_band code, return the age codes enterable up to and
+// including that band (Modules A and G).
 CONFIG.enterableLifeStages = function (ageBand) {
   const order = ['under_25', '25_39', '40_59', '60_plus'];
   const idx = order.indexOf(ageBand);
-  if (idx < 0) return order.slice(); // unknown/blank age band → allow all
+  if (idx < 0) return order.slice();
   return order.slice(0, idx + 1);
 };
 
-// Loaded from data/reference.json at startup (zones + wards). Populated by
-// app.js; kept on CONFIG so the rest of the app reads lists from one place.
+// Loaded from data/reference.json at startup (zones + wards).
 CONFIG.zones = [];
 CONFIG.wards = [];
 

@@ -231,22 +231,21 @@
       <div class="q" style="margin-top:.6rem">Interview location (GPS)</div>
       <div class="gpsrow">${gps}
         <button class="btn tiny" data-action="gps-retry" type="button">Retry GPS</button></div>
-      <div class="help">GPS records where the interview happens — never where people hunt/fish/gather.</div>
+      <div class="help">GPS records where the interview happens — never where people hunt.</div>
     </div>`;
   }
 
-  // Category × method / category × month boolean grid
+  // Animal × tool / animal × month boolean grid. Tool grid uses rotated
+  // full-name headers (no numeric legend to cross-reference).
   function renderGridBool(field) {
     const rows = SCHEMA.resolveOptions(field.rows);
     const cols = SCHEMA.resolveOptions(field.cols);
     const data = state.current.data;
-    let legend = '';
-    if (field.cols === 'methods') {
-      legend = `<details class="legend"><summary>Method code legend</summary><ul>` +
-        cols.map((c) => `<li><b>${esc(c.code)}</b> — ${esc(c.label)}</li>`).join('') + `</ul></details>`;
-    }
-    let html = `${legend}<div class="gridwrap"><table class="grid"><thead><tr><th class="rowhead">Category</th>` +
-      cols.map((c) => `<th title="${esc(c.label)}">${esc(field.cols === 'methods' ? c.code : c.label)}</th>`).join('') +
+    const rot = !!field.rotateHeaders;
+    let html = `<div class="gridwrap"><table class="grid ${rot ? 'rothead' : ''}"><thead><tr><th class="rowhead">Animal</th>` +
+      cols.map((c) => rot
+        ? `<th class="rot"><span class="lbl">${esc(c.label)}</span></th>`
+        : `<th title="${esc(c.label)}">${esc(c.label)}</th>`).join('') +
       `</tr></thead><tbody>`;
     rows.forEach((r) => {
       html += `<tr><th class="rowhead">${esc(r.label)}</th>`;
@@ -271,7 +270,7 @@
     const data = state.current.data;
     const allowed = field.ageGated
       ? CONFIG.enterableLifeStages(data.age_band) : cols.map((c) => c.code);
-    let html = `<div class="gridwrap"><table class="grid"><thead><tr><th class="rowhead">Category</th>` +
+    let html = `<div class="gridwrap"><table class="grid"><thead><tr><th class="rowhead">Animal</th>` +
       cols.map((c) => `<th class="${allowed.includes(c.code) ? '' : 'disabled'}">${esc(c.label)}</th>`).join('') +
       `</tr></thead><tbody>`;
     rows.forEach((r) => {
@@ -307,7 +306,7 @@
     };
     let html = `<div class="help">0 = allowed · 1 = allowed with conditions · 2 = not allowed</div>
       <div class="gridwrap"><table class="grid"><thead><tr>
-      <th class="rowhead">Category</th><th>Food</th><th>Bilas</th><th>Sale</th><th>Notes</th></tr></thead><tbody>`;
+      <th class="rowhead">Animal</th><th>Food</th><th>Bilas</th><th>Sale</th><th>Notes</th></tr></thead><tbody>`;
     rows.forEach((r) => {
       html += `<tr><th class="rowhead">${esc(r.label)}</th>
         <td>${sel(NAMES.hFood(r.code))}</td>
@@ -320,38 +319,51 @@
     return html;
   }
 
-  // Module A life-stage activity grid (age-gated rows)
+  // Module A activity-by-age grid (age-gated rows): per age, how often did you
+  // hunt, and — if you did — was it year-round or mainly one season.
   function renderActivityGrid(field) {
     const data = state.current.data;
     const allowed = CONFIG.enterableLifeStages(data.age_band);
-    const fieldFor = { under_25: 'activity_under_25', '25_39': 'activity_25_39',
-      '40_59': 'activity_40_59', '60_plus': 'activity_60_plus' };
     let html = `<div class="field"><div class="q">${esc(field.label)}</div>
       <div class="help">${esc(field.help || '')}</div>`;
     CONFIG.lifeStages.forEach((ls) => {
       if (!allowed.includes(ls.code)) return;
-      const fname = fieldFor[ls.code];
-      const opts = ls.code === 'under_25'
-        ? CONFIG.options.activity_under_25 : CONFIG.options.activity_other;
-      html += `<div class="subq"><div class="q small">${esc(ls.label)}</div>
-        ${radioGroup(fname, opts, data[fname])}</div>`;
+      const af = NAMES.activity(ls.code);
+      const sf = NAMES.season(ls.code);
+      const actVal = data[af];
+      html += `<div class="subq"><div class="q small">Age ${esc(ls.label)}</div>
+        ${radioGroup(af, CONFIG.options.activity, actVal)}`;
+      if (actVal && actVal !== 'did_not') {
+        html += `<div class="seasonq"><div class="help">Year-round or mainly one season?</div>
+          ${radioGroup(sf, CONFIG.options.season, data[sf])}</div>`;
+      }
+      html += `</div>`;
     });
     html += `</div>`;
     return html;
   }
 
-  // Module B per-category block
+  // Module B per-category block. "Ever hunted?" gates the use questions: uses
+  // only show when taken = yes; a reason free-text shows for "other reasons".
   function renderPerCategory(field) {
     const data = state.current.data;
     let html = '';
     CONFIG.categories.forEach((c) => {
+      const takenVal = data[NAMES.bTaken(c.code)];
       html += `<div class="catblock"><div class="cathead">${esc(c.label)}</div>`;
-      html += labelBlock(field.taken.label,
-        '', radioGroup(field.taken.field(c.code), SCHEMA.resolveOptions(field.taken.options), data[field.taken.field(c.code)]));
-      html += `<div class="field"><div class="q">Used for</div><div class="options">` +
-        field.uses.map((u) => boolButton(u.field(c.code), u.label, data[u.field(c.code)] === true)).join('') +
-        `</div></div>`;
-      html += labelBlock(field.otherText.label, '', textEl(field.otherText.field(c.code), data[field.otherText.field(c.code)]));
+      html += labelBlock('Ever hunted?', '',
+        radioGroup(NAMES.bTaken(c.code), CONFIG.options.b_taken, takenVal));
+      if (takenVal === 'other_reasons') {
+        html += labelBlock('Why not? (record the reason)', '',
+          textEl(NAMES.bTakenReason(c.code), data[NAMES.bTakenReason(c.code)]));
+      }
+      if (takenVal === 'yes') {
+        html += `<div class="field"><div class="q">Used for</div><div class="options">` +
+          CONFIG.useTypes.map((u) => boolButton(u.field(c.code), u.label, data[u.field(c.code)] === true)).join('') +
+          `</div></div>`;
+        html += labelBlock('Other use (specify)', '',
+          textEl(NAMES.bUseOther(c.code), data[NAMES.bUseOther(c.code)]));
+      }
       html += `</div>`;
     });
     return html;
@@ -376,6 +388,35 @@
     return `<div class="field"><div class="q">${esc(field.label)}</div>
       <div class="catchlist">${rows || '<div class="help">No catch rows yet.</div>'}</div>
       <button class="btn small" type="button" data-action="catch-add" data-trip="${esc(field.trip)}">+ Add catch row</button></div>`;
+  }
+
+  // Module F share allocation: divide the catch into 10 parts across the four
+  // uses, with a live running total and stacked bar so it always reads as one
+  // whole. Soft — not forced to exactly 10.
+  function renderShareAlloc(field) {
+    const data = state.current.data;
+    const trip = field.trip;
+    const max = CONFIG.shareTotal;
+    const valOf = (key) => parseInt(data[`f_${trip}_share_${key}`], 10) || 0;
+    const total = CONFIG.shareUses.reduce((s, u) => s + valOf(u.key), 0);
+    const rows = CONFIG.shareUses.map((u) => {
+      const val = valOf(u.key);
+      return `<div class="sharerow">
+        <div class="sharelabel">${esc(u.label)}</div>
+        <button class="btn tiny" type="button" data-action="share-dec" data-trip="${esc(trip)}" data-use="${esc(u.key)}" aria-label="less ${esc(u.label)}">−</button>
+        <div class="shareval">${val}</div>
+        <button class="btn tiny" type="button" data-action="share-inc" data-trip="${esc(trip)}" data-use="${esc(u.key)}" aria-label="more ${esc(u.label)}">+</button>
+      </div>`;
+    }).join('');
+    const segs = CONFIG.shareUses.map((u) => {
+      const val = valOf(u.key);
+      return val > 0 ? `<span class="seg seg-${esc(u.key)}" style="flex:${val}"></span>` : '';
+    }).join('');
+    const cls = total === max ? 'ok' : 'warn';
+    return `<div class="field"><div class="q">${esc(field.label)}</div>
+      <div class="sharebar">${segs || '<span class="seg empty" style="flex:1"></span>'}</div>
+      <div class="sharetotal ${cls}">Total: ${total} / ${max}${total === max ? ' ✓' : ''}</div>
+      ${rows}</div>`;
   }
 
   // Generic field dispatcher
@@ -412,6 +453,7 @@
       case 'grid_single': return labelBlock('', '', renderGridSingle(field));
       case 'rules_grid': return renderRulesGrid(field);
       case 'catch_list': return renderCatchList(field);
+      case 'share_alloc': return renderShareAlloc(field);
       case 'trip_block': {
         const inner = SCHEMA.tripBlockFields(field.trip).map(renderField).join('');
         return `<div class="tripblock"><div class="triphead">${esc(field.heading)}</div>${inner}</div>`;
@@ -456,14 +498,12 @@
         <h2>Interviews on this device (${list.length})</h2>
         <ul class="ivlist">${rowsHtml}</ul>
         <div class="exportbar">
-          <button class="btn primary" data-action="send-csv">Send interviews (with names)</button>
-          <button class="btn" data-action="send-csv-anon">Send (no names)</button>
+          <button class="btn primary" data-action="send-csv">Send interviews</button>
         </div>
         <details class="moreexport">
           <summary>Other export options</summary>
           <div class="exportbar">
-            <button class="btn" data-action="export-csv">Download CSV (with names)</button>
-            <button class="btn" data-action="export-csv-anon">Download CSV (no names)</button>
+            <button class="btn" data-action="export-csv">Download CSV</button>
             <button class="btn ghost" data-action="export-json">Download JSON (raw)</button>
           </div>
         </details>
@@ -579,7 +619,13 @@
     }
     if (rerender && state.view === 'module') {
       const mod = SCHEMA.modules[state.step];
-      if (triggerFields(mod).has(field) || field.startsWith('activity_')) renderModule(true);
+      // activity_* reveals the per-age season question; b_taken_* reveals the
+      // per-animal use questions / reason field.
+      if (triggerFields(mod).has(field)
+        || field.startsWith('activity_')
+        || (field.startsWith('b_taken_') && !field.startsWith('b_taken_reason_'))) {
+        renderModule(true);
+      }
     }
   }
 
@@ -658,6 +704,19 @@
         state.current.data[key] = list; save(); renderModule(true);
         return;
       }
+      case 'share-inc':
+      case 'share-dec': {
+        const trip = a.dataset.trip, use = a.dataset.use;
+        const fname = `f_${trip}_share_${use}`;
+        const total = CONFIG.shareUses.reduce(
+          (s, u) => s + (parseInt(state.current.data[`f_${trip}_share_${u.key}`], 10) || 0), 0);
+        let val = parseInt(state.current.data[fname], 10) || 0;
+        if (action === 'share-inc' && total < CONFIG.shareTotal) val++;
+        if (action === 'share-dec' && val > 0) val--;
+        state.current.data[fname] = val;
+        save(); renderModule(true);
+        return;
+      }
       case 'back-to-form': renderModule(); return;
       case 'complete': {
         state.current.interview_status = 'complete';
@@ -668,9 +727,7 @@
         return;
       }
       case 'send-csv': return doSend(true);
-      case 'send-csv-anon': return doSend(false);
       case 'export-csv': return doExport('csv', true);
-      case 'export-csv-anon': return doExport('csv', false);
       case 'export-json': return doExport('json', true);
     }
   }
