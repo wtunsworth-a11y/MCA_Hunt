@@ -78,6 +78,7 @@
       resp_name: '',
       gps: null,
       gps_status: 'pending',
+      gps_error: '',
       data: {},
       _seq: null,
       interviewer_id: interviewerId(),
@@ -121,8 +122,12 @@
   function captureGPS() {
     if (!state.current) return;
     state.current.gps_status = 'pending';
+    state.current.gps_error = '';
+    // Show "Getting GPS…" immediately so the Retry button visibly responds.
+    if (state.view === 'module') renderModule(true);
     if (!navigator.geolocation) {
       state.current.gps_status = 'missing';
+      state.current.gps_error = 'This browser can’t get location. Try opening the app from the web link.';
       save(); if (state.view === 'module') renderModule(true);
       return;
     }
@@ -135,15 +140,24 @@
           time: new Date(pos.timestamp).toISOString(),
         };
         state.current.gps_status = 'ok';
+        state.current.gps_error = '';
         save();
         if (state.view === 'module') renderModule(true);
       },
-      () => {
+      (err) => {
         state.current.gps_status = 'missing';
+        // err.code: 1 PERMISSION_DENIED, 2 POSITION_UNAVAILABLE, 3 TIMEOUT.
+        if (err && err.code === 1) {
+          state.current.gps_error = 'Location permission is blocked. Turn on Location, then allow it for this app in the browser’s site settings (tap the padlock/⋮ in the address bar → Permissions → Location → Allow), then Retry.';
+        } else if (err && err.code === 3) {
+          state.current.gps_error = 'Timed out getting a fix. Move to open sky (away from thick canopy or indoors) and Retry.';
+        } else {
+          state.current.gps_error = 'Could not get a location fix. Check Location is turned on, then Retry.';
+        }
         save();
         if (state.view === 'module') renderModule(true);
       },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 }
     );
   }
 
@@ -225,12 +239,15 @@
     } else {
       gps = `<span class="badge miss">GPS missing</span>`;
     }
+    const errMsg = (r.gps_status === 'missing' && r.gps_error)
+      ? `<div class="help gpserr">${esc(r.gps_error)}</div>` : '';
     return `<div class="field metabox">
       <div class="q">Respondent ID</div>
       <div class="mono big">${esc(r.resp_id_code || '— set once Zone is chosen —')}</div>
       <div class="q" style="margin-top:.6rem">Interview location (GPS)</div>
       <div class="gpsrow">${gps}
-        <button class="btn tiny" data-action="gps-retry" type="button">Retry GPS</button></div>
+        <button class="btn tiny" data-action="gps-retry" type="button" ${r.gps_status === 'pending' ? 'disabled' : ''}>Retry GPS</button></div>
+      ${errMsg}
       <div class="help">GPS records where the interview happens — never where people hunt.</div>
     </div>`;
   }

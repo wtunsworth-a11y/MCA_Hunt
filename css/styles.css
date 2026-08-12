@@ -112,6 +112,7 @@ textarea.txt { min-height: 84px; resize: vertical; }
 
 /* Profile meta box */
 .metabox .gpsrow { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.gpserr { color: var(--amber); background: #fff5e6; border-radius: 8px; padding: .4rem .5rem; margin: .3rem 0; }
 
 /* Category block (Module B) */
 .catblock { border: 1px solid var(--line); border-radius: var(--radius); padding: .5rem .6rem; margin-bottom: .8rem; background: #fbfdfb; }
