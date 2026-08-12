@@ -179,16 +179,39 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
   <script>
   // Reference lists (Zone/Ward) inlined so the single file works offline.
   window.__MCA_REFERENCE__ = {
-  "_comment": "Zone and Ward pick-lists for Module A. These are PLACEHOLDER values (see Section 7 open items). Replace the `zones` and `wards` arrays with the real MCA lists once supplied — no code changes are needed; the app loads this file at startup. Each entry: { code, label }. `code` is written into exports and used as the zone prefix in the respondent ID; keep it short and stable. Optionally scope wards to a zone with a `zone` property (e.g. { code, label, zone: 'z01' }); wards without a `zone` show for every zone.",
+  "_comment": "Zone and Ward pick-lists for Module A. `code` is written into exports and used as the zone prefix in the respondent ID; keep it short and stable. Wards are a flat list (shown for every zone); to scope a ward to a zone later, add a `zone` property (e.g. { code, label, zone: 'z7a' }).",
   "zones": [
-    { "code": "z01", "label": "Zone 1 (placeholder)" },
-    { "code": "z02", "label": "Zone 2 (placeholder)" },
-    { "code": "z03", "label": "Zone 3 (placeholder)" }
+    { "code": "z1",  "label": "Zone 1" },
+    { "code": "z2",  "label": "Zone 2" },
+    { "code": "z3",  "label": "Zone 3" },
+    { "code": "z4",  "label": "Zone 4" },
+    { "code": "z5",  "label": "Zone 5" },
+    { "code": "z6",  "label": "Zone 6" },
+    { "code": "z7a", "label": "Zone 7A" },
+    { "code": "z7b", "label": "Zone 7B" },
+    { "code": "z8",  "label": "Zone 8" },
+    { "code": "z9",  "label": "Zone 9" },
+    { "code": "z10", "label": "Zone 10" }
   ],
   "wards": [
-    { "code": "w01", "label": "Ward 1 (placeholder)" },
-    { "code": "w02", "label": "Ward 2 (placeholder)" },
-    { "code": "w03", "label": "Ward 3 (placeholder)" }
+    { "code": "w1",  "label": "Ward 1" },
+    { "code": "w2",  "label": "Ward 2" },
+    { "code": "w3",  "label": "Ward 3" },
+    { "code": "w4",  "label": "Ward 4" },
+    { "code": "w5",  "label": "Ward 5" },
+    { "code": "w6",  "label": "Ward 6" },
+    { "code": "w7",  "label": "Ward 7" },
+    { "code": "w8",  "label": "Ward 8" },
+    { "code": "w9",  "label": "Ward 9" },
+    { "code": "w10", "label": "Ward 10" },
+    { "code": "w11", "label": "Ward 11" },
+    { "code": "w12", "label": "Ward 12" },
+    { "code": "w13", "label": "Ward 13" },
+    { "code": "w14", "label": "Ward 14" },
+    { "code": "w15", "label": "Ward 15" },
+    { "code": "w16", "label": "Ward 16" },
+    { "code": "w17", "label": "Ward 17" },
+    { "code": "w18", "label": "Ward 18" }
   ]
 }
 ;
