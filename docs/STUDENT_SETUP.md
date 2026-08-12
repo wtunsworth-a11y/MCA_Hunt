@@ -108,12 +108,18 @@ interview in your list to carry on where you left off.
 When you next have internet or can transfer files:
 
 1. Open the app → home screen.
-2. Tap **Export CSV (with names)** (or **without names** if your supervisor
-   asked for anonymised data).
-3. Your phone saves a `.csv` file and/or offers to **share** it. Send it to your
-   supervisor by **email, WhatsApp, or file transfer** — whatever works.
-4. That's it. Your interviews stay on your phone too (they're marked
-   "exported"), so nothing is lost.
+2. Tap **Send interviews (with names)** — or **Send (no names)** if your
+   supervisor asked for anonymised data.
+3. Your phone's normal **share menu** pops up. Choose how to send —
+   **WhatsApp, Gmail/email, Google Drive, Bluetooth**, whatever you use — and
+   pick your supervisor. That's it: the file goes with one tap.
+4. Your interviews **stay on your phone** too (they get marked "exported"), so
+   nothing is lost by sending.
+
+> If your phone's share menu doesn't appear (e.g. on an unusual browser), the
+> app instead **downloads** the `.csv` file — open your Downloads and attach it
+> to an email/WhatsApp yourself. Same result. The **"Other export options"**
+> link also has plain Download buttons if you prefer.
 
 ---
 

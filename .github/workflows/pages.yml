@@ -1,14 +1,17 @@
 name: Deploy PWA to GitHub Pages
 
-# Publishes the app as a hosted, installable PWA at the repository's Pages URL.
-# `configure-pages` with enablement:true turns Pages on automatically the first
-# time this runs, so no manual toggle in Settings is needed.
+# OPTIONAL — an Actions-based way to publish the app to GitHub Pages.
+#
+# The simplest way to get a link needs no Actions at all: in the repo,
+# Settings -> Pages -> "Deploy from a branch", pick this branch and the
+# "/ (root)" folder. See docs/SUPERVISOR_GUIDE.md.
+#
+# Prefer the Actions route (e.g. so Pages tracks the default branch)? In
+# Settings -> Pages set Source = "GitHub Actions", then run this workflow
+# from the Actions tab ("Run workflow"). It is manual-only so it never spams
+# failed runs before Pages has been switched on for the first time.
 
 on:
-  push:
-    branches:
-      - claude/new-session-aeipuc
-      - main
   workflow_dispatch:
 
 permissions:
@@ -16,7 +19,6 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment; newer pushes cancel in-progress ones.
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -31,15 +33,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configure Pages (enables Pages if not already on)
+      - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Serve the repository root — index.html and its assets sit here.
           path: '.'
 
       - name: Deploy to GitHub Pages

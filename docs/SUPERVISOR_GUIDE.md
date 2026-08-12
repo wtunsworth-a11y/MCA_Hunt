@@ -58,20 +58,36 @@ Give every interviewer the [`STUDENT_SETUP.md`](STUDENT_SETUP.md) instructions.
 
 ## 3. Hosting the link (one-time, free) — GitHub Pages
 
-The project is already a GitHub repository, so the simplest free host is GitHub
-Pages:
+The project is already on GitHub, so the free host is GitHub Pages. **Switching
+Pages on for the first time can only be done by the repo owner (you) — it can't
+be automated.** It takes about five clicks, once.
 
-1. On GitHub, open the repository → **Settings** → **Pages**.
-2. Under **"Build and deployment" → Source**, choose **"Deploy from a branch"**.
-3. Select the branch that holds this code and the **`/ (root)`** folder, then
-   **Save**.
-4. Wait ~1 minute. GitHub shows a URL like
-   `https://<your-account>.github.io/mca_hunt/`.
-5. Open that URL once to confirm it loads, then send it to the interviewers.
+**Do this once:**
 
-Every time you push updated code (new zone list, refined categories), Pages
-redeploys automatically. Interviewers who installed it will pick up changes next
-time they open it online; their saved interviews are not affected.
+1. Go to the repository on GitHub:
+   `https://github.com/wtunsworth-a11y/MCA_Hunt`
+2. Click **Settings** (top of the repo) → **Pages** (left sidebar).
+3. Under **"Build and deployment" → Source**, choose **"Deploy from a branch"**.
+4. In **Branch**, select **`claude/new-session-aeipuc`** (the branch with the
+   app) and folder **`/ (root)`**, then click **Save**.
+5. Wait about a minute, then refresh. GitHub shows your live link at the top of
+   the Pages screen. It will be:
+
+   **`https://wtunsworth-a11y.github.io/MCA_Hunt/`**
+
+6. Open that link once to confirm it loads, then send it to the interviewers
+   with the student setup sheet.
+
+That's it. Each time you push updated code (new zone list, refined categories),
+Pages redeploys within a minute. Interviewers who installed it pick up changes
+next time they open it online; **their saved interviews are never affected.**
+
+> **Later, if you merge this into your `main` branch**, just change the Pages
+> **Branch** setting to `main` and the same link keeps working.
+
+> **A note on the "Deploy PWA to GitHub Pages" Actions workflow in the repo:**
+> it's an *optional* alternative and is set to manual-only, so you can ignore
+> it. The branch method above is simpler and needs no Actions.
 
 *(Any static host works — Netlify, a shared drive served over HTTP, etc. It just
 needs to serve the files over `http(s)`, not be opened from disk.)*
