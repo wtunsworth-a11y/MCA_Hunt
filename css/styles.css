@@ -61,6 +61,8 @@ button { font-family: inherit; }
 .ivmeta { font-size: .8rem; color: var(--muted); display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; margin-top: .2rem; }
 .empty { color: var(--muted); padding: .6rem; }
 .exportbar { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.moreexport { margin-top: .6rem; }
+.moreexport summary { color: var(--muted); font-size: .85rem; cursor: pointer; padding: .3rem 0; }
 .foot { color: var(--muted); font-size: .8rem; margin-top: 1.4rem; }
 
 /* Badges */

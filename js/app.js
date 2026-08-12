@@ -456,10 +456,17 @@
         <h2>Interviews on this device (${list.length})</h2>
         <ul class="ivlist">${rowsHtml}</ul>
         <div class="exportbar">
-          <button class="btn" data-action="export-csv">Export CSV (with names)</button>
-          <button class="btn" data-action="export-csv-anon">Export CSV (no names)</button>
-          <button class="btn ghost" data-action="export-json">Export JSON</button>
+          <button class="btn primary" data-action="send-csv">Send interviews (with names)</button>
+          <button class="btn" data-action="send-csv-anon">Send (no names)</button>
         </div>
+        <details class="moreexport">
+          <summary>Other export options</summary>
+          <div class="exportbar">
+            <button class="btn" data-action="export-csv">Download CSV (with names)</button>
+            <button class="btn" data-action="export-csv-anon">Download CSV (no names)</button>
+            <button class="btn ghost" data-action="export-json">Download JSON (raw)</button>
+          </div>
+        </details>
         <div class="foot">Offline-first · data stays on this device until you export. App v${esc(CONFIG.appVersion)}</div>
       </div>`;
   }
@@ -660,16 +667,61 @@
         renderHome();
         return;
       }
+      case 'send-csv': return doSend(true);
+      case 'send-csv-anon': return doSend(false);
       case 'export-csv': return doExport('csv', true);
       case 'export-csv-anon': return doExport('csv', false);
       case 'export-json': return doExport('json', true);
     }
   }
 
+  // Collect the records to export (completed only; fall back to all if none
+  // are complete yet, so a test run can still be exported).
+  function recordsToExport(all) {
+    const completed = all.filter((r) => r.interview_status === 'complete');
+    return { records: completed.length ? completed : all, completed };
+  }
+
+  async function markExported(completed) {
+    for (const r of completed) {
+      if (r.sync_status !== 'exported') { r.sync_status = 'exported'; await DB.put(r); }
+    }
+    if (state.view === 'home') renderHome();
+  }
+
+  // One-tap "Send": hand the CSV to the phone's native share sheet (WhatsApp,
+  // email, Drive, Bluetooth…). No backend — the interviewer picks where it
+  // goes. Falls back to a plain download where file-sharing isn't supported
+  // (e.g. desktop browsers), so it always does something useful.
+  async function doSend(includeName) {
+    const all = await DB.getAll();
+    const { records, completed } = recordsToExport(all);
+    if (!records.length) { alert('No interviews to send yet.'); return; }
+    const csv = EXPORTER.toCSV(records, includeName);
+    const fname = `mca_hunt_${includeName ? 'named' : 'anon'}_${EXPORTER.timestamp()}.csv`;
+    try {
+      const file = new File([csv], fname, { type: 'text/csv' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'MCA Hunting Survey interviews',
+          text: `MCA Hunting Survey — ${records.length} interview(s) from ${interviewerId() || 'this device'}.`,
+        });
+        await markExported(completed);
+        return;
+      }
+    } catch (e) {
+      // Share cancelled or unsupported mid-flight → fall through to download.
+      if (e && e.name === 'AbortError') return; // user cancelled: do nothing
+    }
+    // Fallback: download the file so the interviewer can attach it manually.
+    EXPORTER.download(fname, csv, 'text/csv;charset=utf-8');
+    await markExported(completed);
+  }
+
   async function doExport(kind, includeName) {
     const all = await DB.getAll();
-    const completed = all.filter((r) => r.interview_status === 'complete');
-    const records = completed.length ? completed : all; // fall back to all if none complete
+    const { records, completed } = recordsToExport(all);
     if (!records.length) { alert('No interviews to export yet.'); return; }
     const ts = EXPORTER.timestamp();
     if (kind === 'csv') {
@@ -679,11 +731,7 @@
       const json = EXPORTER.toJSON(records, includeName);
       EXPORTER.download(`mca_hunt_${ts}.json`, json, 'application/json');
     }
-    // Mark exported completed interviews as synced/exported.
-    for (const r of completed) {
-      if (r.sync_status !== 'exported') { r.sync_status = 'exported'; await DB.put(r); }
-    }
-    if (state.view === 'home') renderHome();
+    await markExported(completed);
   }
 
   // --- Bootstrap -----------------------------------------------------------
