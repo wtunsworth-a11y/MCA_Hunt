@@ -82,6 +82,7 @@ kids.push(writein('Ward'));
 kids.push(writein('Clan'));
 kids.push(P([R('Does this person:  ', { bold: true }), ...O.activity_type.map((x) => R(BOX + ' ' + x.label + '    '))]));
 kids.push(note('If "Fishes" only, SKIP Modules B–I and go straight to Module J (Fishing). If "Hunts", skip Module J.'));
+kids.push(P([R('Why do you hunt? (tick any that apply)  ', { bold: true }), ...O.hunt_reasons.map((x) => R(BOX + ' ' + x.label + '    '))]));
 kids.push(H2('Hunting by age — for each age up to the respondent’s own: how often did they hunt, and (if they did) year-round or which season?'));
 {
   const aw = 1900, fw = 2400, sw = (USABLE - aw - fw * 4);
@@ -149,6 +150,8 @@ kids.push(P([R('Usually hunt:  ', { bold: true }), ...O.c_usual_company.map((x) 
 kids.push(writein('Preferred tool (number/name)'));
 kids.push(writein('Why? (verbatim)', 2));
 kids.push(writein('Notes — how have the tools changed over time?', 2));
+kids.push(P([R('Any tools NOT allowed here (tambu / banned / discouraged)?  ', { bold: true }), ...O.yes_no_notsure.map((x) => R(BOX + ' ' + x.label + '   '))]));
+kids.push(writein('If yes, which tools and why? (verbatim)', 2));
 kids.push(blankLine());
 
 // --- Module D ------------------------------------------------------------

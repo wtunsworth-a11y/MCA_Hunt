@@ -63,6 +63,7 @@ k.push(H1('Module A — Profile'));
 k.push(bullet([R('The '), B('Respondent ID'), R(' and '), B('GPS'), R(' are captured automatically. If GPS shows “missing”, carry on — it’s optional.')]));
 k.push(bullet([R('Record '), B('sex, age band, zone, ward, clan'), R('. The ID appears once you choose the zone.')]));
 k.push(bullet([B('Gate — Hunt, Fish, or Both? '), R('If '), B('“Fishes”'), R(', the app skips the hunting modules (B–I) and jumps to '), B('Fishing (Module J)'), R('. Use this for people who fish but don’t hunt. “Hunts” skips fishing; “Both” asks everything.')]));
+k.push(bullet([B('Why do you hunt? '), R('Tick '), B('every'), R(' reason they give — food, income, custom/ceremony, to see and look after their land, entertainment, or another reason. More than one is normal.')]));
 k.push(note([R('If you tap Next without a '), B('Zone'), R(' (needed for the ID) or without '), B('GPS'), R(', the app asks you to confirm — go back and fix if you can, but you can still continue.')]));
 k.push(H2('Hunting by age'));
 k.push(P([R('Ask, for each age band '), B('up to the respondent’s own age'), R(' (older bands are hidden): “At that age, how often did you hunt?”')]));
@@ -88,6 +89,7 @@ k.push(note([R('Only animals marked '), B('"ever hunted: yes"'), R(' in Module B
 k.push(bullet([R('For each animal shown, tick '), B('every tool ever used'), R(' to hunt it. The tool names are the column headers (turned sideways) — no codes to look up.')]));
 k.push(bullet([R('Ask the '), B('preferred tool'), R(' and '), B('why'), R(' (write their words). Ask whether tools have '), B('changed'), R(', and if so which were used before.')]));
 k.push(bullet([R('Ask whether they usually hunt '), B('alone or with others'), R('. Note any change over time.')]));
+k.push(bullet([B('Tools not allowed. '), R('Ask whether any tools are '), B('not allowed'), R(' here — tambu, banned, or discouraged. If yes, note '), B('which tools and why'), R(' (clan rule, government, custom). This is the customary limit on '), B('tool'), R(', one of the four T’s.')]));
 k.push(rule());
 
 k.push(H1('Module D — Tenure and limits'));

@@ -266,7 +266,7 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '2.4.0',
+  appVersion: '2.5.0',
 
   // --- Fixed species categories. Order is the canonical order used for every
   // grid row and every CSV column suffix. Edit here to refine. ---
@@ -408,6 +408,17 @@ const CONFIG = {
     yes_no: [
       { code: 'yes', label: 'Yes' },
       { code: 'no',  label: 'No' },
+    ],
+    // Module A — why the respondent hunts (paper Q1: motivation). Multi-select;
+    // more than one reason is expected. "see_land" = hunting as an occasion to
+    // walk over and look after clan land.
+    hunt_reasons: [
+      { code: 'food',          label: 'Food (to eat / feed family)' },
+      { code: 'income',        label: 'Income / to sell' },
+      { code: 'custom',        label: 'Custom / ceremony (bilas)' },
+      { code: 'see_land',      label: 'To see and look after my land' },
+      { code: 'entertainment', label: 'Entertainment / enjoyment' },
+      { code: 'other',         label: 'Other' },
     ],
     // Module A — how often the respondent hunted at a given age (frequency,
     // with definitions). Same set for every age band.
@@ -719,6 +730,12 @@ const SCHEMA = {
         { kind: 'single', name: 'activity_type', label: 'Does this person hunt, fish, or both?',
           options: 'activity_type',
           help: 'This decides which sections follow. “Fishes” skips the hunting questions and goes to the fishing section.' },
+        { kind: 'multi', name: 'a_hunt_reasons', label: 'Why do you hunt? (choose any that apply)',
+          options: 'hunt_reasons',
+          help: 'More than one reason is fine. Record all they give.',
+          showIf: { field: 'activity_type', notEquals: 'fish' } },
+        { kind: 'text', name: 'a_hunt_reasons_other', label: 'Other reason (specify)',
+          showIf: { field: 'a_hunt_reasons', includes: 'other' } },
         { kind: 'activity_grid', label: 'Hunting by age',
           help: 'For each age up to your own, how often did you hunt? If you hunted, was it year-round or mainly one season?',
           showIf: { field: 'activity_type', notEquals: 'fish' } },
@@ -768,6 +785,12 @@ const SCHEMA = {
         { kind: 'textarea', name: 'c_changes_notes',
           label: 'Notes — how have the tools changed over time?',
           help: 'Prompt the respondent. Record verbatim. No length limit.' },
+        { kind: 'single', name: 'c_tool_restrictions',
+          label: 'Are any hunting tools not allowed here (tambu, banned, or discouraged)?',
+          options: 'yes_no_notsure' },
+        { kind: 'textarea', name: 'c_tool_restrictions_text', label: 'Which tools, and why? (verbatim)',
+          help: 'Record the respondent’s words — which tools, and the reason (tambu, clan rule, government, etc.).',
+          showIf: { field: 'c_tool_restrictions', equals: 'yes' } },
       ],
     },
     {
@@ -933,6 +956,8 @@ const EXPORTER = (function () {
     add('gps_accuracy', 'gps'); add('gps_time', 'gps');
     add('sex'); add('age_band'); add('zone'); add('ward'); add('clan');
     add('activity_type'); // Hunt / Fish / Both gate
+    add('a_hunt_reasons', 'multi'); // why they hunt (paper Q1)
+    add('a_hunt_reasons_other');
     // Module A — per age: frequency + season
     ['under_25', '25_39', '40_59', '60_plus'].forEach((b) => {
       add(NAMES.activity(b)); add(NAMES.season(b));
@@ -966,6 +991,8 @@ const EXPORTER = (function () {
     add('c_preferred_method');
     add('c_preferred_method_why');
     add('c_changes_notes');
+    add('c_tool_restrictions'); // paper Q5: tools not permitted
+    add('c_tool_restrictions_text');
 
     // Module D
     add('d_main_area');

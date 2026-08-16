@@ -34,6 +34,8 @@ const EXPORTER = (function () {
     add('gps_accuracy', 'gps'); add('gps_time', 'gps');
     add('sex'); add('age_band'); add('zone'); add('ward'); add('clan');
     add('activity_type'); // Hunt / Fish / Both gate
+    add('a_hunt_reasons', 'multi'); // why they hunt (paper Q1)
+    add('a_hunt_reasons_other');
     // Module A — per age: frequency + season
     ['under_25', '25_39', '40_59', '60_plus'].forEach((b) => {
       add(NAMES.activity(b)); add(NAMES.season(b));
@@ -67,6 +69,8 @@ const EXPORTER = (function () {
     add('c_preferred_method');
     add('c_preferred_method_why');
     add('c_changes_notes');
+    add('c_tool_restrictions'); // paper Q5: tools not permitted
+    add('c_tool_restrictions_text');
 
     // Module D
     add('d_main_area');

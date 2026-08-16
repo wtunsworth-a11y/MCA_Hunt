@@ -14,7 +14,7 @@
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '2.4.0',
+  appVersion: '2.5.0',
 
   // --- Fixed species categories. Order is the canonical order used for every
   // grid row and every CSV column suffix. Edit here to refine. ---
@@ -156,6 +156,17 @@ const CONFIG = {
     yes_no: [
       { code: 'yes', label: 'Yes' },
       { code: 'no',  label: 'No' },
+    ],
+    // Module A — why the respondent hunts (paper Q1: motivation). Multi-select;
+    // more than one reason is expected. "see_land" = hunting as an occasion to
+    // walk over and look after clan land.
+    hunt_reasons: [
+      { code: 'food',          label: 'Food (to eat / feed family)' },
+      { code: 'income',        label: 'Income / to sell' },
+      { code: 'custom',        label: 'Custom / ceremony (bilas)' },
+      { code: 'see_land',      label: 'To see and look after my land' },
+      { code: 'entertainment', label: 'Entertainment / enjoyment' },
+      { code: 'other',         label: 'Other' },
     ],
     // Module A — how often the respondent hunted at a given age (frequency,
     // with definitions). Same set for every age band.

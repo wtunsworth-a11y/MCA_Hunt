@@ -90,7 +90,7 @@ Everything below is designed to be edited **without touching the app logic**.
 - Field names follow the flat, coded-column convention in Section 4 of the
   handover, so the CSV sits alongside the project's existing household survey
   data (`wild_forest_products.csv` etc.) with minimal rework.
-- The full canonical column list (678 columns for the current 12 categories /
+- The full canonical column list (682 columns for the current 12 categories /
   20 methods, plus the fishing section) is generated in [`js/export.js`](js/export.js) from the same
   reference lists the form uses, so **headers and collected fields can never
   drift apart.**
@@ -149,7 +149,7 @@ docs/                   Setup guides
 
 Two automated checks were used during development and can be re-run:
 
-- **Export logic** (headless, no browser): verifies the 678-column layout,
+- **Export logic** (headless, no browser): verifies the 682-column layout,
   grid counts, field names, boolean/multi/catch encoding, CSV escaping.
 - **End-to-end** (Playwright): full interview offline, GPS-failure tolerance,
   autosave/resume after reload, catch list, completion and CSV download —
