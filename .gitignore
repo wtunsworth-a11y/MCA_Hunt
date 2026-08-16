@@ -2,3 +2,9 @@
 node_modules/
 *.log
 .DS_Store
+
+# Survey data lives in Google Drive, never in this public repo
+received_data/**/*.csv
+received_data/**/*.json
+received_data/*.csv
+received_data/*.json
