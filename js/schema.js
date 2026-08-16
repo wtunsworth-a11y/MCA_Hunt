@@ -99,9 +99,9 @@ const SCHEMA = {
     {
       id: 'C', title: 'Module C — Tools',
       fields: [
-        { kind: 'note', text: 'Tick every tool EVER used for each animal — only tick what applies. Then ask if the tools have changed over time and note it below.' },
+        { kind: 'note', text: 'Only the animals marked "ever hunted: yes" in Module B are shown. Tick every tool EVER used for each, then note any change over time below.' },
         { kind: 'grid_bool', name: 'c_method', rows: 'categories', cols: 'methods',
-          nameFn: NAMES.method, rotateHeaders: true },
+          nameFn: NAMES.method, rotateHeaders: true, gateHunted: true },
         { kind: 'single', name: 'c_method_changed', label: 'Have the tools you use changed?',
           options: 'yes_no_notsure' },
         { kind: 'multi', name: 'c_method_changed_previous', label: 'Previous tool(s) used',
@@ -143,9 +143,9 @@ const SCHEMA = {
     {
       id: 'E', title: 'Module E — Timing',
       fields: [
-        { kind: 'note', text: 'Tick the months each animal is EVER typically hunted — only tick what applies. Then note any change over time below.' },
+        { kind: 'note', text: 'Only the animals marked "ever hunted: yes" in Module B are shown. Tick the months each is typically hunted, then note any change over time below.' },
         { kind: 'grid_bool', name: 'e_month', rows: 'categories', cols: 'months',
-          nameFn: NAMES.month },
+          nameFn: NAMES.month, gateHunted: true },
         { kind: 'textarea', name: 'e_changes_notes',
           label: 'Notes — has the timing changed over time?',
           help: 'Prompt the respondent. Record verbatim. No length limit.' },
@@ -166,9 +166,9 @@ const SCHEMA = {
     {
       id: 'G', title: 'Module G — Change over time',
       fields: [
-        { kind: 'note', text: 'M = more abundant then · S = same · F = fewer then · N = not sure · X = did not hunt then. Only ages up to your own are shown.' },
+        { kind: 'note', text: 'Only animals marked "ever hunted: yes" in Module B are shown. M = more abundant then · S = same · F = fewer then · N = not sure · X = did not hunt then. Only ages up to your own are shown.' },
         { kind: 'grid_single', name: 'g_abundance', rows: 'categories', cols: 'lifeStages',
-          ageGated: true, options: 'abundanceCodes', nameFn: NAMES.abundance },
+          ageGated: true, options: 'abundanceCodes', nameFn: NAMES.abundance, gateHunted: true },
         { kind: 'single', name: 'g_people_change', label: 'Are more or fewer people hunting now?',
           options: 'g_people_change' },
         { kind: 'textarea', name: 'g_change_text', label: 'Anything about how things have changed? (verbatim)',

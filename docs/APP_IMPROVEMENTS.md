@@ -27,6 +27,14 @@ requirement is **consent**.
   add up to 4/10 — fix or continue?" Don't warn if it's fully blank (not asked)
   or exactly 10. (One pilot interview had totals of 1 and 4.)
 
+## Done
+
+- [x] **Gate Modules C (tools), E (timing), G (abundance) to hunted species**
+  (Module B `b_taken = yes`). Removes not-comparable "negative" data for animals
+  the respondent doesn't hunt. Module H (rules) left ungated on purpose — rules
+  about *not* hunting matter most for protected species nobody hunts. CSV column
+  layout unchanged (gated species stay blank). Guide + paper form updated.
+
 ## P2 — from the pilot content
 
 - [ ] **Add species: wild pig and cassowary.** Written into the "other animal"

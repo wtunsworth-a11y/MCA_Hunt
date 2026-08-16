@@ -120,7 +120,7 @@ kids.push(blankLine());
 
 // --- Module C ------------------------------------------------------------
 kids.push(H1('Module C — Tools'));
-kids.push(note('Tick every tool EVER used for each animal (only tick what applies).'));
+kids.push(note('Fill ONLY the rows for animals marked "ever hunted = Yes" in Module B — leave the other animals’ rows blank. Tick every tool EVER used (only tick what applies).'));
 {
   const aw = 1700;
   const tw = Math.floor((USABLE - aw) / CONFIG.methods.length);
@@ -162,7 +162,7 @@ limitQ('Are there limits on how many hunting trips can be made?');
 
 // --- Module E ------------------------------------------------------------
 kids.push(H1('Module E — Timing'));
-kids.push(note('Tick the months each animal is EVER typically hunted (only tick what applies).'));
+kids.push(note('Fill ONLY the rows for animals marked "ever hunted = Yes" in Module B. Tick the months each is typically hunted (only tick what applies).'));
 {
   const aw = 2200;
   const mw = Math.floor((USABLE - aw) / CONFIG.months.length);
@@ -199,7 +199,7 @@ kids.push(P([R('These days, a typical hunting trip lasts:  ', { bold: true }), .
 
 // --- Module G ------------------------------------------------------------
 kids.push(H1('Module G — Change over time'));
-kids.push(note('Write one code per cell: M = more abundant then · S = same · F = fewer then · N = not sure · X = did not hunt then. Only ages up to the respondent’s own.'));
+kids.push(note('Fill ONLY the rows for animals marked "ever hunted = Yes" in Module B. Write one code per cell: M = more abundant then · S = same · F = fewer then · N = not sure · X = did not hunt then. Only ages up to the respondent’s own.'));
 {
   const aw = 2600, cw = 1500;
   const header = new TableRow({ tableHeader: true, children: [headCell('Animal', aw), ...CONFIG.lifeStages.map((l) => headCell(l.label, cw))] });

@@ -252,12 +252,22 @@
     </div>`;
   }
 
+  // Species the respondent has ever hunted (Module B = yes). Follow-up grids
+  // (tools/timing/abundance) are gated to these, so we never collect
+  // not-comparable data about animals the respondent doesn't hunt.
+  function huntedCategories() {
+    const data = state.current.data;
+    return CONFIG.categories.filter((c) => data[NAMES.bTaken(c.code)] === 'yes');
+  }
+  const gateEmptyMsg = '<div class="note">No animals are marked "ever hunted: yes" yet. Go back to Module B and mark which animals the respondent hunts — then these questions appear only for those animals.</div>';
+
   // Animal × tool / animal × month boolean grid. Tool grid uses rotated
   // full-name headers (no numeric legend to cross-reference).
   function renderGridBool(field) {
-    const rows = SCHEMA.resolveOptions(field.rows);
     const cols = SCHEMA.resolveOptions(field.cols);
     const data = state.current.data;
+    const rows = field.gateHunted ? huntedCategories() : SCHEMA.resolveOptions(field.rows);
+    if (field.gateHunted && rows.length === 0) return gateEmptyMsg;
     const rot = !!field.rotateHeaders;
     let html = `<div class="gridwrap"><table class="grid ${rot ? 'rothead' : ''}"><thead><tr><th class="rowhead">Animal</th>` +
       cols.map((c) => rot
@@ -281,10 +291,11 @@
 
   // Category × life-stage single-choice (M/S/F/N/X), age-gated columns (Module G)
   function renderGridSingle(field) {
-    const rows = SCHEMA.resolveOptions(field.rows);
     const cols = SCHEMA.resolveOptions(field.cols);
     const opts = SCHEMA.resolveOptions(field.options);
     const data = state.current.data;
+    const rows = field.gateHunted ? huntedCategories() : SCHEMA.resolveOptions(field.rows);
+    if (field.gateHunted && rows.length === 0) return gateEmptyMsg;
     const allowed = field.ageGated
       ? CONFIG.enterableLifeStages(data.age_band) : cols.map((c) => c.code);
     let html = `<div class="gridwrap"><table class="grid"><thead><tr><th class="rowhead">Animal</th>` +

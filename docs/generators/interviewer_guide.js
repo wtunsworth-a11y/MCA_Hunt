@@ -70,7 +70,8 @@ k.push(note([B('Prompt change over time '), R('and write it in the notes box: ha
 k.push(rule());
 
 k.push(H1('Module C — Tools'));
-k.push(bullet([R('For each animal, tick '), B('every tool ever used'), R(' to hunt it. The tool names are the column headers (turned sideways) — no codes to look up.')]));
+k.push(note([R('Only animals marked '), B('"ever hunted: yes"'), R(' in Module B appear here. If an animal is missing, that is why — go back to Module B if it should be included.')]));
+k.push(bullet([R('For each animal shown, tick '), B('every tool ever used'), R(' to hunt it. The tool names are the column headers (turned sideways) — no codes to look up.')]));
 k.push(bullet([R('Ask the '), B('preferred tool'), R(' and '), B('why'), R(' (write their words). Ask whether tools have '), B('changed'), R(', and if so which were used before.')]));
 k.push(bullet([R('Ask whether they usually hunt '), B('alone or with others'), R('. Note any change over time.')]));
 k.push(rule());
@@ -82,7 +83,7 @@ k.push(bullet([R('Ask about limits: are there '), B('seasonal'), R(' limits, lim
 k.push(rule());
 
 k.push(H1('Module E — Timing'));
-k.push(bullet([R('For each animal, tick the '), B('months'), R(' it is typically hunted (ever). Tick only what applies.')]));
+k.push(bullet([R('Only animals they '), B('hunt'), R(' (Module B = yes) are shown. For each, tick the '), B('months'), R(' it is typically hunted. Tick only what applies.')]));
 k.push(bullet([R('Note any change in timing over time.')]));
 k.push(rule());
 
@@ -95,7 +96,7 @@ k.push(bullet([R('Ask how long a '), B('typical'), R(' trip lasts these days (or
 k.push(rule());
 
 k.push(H1('Module G — Change over time'));
-k.push(P([R('For each animal, at each age '), B('up to their own'), R(', ask how abundant it was '), B('then compared with today'), R('. Enter one code:')]));
+k.push(P([R('Only animals they '), B('hunt'), R(' are shown. For each, at each age '), B('up to their own'), R(', ask how abundant it was '), B('then compared with today'), R('. Enter one code:')]));
 k.push(note(CONFIG.abundanceCodes.map((c, i) => R((i ? '   ' : '') + c.label))));
 k.push(bullet([R('Ask whether '), B('more or fewer people'), R(' hunt now.')]));
 k.push(bullet([R('Write any story about change '), B('verbatim'), R('. Do '), B('not'), R(' convert time references like “before the road” into dates.')]));
