@@ -1,13 +1,19 @@
 /*
- * sw.js — service worker for offline use of the hosted (multi-file) build.
+ * sw.js — service worker for offline use AND reliable updates.
  *
- * Precaches the app shell so that after the first online visit the app loads
- * and runs with no connectivity. Bump CACHE when any asset changes.
+ * Strategy: precache the app shell for instant offline load, then serve with
+ * "stale-while-revalidate" — the page loads instantly from cache, and each GET
+ * is refreshed from the network in the background whenever the device is
+ * online. So after a new version is deployed, an installed app picks it up the
+ * next time it's opened with connectivity (applied on the following open).
  *
- * (The single-file build, MCA_Hunt_Survey.html, does not use a service worker
- * — opened from disk it is already fully offline.)
+ * Interview data lives in IndexedDB, which is NEVER touched here — updates
+ * refresh code only and never delete saved interviews.
+ *
+ * Bump CACHE on a deploy you want to force a clean re-cache for (e.g. a schema
+ * change). Content changes propagate without a bump thanks to revalidation.
  */
-const CACHE = 'mca-hunt-v1';
+const CACHE = 'mca-hunt-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -28,19 +34,25 @@ self.addEventListener('install', (e) => {
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
 
-// Cache-first for app-shell requests; network fallback keeps it working online.
+// Stale-while-revalidate for same-origin GETs: serve cache immediately, update
+// the cache from the network in the background so the next open is fresh.
 self.addEventListener('fetch', (e) => {
-  if (e.request.method !== 'GET') return;
-  e.respondWith(
-    caches.match(e.request).then((cached) => cached || fetch(e.request).then((res) => {
-      const copy = res.clone();
-      caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  if (new URL(req.url).origin !== self.location.origin) return;
+  e.respondWith((async () => {
+    const cache = await caches.open(CACHE);
+    const cached = await cache.match(req);
+    const network = fetch(req).then((res) => {
+      if (res && res.status === 200 && res.type === 'basic') cache.put(req, res.clone());
       return res;
-    }).catch(() => cached))
-  );
+    }).catch(() => null);
+    return cached || (await network) || new Response('Offline', { status: 503, statusText: 'Offline' });
+  })());
 });
