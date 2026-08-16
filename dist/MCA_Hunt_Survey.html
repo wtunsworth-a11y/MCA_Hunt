@@ -196,6 +196,7 @@ table.grid th.rot .lbl {
 .review-consent.miss { background: #fbdedb; color: var(--red); }
 
 /* Review */
+.thanks { background: #eef4ef; border-left: 4px solid var(--green); border-radius: 8px; padding: .6rem .7rem; margin: .2rem 0 .6rem; line-height: 1.5; }
 table.review { width: 100%; border-collapse: collapse; margin-top: .5rem; }
 table.review td { border-bottom: 1px solid var(--line); padding: .35rem .4rem; vertical-align: top; }
 table.review td:first-child { color: var(--muted); width: 42%; word-break: break-all; }
@@ -253,10 +254,10 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
  * config.js — single source of truth for the fixed reference lists and option
  * sets used throughout the MCA Hunting Survey PWA.
  *
- * Scope (v2): HUNTING ONLY — the targeted taking of animals. Fishing and
- * gathering are out of scope. The species-category and method lists are
- * pilot-refinable: keep them editable here so a category/method can be added,
- * renamed or removed without a rebuild.
+ * Scope: HUNTING (the targeted taking of animals) plus a short FISHING section
+ * (Module J). Gathering is out of scope. The species-category and method lists
+ * are pilot-refinable: keep them editable here so a category/method can be
+ * added, renamed or removed without a rebuild.
  *
  * Zone and Ward lists are NOT here — they load at runtime from
  * data/reference.json so the real lists can be dropped in without touching code.
@@ -265,7 +266,7 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '2.3.0',
+  appVersion: '2.4.0',
 
   // --- Fixed species categories. Order is the canonical order used for every
   // grid row and every CSV column suffix. Edit here to refine. ---
@@ -284,8 +285,8 @@ const CONFIG = {
     { code: 'wild_pig',      label: 'Wild pig' },
   ],
 
-  // --- Hunting tools/methods (1..18). Codes are strings to match the field-name
-  // suffixes exactly (c_method_pigeon_1 ... _18). ---
+  // --- Hunting tools/methods (1..20). Codes are strings to match the field-name
+  // suffixes exactly (c_method_pigeon_1 ... _20). ---
   methods: [
     { code: '1',  label: 'Bow and arrow' },
     { code: '2',  label: 'Spear' },
@@ -385,6 +386,12 @@ const CONFIG = {
     'Your answers are grouped with everyone else’s for analysis. Giving your ' +
     'name is optional. The interview takes about 30 to 45 minutes.\n\n' +
     'Do you agree to take part?',
+
+  // Read aloud at the end of the interview (shown on the Review screen).
+  thankYouScript:
+    'Thank you very much for your time and for sharing your knowledge. Your ' +
+    'answers, together with everyone else’s, will help inform conservation ' +
+    'planning for the Managalas Conservation Area.',
 
   // Reusable option sets referenced by the schema (js/schema.js).
   options: {
@@ -1326,6 +1333,21 @@ window.EXPORTER = EXPORTER;
     return w;
   }
 
+  // Whole-interview gaps, gathered for the final check on "Complete".
+  function completeWarnings() {
+    const r = state.current, d = r.data, w = [];
+    if (r.consent_given !== 'yes') w.push('Consent not recorded');
+    if (!r.resp_id_code) w.push('No respondent ID (Zone was blank)');
+    if (r.gps_status !== 'ok') w.push('No GPS captured');
+    ['recent', 'successful'].forEach((trip) => {
+      const total = CONFIG.shareUses.reduce((s, u) => s + (parseInt(d[`f_${trip}_share_${u.key}`], 10) || 0), 0);
+      if (total > 0 && total !== CONFIG.shareTotal) {
+        w.push(`${trip === 'recent' ? 'Most recent' : 'Most successful'} trip shares = ${total}/${CONFIG.shareTotal}`);
+      }
+    });
+    return w;
+  }
+
   // Modules active for this interview, based on the Hunt/Fish/Both gate
   // (activity_type in Module A). Profile is always shown; hunting modules are
   // hidden for "Fishes"; the fishing module shows only when the person fishes.
@@ -1773,6 +1795,10 @@ window.EXPORTER = EXPORTER;
         <h2>Review — ${esc(r.resp_id_code || '(no ID)')}</h2>
         <div class="review-consent ${consentOk ? 'ok' : 'miss'}">Consent recorded: ${consentOk ? 'YES' : 'NOT RECORDED'}</div>
         ${flagHtml}
+        <div class="thanks">
+          <div class="q">Before you finish — read aloud:</div>
+          <div>${esc(CONFIG.thankYouScript)}</div>
+        </div>
         <div class="help">Only answered fields are shown (${rowsHtml ? '' : 'none yet'}).</div>
         <table class="review"><tbody>${rowsHtml}</tbody></table>
         <div class="navbtns">
@@ -1940,6 +1966,8 @@ window.EXPORTER = EXPORTER;
       }
       case 'back-to-form': renderModule(); return;
       case 'complete': {
+        const gaps = completeWarnings();
+        if (gaps.length && !confirm('Final check — this interview is missing:\n\n• ' + gaps.join('\n• ') + '\n\nComplete anyway?')) return;
         state.current.interview_status = 'complete';
         state.current.interview_end_time = new Date().toISOString();
         await DB.put(state.current);

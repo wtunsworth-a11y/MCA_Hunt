@@ -46,6 +46,7 @@ k.push(bullet([B('Any question can be left blank. '), R('If they don’t know or
 k.push(bullet([B('Write notes in English, in their words. '), R('For “verbatim” fields, write what they say — don’t summarise or tidy it.')]));
 k.push(bullet([B('Tick only what applies. '), R('In the big grids, tick a box only if it’s true; leave the rest blank.')]));
 k.push(bullet([B('It saves as you go. '), R('If the phone dies, reopen and tap the interview to continue.')]));
+k.push(bullet([B('Check Location (GPS) is ON. '), R('Each day before you start, make sure your phone’s Location is turned on and allowed for the app, so the interview location is captured.')]));
 k.push(rule());
 
 k.push(H1('Who to interview — sampling'));
@@ -54,7 +55,7 @@ k.push(bullet([B('Spread across zones and wards. '), R('Follow the per-zone targ
 k.push(bullet([B('All ages — actively seek older people (40–59 and 60+). '), R('They anchor the “change over time” questions. A sample of only young men gives no history and weakens the results.')]));
 k.push(bullet([B('Both sexes. '), R('There are few female hunters, but women '), B('fish'), R(' — interview them and choose '), B('“Fishes”'), R(' at the Module A gate so the app goes straight to the fishing section.')]));
 k.push(bullet([B('A mix of clans '), R('where you can.')]));
-k.push(note([B('Your quota (agree with your supervisor and write it here): '), R('______ interviews per zone · at least ______ aged 40+ · at least ______ women.')]));
+k.push(note([B('Target: 45 people per zone. '), R('Aim for roughly EQUAL numbers in three age groups — about 15 each in '), B('25–39, 40–59, and 60+'), R(' — and at least '), B('20% women'), R(' (≈9 per zone). Do '), B('more'), R(' where there are many fishers.')]));
 k.push(rule());
 
 k.push(H1('Module A — Profile'));
@@ -131,9 +132,9 @@ k.push(rule());
 
 k.push(H1('Finishing the interview'));
 let r = nextOl();
-k.push(step(r, [R('Reach the '), B('Review'), R(' screen and glance over the answers.')]));
-k.push(step(r, [R('Tap '), B('Complete interview'), R('. It’s saved on the phone.')]));
-k.push(step(r, [R('Thank the respondent.')]));
+k.push(step(r, [R('Reach the '), B('Review'), R(' screen and glance over the answers. It shows whether consent, ID and GPS were captured.')]));
+k.push(step(r, [B('Read the thank-you aloud'), R(' (shown on the Review screen): thank them for their time and explain their answers will help inform conservation planning.')]));
+k.push(step(r, [R('Tap '), B('Complete interview'), R('. If anything important is missing (consent, ID, GPS, or shares that don’t total 10) the app shows a '), B('final check'), R(' — fix it or confirm. It’s then saved on the phone.')]));
 k.push(step(r, [R('Later, when you have signal or can transfer files, tap '), B('Send interviews'), R(' and share the file with your supervisor.')]));
 
 k.push(H1('Quick reference'));

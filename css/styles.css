@@ -186,6 +186,7 @@ table.grid th.rot .lbl {
 .review-consent.miss { background: #fbdedb; color: var(--red); }
 
 /* Review */
+.thanks { background: #eef4ef; border-left: 4px solid var(--green); border-radius: 8px; padding: .6rem .7rem; margin: .2rem 0 .6rem; line-height: 1.5; }
 table.review { width: 100%; border-collapse: collapse; margin-top: .5rem; }
 table.review td { border-bottom: 1px solid var(--line); padding: .35rem .4rem; vertical-align: top; }
 table.review td:first-child { color: var(--muted); width: 42%; word-break: break-all; }

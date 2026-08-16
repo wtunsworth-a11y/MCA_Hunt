@@ -196,6 +196,21 @@
     return w;
   }
 
+  // Whole-interview gaps, gathered for the final check on "Complete".
+  function completeWarnings() {
+    const r = state.current, d = r.data, w = [];
+    if (r.consent_given !== 'yes') w.push('Consent not recorded');
+    if (!r.resp_id_code) w.push('No respondent ID (Zone was blank)');
+    if (r.gps_status !== 'ok') w.push('No GPS captured');
+    ['recent', 'successful'].forEach((trip) => {
+      const total = CONFIG.shareUses.reduce((s, u) => s + (parseInt(d[`f_${trip}_share_${u.key}`], 10) || 0), 0);
+      if (total > 0 && total !== CONFIG.shareTotal) {
+        w.push(`${trip === 'recent' ? 'Most recent' : 'Most successful'} trip shares = ${total}/${CONFIG.shareTotal}`);
+      }
+    });
+    return w;
+  }
+
   // Modules active for this interview, based on the Hunt/Fish/Both gate
   // (activity_type in Module A). Profile is always shown; hunting modules are
   // hidden for "Fishes"; the fishing module shows only when the person fishes.
@@ -643,6 +658,10 @@
         <h2>Review — ${esc(r.resp_id_code || '(no ID)')}</h2>
         <div class="review-consent ${consentOk ? 'ok' : 'miss'}">Consent recorded: ${consentOk ? 'YES' : 'NOT RECORDED'}</div>
         ${flagHtml}
+        <div class="thanks">
+          <div class="q">Before you finish — read aloud:</div>
+          <div>${esc(CONFIG.thankYouScript)}</div>
+        </div>
         <div class="help">Only answered fields are shown (${rowsHtml ? '' : 'none yet'}).</div>
         <table class="review"><tbody>${rowsHtml}</tbody></table>
         <div class="navbtns">
@@ -810,6 +829,8 @@
       }
       case 'back-to-form': renderModule(); return;
       case 'complete': {
+        const gaps = completeWarnings();
+        if (gaps.length && !confirm('Final check — this interview is missing:\n\n• ' + gaps.join('\n• ') + '\n\nComplete anyway?')) return;
         state.current.interview_status = 'complete';
         state.current.interview_end_time = new Date().toISOString();
         await DB.put(state.current);

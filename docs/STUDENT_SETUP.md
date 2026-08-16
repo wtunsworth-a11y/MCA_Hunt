@@ -85,8 +85,11 @@ afterwards from the home screen.
    **GPS** is missing, the app asks you to confirm before moving on.
 5. **Every question can be left blank.** If someone doesn't want to answer, or
    doesn't know, just leave it and move on — the app will never stop you.
-6. At the end you reach a **Review** screen showing what was entered. Check it,
-   then tap **Complete interview**.
+6. At the end you reach a **Review** screen. **Read the thank-you aloud** (shown
+   there — thank them, and say their answers will help conservation planning),
+   then tap **Complete interview**. If something important is missing (consent,
+   ID, GPS, or shares that don't add to 10), the app shows a quick **final
+   check** — fix it or confirm.
 
 **Your progress saves automatically after every tap.** If your battery dies or
 you close the app by accident mid-interview, just reopen it and tap the

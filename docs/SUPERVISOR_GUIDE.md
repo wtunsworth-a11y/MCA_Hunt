@@ -47,7 +47,13 @@ Both options are the same app. See the comparison table in the
   Easiest to send, but the interviewer must not move/rename the file after
   saving it, or their saved interviews won't be found.
 
-Give every interviewer the [`STUDENT_SETUP.md`](STUDENT_SETUP.md) instructions.
+Give every interviewer the [`STUDENT_SETUP.md`](STUDENT_SETUP.md) instructions
+and the interviewer field guide.
+
+> **Sampling target:** **45 people per zone**, roughly **equal across three age
+> groups** (25–39, 40–59, 60+ — ~15 each), with **at least 20% women** (≈9 per
+> zone). Do **more** where there are many fishers. Older hunters especially
+> anchor the change-over-time data, so seek them out.
 
 > **Each phone is independent.** Interviews live only on the phone that created
 > them until that interviewer exports and sends you a CSV. The respondent ID

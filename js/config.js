@@ -2,10 +2,10 @@
  * config.js — single source of truth for the fixed reference lists and option
  * sets used throughout the MCA Hunting Survey PWA.
  *
- * Scope (v2): HUNTING ONLY — the targeted taking of animals. Fishing and
- * gathering are out of scope. The species-category and method lists are
- * pilot-refinable: keep them editable here so a category/method can be added,
- * renamed or removed without a rebuild.
+ * Scope: HUNTING (the targeted taking of animals) plus a short FISHING section
+ * (Module J). Gathering is out of scope. The species-category and method lists
+ * are pilot-refinable: keep them editable here so a category/method can be
+ * added, renamed or removed without a rebuild.
  *
  * Zone and Ward lists are NOT here — they load at runtime from
  * data/reference.json so the real lists can be dropped in without touching code.
@@ -14,7 +14,7 @@
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '2.3.0',
+  appVersion: '2.4.0',
 
   // --- Fixed species categories. Order is the canonical order used for every
   // grid row and every CSV column suffix. Edit here to refine. ---
@@ -33,8 +33,8 @@ const CONFIG = {
     { code: 'wild_pig',      label: 'Wild pig' },
   ],
 
-  // --- Hunting tools/methods (1..18). Codes are strings to match the field-name
-  // suffixes exactly (c_method_pigeon_1 ... _18). ---
+  // --- Hunting tools/methods (1..20). Codes are strings to match the field-name
+  // suffixes exactly (c_method_pigeon_1 ... _20). ---
   methods: [
     { code: '1',  label: 'Bow and arrow' },
     { code: '2',  label: 'Spear' },
@@ -134,6 +134,12 @@ const CONFIG = {
     'Your answers are grouped with everyone else’s for analysis. Giving your ' +
     'name is optional. The interview takes about 30 to 45 minutes.\n\n' +
     'Do you agree to take part?',
+
+  // Read aloud at the end of the interview (shown on the Review screen).
+  thankYouScript:
+    'Thank you very much for your time and for sharing your knowledge. Your ' +
+    'answers, together with everyone else’s, will help inform conservation ' +
+    'planning for the Managalas Conservation Area.',
 
   // Reusable option sets referenced by the schema (js/schema.js).
   options: {
