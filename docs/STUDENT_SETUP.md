@@ -67,18 +67,22 @@ afterwards from the home screen.
 ## Doing an interview
 
 1. On the home screen tap **➕ New interview**.
-2. **Read the consent script aloud.** If the person agrees, tap **"Consent
-   given — start"**. If they do not agree, tap **"Consent declined — cancel"** —
-   nothing is saved.
-3. The app fills in Module A automatically:
+2. **Read the consent script aloud.** If the person agrees, **tick the consent
+   box** and tap **"Start interview"** (it won't start without the tick). If they
+   do not agree, tap **"Declined — cancel"** — nothing is saved.
+3. On the profile screen, choose **Hunt, Fish, or Both**. **"Fishes"** skips the
+   hunting questions and goes straight to the short fishing section — use it for
+   people (often women) who fish but don't hunt.
+4. The app fills in Module A automatically:
    - It gets the **GPS** for where you are sitting (you may see "Getting GPS…"
      then "GPS captured"). If it says **"GPS missing"**, that's OK — tap **Retry
      GPS** if you have a moment, otherwise just carry on. The interview is not
      blocked.
    - Once you pick the **Zone**, a **Respondent ID** appears automatically
-     (e.g. `Z01-ABC-001`). You never type this yourself.
-4. Work through the modules **A → I** using the **Next** button. Use **Back** or
-   the round **A B C … I** buttons at the top to go back and change anything.
+     (e.g. `Z1-ABC-001`). You never type this yourself.
+5. Work through the modules using the **Next** button. Use **Back** or the round
+   letter buttons at the top to go back and change anything. If a **Zone** or
+   **GPS** is missing, the app asks you to confirm before moving on.
 5. **Every question can be left blank.** If someone doesn't want to answer, or
    doesn't know, just leave it and move on — the app will never stop you.
 6. At the end you reach a **Review** screen showing what was entered. Check it,

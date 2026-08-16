@@ -95,11 +95,12 @@ kids.push(note([B('Test it now: '), R('turn on '), B('airplane mode'), R(', then
 kids.push(H1('Doing an interview'));
 ref = nextOl();
 kids.push(step(ref, [R('On the home screen tap '), B('➕ New interview'), R('.')]));
-kids.push(step(ref, [B('Read the consent script aloud.'), R(' If the person agrees, tap '), B('“Consent given — start”'), R('. If they do not agree, tap '), B('“Consent declined — cancel”'), R(' — nothing is saved.')]));
+kids.push(step(ref, [B('Read the consent script aloud.'), R(' If the person agrees, '), B('tick the consent box'), R(' and tap '), B('“Start interview”'), R(' (it won’t start without the tick). If they do not agree, tap '), B('“Declined — cancel”'), R(' — nothing is saved.')]));
+kids.push(step(ref, [B('Hunt, Fish, or Both?'), R(' Choose on the profile screen. '), B('“Fishes”'), R(' skips the hunting questions and goes straight to the short fishing section — use it for people (often women) who fish but don’t hunt.')]));
 kids.push(step(ref, [R('The app fills in Module A automatically:')]));
 kids.push(bullet([R('It gets the '), B('GPS'), R(' for where you are sitting. If it says '), B('“GPS missing”'), R(', that’s OK — tap '), B('Retry GPS'), R(' if you have a moment, otherwise carry on. The interview is not blocked.')]));
-kids.push(bullet([R('Once you pick the '), B('Zone'), R(', a '), B('Respondent ID'), R(' appears automatically (e.g. Z01-ABC-001). You never type this yourself.')]));
-kids.push(step(ref, [R('Work through the modules '), B('A → I'), R(' using '), B('Next'), R('. Use '), B('Back'), R(' or the round A B C … I buttons at the top to change anything.')]));
+kids.push(bullet([R('Once you pick the '), B('Zone'), R(', a '), B('Respondent ID'), R(' appears automatically (e.g. Z1-ABC-001). You never type this yourself.')]));
+kids.push(step(ref, [R('Work through the modules using '), B('Next'), R('. Use '), B('Back'), R(' or the round letter buttons at the top to change anything. (If a Zone or GPS is missing, the app will ask you to confirm before moving on.)')]));
 kids.push(step(ref, [B('Every question can be left blank.'), R(' If someone won’t answer or doesn’t know, just leave it and move on — the app never stops you.')]));
 kids.push(step(ref, [R('At the end you reach a '), B('Review'), R(' screen. Check it, then tap '), B('Complete interview'), R('.')]));
 kids.push(note([B('Your progress saves automatically after every tap. '), R('If the battery dies or you close the app mid-interview, just reopen it and tap the interview in your list to carry on where you left off.')]));
