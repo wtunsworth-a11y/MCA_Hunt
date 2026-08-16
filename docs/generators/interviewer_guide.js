@@ -41,16 +41,26 @@ k.push(P([R('This guide explains how to ask each question. Keep it with you. Use
 
 k.push(H1('Golden rules (read first)'));
 k.push(bullet([B('Consent first. '), R('Read the consent aloud. Only start if the person agrees. If they decline, cancel — nothing is saved.')]));
-k.push(bullet([B('Never ask or record WHERE anyone hunts. '), R('The app records GPS of where you are sitting only. No hunting locations, ever.')]));
+k.push(bullet([B('Never record WHERE anyone hunts. '), R('The app records GPS of where you are sitting only. For fishing, the only place noted is the '), B('name of the main river'), R(' — no hunting locations, ever.')]));
 k.push(bullet([B('Any question can be left blank. '), R('If they don’t know or don’t want to answer, leave it and move on. Never pressure.')]));
 k.push(bullet([B('Write notes in English, in their words. '), R('For “verbatim” fields, write what they say — don’t summarise or tidy it.')]));
 k.push(bullet([B('Tick only what applies. '), R('In the big grids, tick a box only if it’s true; leave the rest blank.')]));
 k.push(bullet([B('It saves as you go. '), R('If the phone dies, reopen and tap the interview to continue.')]));
 k.push(rule());
 
+k.push(H1('Who to interview — sampling'));
+k.push(P('Aim for a spread that represents the community, not just whoever is easiest to reach:'));
+k.push(bullet([B('Spread across zones and wards. '), R('Follow the per-zone target your supervisor sets; don’t over-sample one village or one family.')]));
+k.push(bullet([B('All ages — actively seek older people (40–59 and 60+). '), R('They anchor the “change over time” questions. A sample of only young men gives no history and weakens the results.')]));
+k.push(bullet([B('Both sexes. '), R('There are few female hunters, but women '), B('fish'), R(' — interview them and choose '), B('“Fishes”'), R(' at the Module A gate so the app goes straight to the fishing section.')]));
+k.push(bullet([B('A mix of clans '), R('where you can.')]));
+k.push(note([B('Your quota (agree with your supervisor and write it here): '), R('______ interviews per zone · at least ______ aged 40+ · at least ______ women.')]));
+k.push(rule());
+
 k.push(H1('Module A — Profile'));
 k.push(bullet([R('The '), B('Respondent ID'), R(' and '), B('GPS'), R(' are captured automatically. If GPS shows “missing”, carry on — it’s optional.')]));
 k.push(bullet([R('Record '), B('sex, age band, zone, ward, clan'), R('. The ID appears once you choose the zone.')]));
+k.push(bullet([B('Gate — Hunt, Fish, or Both? '), R('If '), B('“Fishes”'), R(', the app skips the hunting modules (B–I) and jumps to '), B('Fishing (Module J)'), R('. Use this for people (often women) who fish but don’t hunt. “Hunts” skips fishing; “Both” asks everything.')]));
 k.push(H2('Hunting by age'));
 k.push(P([R('Ask, for each age band '), B('up to the respondent’s own age'), R(' (older bands are hidden): “At that age, how often did you hunt?”')]));
 k.push(note([B('Frequency — read the definitions: '), R(freq, {})]));
@@ -111,6 +121,11 @@ k.push(rule());
 k.push(H1('Module I — Bilas, ceremonial and income use'));
 k.push(bullet([R('Asked '), B('once'), R(', across the animals used for bilas, ceremonial or sale.')]));
 k.push(bullet([R('Which '), B('parts'), R(' are used; on what '), B('occasions'), R('; '), B('who'), R(' does it; and how important it is as '), B('income'), R('.')]));
+k.push(rule());
+
+k.push(H1('Module J — Fishing'));
+k.push(bullet([R('Shown only when the person '), B('fishes'), R(' (from the Module A gate). Keep it short.')]));
+k.push(bullet([R('Record the '), B('main river/water'), R(' used, '), B('what is caught'), R(' (fish, eel, prawn, crab, shellfish, frog, turtle…), and the '), B('tools/methods'), R(' — including '), B('destructive methods'), R(': dynamite, traditional plant poison, shop/store poison, mosquito net.')]));
 k.push(rule());
 
 k.push(H1('Finishing the interview'));

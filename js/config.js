@@ -57,6 +57,32 @@ const CONFIG = {
     { code: '19', label: 'Other (specify)' },
   ],
 
+  // --- Module J (Fishing) — a simple, separate section. Edit freely. ---
+  fishTargets: [
+    { code: 'fish',      label: 'Fish' },
+    { code: 'eel',       label: 'Eel' },
+    { code: 'prawn',     label: 'Prawn / shrimp' },
+    { code: 'crab',      label: 'Crab' },
+    { code: 'shellfish', label: 'Shellfish / mussels' },
+    { code: 'frog',      label: 'Frog' },
+    { code: 'turtle',    label: 'Turtle' },
+    { code: 'other',     label: 'Other' },
+  ],
+  fishTools: [
+    { code: 'hook_line',          label: 'Hook and line' },
+    { code: 'net',                label: 'Net' },
+    { code: 'mosquito_net',       label: 'Mosquito net' },
+    { code: 'spear',              label: 'Spear / harpoon' },
+    { code: 'spear_gun',          label: 'Spear gun' },
+    { code: 'diving_hand',        label: 'Diving / hand collection' },
+    { code: 'trap_weir',          label: 'Fish trap / weir' },
+    { code: 'bow',                label: 'Bow and arrow' },
+    { code: 'poison_traditional', label: 'Traditional plant poison' },
+    { code: 'poison_shop',        label: 'Shop/store poison (chemicals, bleach)' },
+    { code: 'dynamite',           label: 'Dynamite / explosives' },
+    { code: 'other',              label: 'Other' },
+  ],
+
   // Month suffixes for Module E (jan..dec).
   months: [
     { code: 'jan', label: 'Jan' }, { code: 'feb', label: 'Feb' },
@@ -98,12 +124,12 @@ const CONFIG = {
     'My name is [interviewer name] and I am helping with a survey run by the ' +
     'Managalas and Oro Province Project, part of CIFOR-ICRAF, funded by the ' +
     'European Union.\n\n' +
-    'We are asking people across the Managalas Conservation Area about hunting — ' +
-    'what animals people hunt, the tools they use, and how these things have ' +
-    'changed over time.\n\n' +
+    'We are asking people across the Managalas Conservation Area about hunting ' +
+    'and fishing — what animals and fish people take, the tools they use, and ' +
+    'how these things have changed over time.\n\n' +
     'Taking part is completely voluntary. You do not have to answer any question ' +
-    'you do not want to, and you can stop at any time. We will NOT ask where you ' +
-    'hunt, and we will not record that anywhere.\n\n' +
+    'you do not want to, and you can stop at any time. We will NOT record where ' +
+    'you hunt. For fishing, we note only the name of the main river you use.\n\n' +
     'Your answers are grouped with everyone else’s for analysis. Giving your ' +
     'name is optional. The interview takes about 30 to 45 minutes.\n\n' +
     'Do you agree to take part?',
@@ -113,6 +139,16 @@ const CONFIG = {
     sex: [
       { code: 'male',   label: 'Male' },
       { code: 'female', label: 'Female' },
+    ],
+    // Gate at the start of the interview — decides which sections are asked.
+    activity_type: [
+      { code: 'hunt',          label: 'Hunts' },
+      { code: 'fish',          label: 'Fishes' },
+      { code: 'hunt_and_fish', label: 'Hunts AND fishes' },
+    ],
+    yes_no: [
+      { code: 'yes', label: 'Yes' },
+      { code: 'no',  label: 'No' },
     ],
     // Module A — how often the respondent hunted at a given age (frequency,
     // with definitions). Same set for every age band.

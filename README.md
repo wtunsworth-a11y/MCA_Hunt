@@ -2,7 +2,7 @@
 
 A fully offline, installable web app that digitises the **MCA Hunting Interview
 Questionnaire** for field use in the Managalas Conservation Area, Oro Province,
-Papua New Guinea. Scope: **hunting only** (the targeted taking of animals).
+Papua New Guinea. Scope: **hunting** (the targeted taking of animals), plus a short **fishing** section.
 
 Built for the Managalas and Oro Province Project (MOPP) — CIFOR-ICRAF, funded by
 the European Union under the EU-FCCB Nexus Programme.
@@ -90,8 +90,8 @@ Everything below is designed to be edited **without touching the app logic**.
 - Field names follow the flat, coded-column convention in Section 4 of the
   handover, so the CSV sits alongside the project's existing household survey
   data (`wild_forest_products.csv` etc.) with minimal rework.
-- The full canonical column list (645 columns for the current 12 categories /
-  15 methods) is generated in [`js/export.js`](js/export.js) from the same
+- The full canonical column list (664 columns for the current 12 categories /
+  19 methods, plus the fishing section) is generated in [`js/export.js`](js/export.js) from the same
   reference lists the form uses, so **headers and collected fields can never
   drift apart.**
 
@@ -103,16 +103,17 @@ Everything below is designed to be edited **without touching the app logic**.
   (e.g. `tambu_sacred;other`).
 - The Module F catch list exports as one integer count column per category and
   trip: `f_recent_catch_<category>`, `f_successful_catch_<category>`.
-- Two CSV buttons: **with names** and **without names** (anonymised). The
-  `resp_name` column always exists in the header; the anonymised export just
-  leaves it blank.
+- One **Send** button hands the CSV to the phone’s share sheet (falls back to
+  a download). Data is sent as-is; the optional `resp_name` is included only if
+  it was entered.
 
 ---
 
 ## Privacy & design rules honoured (hard rules from the handover)
 
-- **No hunting location is ever captured** — there is no such
-  field anywhere in the app or the export.
+- **No hunting location is ever captured.** The only place recorded for fishing
+  is the **name of the main river** (`fish_river`), a deliberate choice; no
+  hunting grounds are ever stored.
 - The **only** location captured is the device GPS at the **start of Module A**
   (`gps_lat/lon/accuracy/time`), recording where the *interview* happens. It is
   attempted automatically, is retriable, and the interview proceeds and is
@@ -135,7 +136,7 @@ data/reference.json     Zone & Ward pick-lists (EDIT THIS with the real lists)
 icons/icon.svg          App icon
 js/config.js            Reference lists, option sets, consent script (EDIT categories/methods here)
 js/db.js                IndexedDB storage
-js/schema.js            Declarative form definition, Modules A–I
+js/schema.js            Declarative form definition, Modules A–J (incl. Fishing)
 js/export.js            Canonical CSV/JSON column list + export
 js/app.js               Controller, router, renderer, autosave, GPS, ID codes
 dist/MCA_Hunt_Survey.html  Generated single-file build (email this)
@@ -148,9 +149,8 @@ docs/                   Setup guides
 
 Two automated checks were used during development and can be re-run:
 
-- **Export logic** (headless, no browser): verifies the 499-column layout,
-  grid counts (150/120/40/40/20), field names against Section 4, boolean/multi/
-  catch encoding, CSV escaping.
+- **Export logic** (headless, no browser): verifies the 664-column layout,
+  grid counts, field names, boolean/multi/catch encoding, CSV escaping.
 - **End-to-end** (Playwright): full interview offline, GPS-failure tolerance,
   autosave/resume after reload, catch list, completion and CSV download —
   against both the hosted build and the `file://` single-file build.

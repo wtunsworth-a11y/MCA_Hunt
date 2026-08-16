@@ -167,9 +167,23 @@
     if (!c) return true;
     const v = data[c.field];
     if (c.equals != null) return v === c.equals;
+    if (c.notEquals != null) return v !== c.notEquals;
     if (c.notEmpty) return !!(v && String(v).trim());
     if (c.includes) return Array.isArray(v) && v.includes(c.includes);
     return true;
+  }
+
+  // Modules active for this interview, based on the Hunt/Fish/Both gate
+  // (activity_type in Module A). Profile is always shown; hunting modules are
+  // hidden for "Fishes"; the fishing module shows only when the person fishes.
+  function activeModules() {
+    const t = state.current ? state.current.data.activity_type : '';
+    return SCHEMA.modules.filter((m) => {
+      const g = m.group || 'hunting';
+      if (g === 'profile') return true;
+      if (g === 'fishing') return t === 'fish' || t === 'hunt_and_fish';
+      return t !== 'fish'; // hunting modules: shown unless fish-only
+    });
   }
 
   // Fields whose change must re-render the module (they gate other fields, or
@@ -553,7 +567,7 @@
   }
 
   function stepper() {
-    const mods = SCHEMA.modules;
+    const mods = activeModules();
     return `<div class="stepper">` + mods.map((m, i) => `
       <button class="stepdot ${i === state.step ? 'active' : ''}" data-action="goto-step" data-step="${i}">${esc(m.id)}</button>`).join('') + `</div>`;
   }
@@ -561,9 +575,11 @@
   function renderModule(preserveScroll) {
     state.view = 'module';
     const y = preserveScroll ? window.scrollY : 0;
-    const mod = SCHEMA.modules[state.step];
+    const mods = activeModules();
+    if (state.step >= mods.length) state.step = mods.length - 1; // clamp if gate shrank the list
+    const mod = mods[state.step];
     const body = mod.fields.map(renderField).join('');
-    const last = state.step === SCHEMA.modules.length - 1;
+    const last = state.step === mods.length - 1;
     $app().innerHTML = header() + `
       <div class="screen">
         ${stepper()}
@@ -646,7 +662,9 @@
       rerender = true; // change fires on blur for text/select — safe to refresh dependents
     }
     if (rerender && state.view === 'module') {
-      const mod = SCHEMA.modules[state.step];
+      const mod = activeModules()[state.step];
+      // activity_type changes which modules are active — always re-render it.
+      if (field === 'activity_type') { renderModule(true); return; }
       // activity_* reveals the per-age season question; b_taken_* reveals the
       // per-animal use questions / reason field.
       if (triggerFields(mod).has(field)
@@ -711,7 +729,7 @@
         else { state.step--; state.current._step = state.step; save(); renderModule(); }
         return;
       case 'next':
-        if (state.step === SCHEMA.modules.length - 1) { renderReview(); }
+        if (state.step === activeModules().length - 1) { renderReview(); }
         else { state.step++; state.current._step = state.step; save(); renderModule(); }
         return;
       case 'goto-step':

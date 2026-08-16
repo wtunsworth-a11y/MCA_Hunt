@@ -33,6 +33,7 @@ const EXPORTER = (function () {
     add('gps_lat', 'gps'); add('gps_lon', 'gps');
     add('gps_accuracy', 'gps'); add('gps_time', 'gps');
     add('sex'); add('age_band'); add('zone'); add('ward'); add('clan');
+    add('activity_type'); // Hunt / Fish / Both gate
     // Module A — per age: frequency + season
     ['under_25', '25_39', '40_59', '60_plus'].forEach((b) => {
       add(NAMES.activity(b)); add(NAMES.season(b));
@@ -119,6 +120,14 @@ const EXPORTER = (function () {
     add('i_who_does');
     add('i_who_does_other');
     add('i_income_importance');
+
+    // Module J — Fishing
+    add('fish_river');
+    add('fish_targets', 'multi');
+    add('fish_targets_other');
+    add('fish_tools', 'multi');
+    add('fish_tools_other');
+    add('fish_notes');
 
     // Metadata
     add('interviewer_id', 'record');

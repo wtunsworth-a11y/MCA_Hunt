@@ -51,13 +51,15 @@ const SCHEMA = {
       case 'abundanceCodes': return CONFIG.abundanceCodes;
       case 'months':         return CONFIG.months;
       case 'lifeStages':     return CONFIG.lifeStages;
+      case 'fishTargets':    return CONFIG.fishTargets;
+      case 'fishTools':      return CONFIG.fishTools;
       default:               return [];
     }
   },
 
   modules: [
     {
-      id: 'A', title: 'Module A — Profile',
+      id: 'A', title: 'Module A — Profile', group: 'profile',
       fields: [
         { kind: 'profile_meta' },
         { kind: 'text', name: 'resp_name', label: 'Respondent name (optional)',
@@ -67,8 +69,12 @@ const SCHEMA = {
         { kind: 'single', name: 'zone', label: 'Zone', options: 'zones', dropdown: true },
         { kind: 'single', name: 'ward', label: 'Ward', options: 'wards', dropdown: true, scopeByZone: true },
         { kind: 'text', name: 'clan', label: 'Clan', help: 'Free text.' },
+        { kind: 'single', name: 'activity_type', label: 'Does this person hunt, fish, or both?',
+          options: 'activity_type',
+          help: 'This decides which sections follow. “Fishes” skips the hunting questions and goes to the fishing section.' },
         { kind: 'activity_grid', label: 'Hunting by age',
-          help: 'For each age up to your own, how often did you hunt? If you hunted, was it year-round or mainly one season?' },
+          help: 'For each age up to your own, how often did you hunt? If you hunted, was it year-round or mainly one season?',
+          showIf: { field: 'activity_type', notEquals: 'fish' } },
       ],
     },
     {
@@ -207,6 +213,21 @@ const SCHEMA = {
           showIf: { field: 'i_who_does', equals: 'other' } },
         { kind: 'single', name: 'i_income_importance', label: 'Importance as income',
           options: 'i_income_importance' },
+      ],
+    },
+    {
+      id: 'J', title: 'Module J — Fishing', group: 'fishing',
+      fields: [
+        { kind: 'note', text: 'A short section on fishing. Only shown when the person fishes.' },
+        { kind: 'text', name: 'fish_river', label: 'Main river or water used for fishing' },
+        { kind: 'multi', name: 'fish_targets', label: 'What is caught?', options: 'fishTargets' },
+        { kind: 'text', name: 'fish_targets_other', label: 'Other target (specify)',
+          showIf: { field: 'fish_targets', includes: 'other' } },
+        { kind: 'multi', name: 'fish_tools', label: 'Tools / methods used (include destructive methods)',
+          options: 'fishTools' },
+        { kind: 'text', name: 'fish_tools_other', label: 'Other tool / method (specify)',
+          showIf: { field: 'fish_tools', includes: 'other' } },
+        { kind: 'textarea', name: 'fish_notes', label: 'Notes (optional)' },
       ],
     },
   ],

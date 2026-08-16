@@ -304,6 +304,32 @@ const CONFIG = {
     { code: '19', label: 'Other (specify)' },
   ],
 
+  // --- Module J (Fishing) — a simple, separate section. Edit freely. ---
+  fishTargets: [
+    { code: 'fish',      label: 'Fish' },
+    { code: 'eel',       label: 'Eel' },
+    { code: 'prawn',     label: 'Prawn / shrimp' },
+    { code: 'crab',      label: 'Crab' },
+    { code: 'shellfish', label: 'Shellfish / mussels' },
+    { code: 'frog',      label: 'Frog' },
+    { code: 'turtle',    label: 'Turtle' },
+    { code: 'other',     label: 'Other' },
+  ],
+  fishTools: [
+    { code: 'hook_line',          label: 'Hook and line' },
+    { code: 'net',                label: 'Net' },
+    { code: 'mosquito_net',       label: 'Mosquito net' },
+    { code: 'spear',              label: 'Spear / harpoon' },
+    { code: 'spear_gun',          label: 'Spear gun' },
+    { code: 'diving_hand',        label: 'Diving / hand collection' },
+    { code: 'trap_weir',          label: 'Fish trap / weir' },
+    { code: 'bow',                label: 'Bow and arrow' },
+    { code: 'poison_traditional', label: 'Traditional plant poison' },
+    { code: 'poison_shop',        label: 'Shop/store poison (chemicals, bleach)' },
+    { code: 'dynamite',           label: 'Dynamite / explosives' },
+    { code: 'other',              label: 'Other' },
+  ],
+
   // Month suffixes for Module E (jan..dec).
   months: [
     { code: 'jan', label: 'Jan' }, { code: 'feb', label: 'Feb' },
@@ -345,12 +371,12 @@ const CONFIG = {
     'My name is [interviewer name] and I am helping with a survey run by the ' +
     'Managalas and Oro Province Project, part of CIFOR-ICRAF, funded by the ' +
     'European Union.\n\n' +
-    'We are asking people across the Managalas Conservation Area about hunting — ' +
-    'what animals people hunt, the tools they use, and how these things have ' +
-    'changed over time.\n\n' +
+    'We are asking people across the Managalas Conservation Area about hunting ' +
+    'and fishing — what animals and fish people take, the tools they use, and ' +
+    'how these things have changed over time.\n\n' +
     'Taking part is completely voluntary. You do not have to answer any question ' +
-    'you do not want to, and you can stop at any time. We will NOT ask where you ' +
-    'hunt, and we will not record that anywhere.\n\n' +
+    'you do not want to, and you can stop at any time. We will NOT record where ' +
+    'you hunt. For fishing, we note only the name of the main river you use.\n\n' +
     'Your answers are grouped with everyone else’s for analysis. Giving your ' +
     'name is optional. The interview takes about 30 to 45 minutes.\n\n' +
     'Do you agree to take part?',
@@ -360,6 +386,16 @@ const CONFIG = {
     sex: [
       { code: 'male',   label: 'Male' },
       { code: 'female', label: 'Female' },
+    ],
+    // Gate at the start of the interview — decides which sections are asked.
+    activity_type: [
+      { code: 'hunt',          label: 'Hunts' },
+      { code: 'fish',          label: 'Fishes' },
+      { code: 'hunt_and_fish', label: 'Hunts AND fishes' },
+    ],
+    yes_no: [
+      { code: 'yes', label: 'Yes' },
+      { code: 'no',  label: 'No' },
     ],
     // Module A — how often the respondent hunted at a given age (frequency,
     // with definitions). Same set for every age band.
@@ -650,13 +686,15 @@ const SCHEMA = {
       case 'abundanceCodes': return CONFIG.abundanceCodes;
       case 'months':         return CONFIG.months;
       case 'lifeStages':     return CONFIG.lifeStages;
+      case 'fishTargets':    return CONFIG.fishTargets;
+      case 'fishTools':      return CONFIG.fishTools;
       default:               return [];
     }
   },
 
   modules: [
     {
-      id: 'A', title: 'Module A — Profile',
+      id: 'A', title: 'Module A — Profile', group: 'profile',
       fields: [
         { kind: 'profile_meta' },
         { kind: 'text', name: 'resp_name', label: 'Respondent name (optional)',
@@ -666,8 +704,12 @@ const SCHEMA = {
         { kind: 'single', name: 'zone', label: 'Zone', options: 'zones', dropdown: true },
         { kind: 'single', name: 'ward', label: 'Ward', options: 'wards', dropdown: true, scopeByZone: true },
         { kind: 'text', name: 'clan', label: 'Clan', help: 'Free text.' },
+        { kind: 'single', name: 'activity_type', label: 'Does this person hunt, fish, or both?',
+          options: 'activity_type',
+          help: 'This decides which sections follow. “Fishes” skips the hunting questions and goes to the fishing section.' },
         { kind: 'activity_grid', label: 'Hunting by age',
-          help: 'For each age up to your own, how often did you hunt? If you hunted, was it year-round or mainly one season?' },
+          help: 'For each age up to your own, how often did you hunt? If you hunted, was it year-round or mainly one season?',
+          showIf: { field: 'activity_type', notEquals: 'fish' } },
       ],
     },
     {
@@ -808,6 +850,21 @@ const SCHEMA = {
           options: 'i_income_importance' },
       ],
     },
+    {
+      id: 'J', title: 'Module J — Fishing', group: 'fishing',
+      fields: [
+        { kind: 'note', text: 'A short section on fishing. Only shown when the person fishes.' },
+        { kind: 'text', name: 'fish_river', label: 'Main river or water used for fishing' },
+        { kind: 'multi', name: 'fish_targets', label: 'What is caught?', options: 'fishTargets' },
+        { kind: 'text', name: 'fish_targets_other', label: 'Other target (specify)',
+          showIf: { field: 'fish_targets', includes: 'other' } },
+        { kind: 'multi', name: 'fish_tools', label: 'Tools / methods used (include destructive methods)',
+          options: 'fishTools' },
+        { kind: 'text', name: 'fish_tools_other', label: 'Other tool / method (specify)',
+          showIf: { field: 'fish_tools', includes: 'other' } },
+        { kind: 'textarea', name: 'fish_notes', label: 'Notes (optional)' },
+      ],
+    },
   ],
 
   // Field descriptors for one Module F trip block, expanded per trip.
@@ -863,6 +920,7 @@ const EXPORTER = (function () {
     add('gps_lat', 'gps'); add('gps_lon', 'gps');
     add('gps_accuracy', 'gps'); add('gps_time', 'gps');
     add('sex'); add('age_band'); add('zone'); add('ward'); add('clan');
+    add('activity_type'); // Hunt / Fish / Both gate
     // Module A — per age: frequency + season
     ['under_25', '25_39', '40_59', '60_plus'].forEach((b) => {
       add(NAMES.activity(b)); add(NAMES.season(b));
@@ -949,6 +1007,14 @@ const EXPORTER = (function () {
     add('i_who_does');
     add('i_who_does_other');
     add('i_income_importance');
+
+    // Module J — Fishing
+    add('fish_river');
+    add('fish_targets', 'multi');
+    add('fish_targets_other');
+    add('fish_tools', 'multi');
+    add('fish_tools_other');
+    add('fish_notes');
 
     // Metadata
     add('interviewer_id', 'record');
@@ -1224,9 +1290,23 @@ window.EXPORTER = EXPORTER;
     if (!c) return true;
     const v = data[c.field];
     if (c.equals != null) return v === c.equals;
+    if (c.notEquals != null) return v !== c.notEquals;
     if (c.notEmpty) return !!(v && String(v).trim());
     if (c.includes) return Array.isArray(v) && v.includes(c.includes);
     return true;
+  }
+
+  // Modules active for this interview, based on the Hunt/Fish/Both gate
+  // (activity_type in Module A). Profile is always shown; hunting modules are
+  // hidden for "Fishes"; the fishing module shows only when the person fishes.
+  function activeModules() {
+    const t = state.current ? state.current.data.activity_type : '';
+    return SCHEMA.modules.filter((m) => {
+      const g = m.group || 'hunting';
+      if (g === 'profile') return true;
+      if (g === 'fishing') return t === 'fish' || t === 'hunt_and_fish';
+      return t !== 'fish'; // hunting modules: shown unless fish-only
+    });
   }
 
   // Fields whose change must re-render the module (they gate other fields, or
@@ -1610,7 +1690,7 @@ window.EXPORTER = EXPORTER;
   }
 
   function stepper() {
-    const mods = SCHEMA.modules;
+    const mods = activeModules();
     return `<div class="stepper">` + mods.map((m, i) => `
       <button class="stepdot ${i === state.step ? 'active' : ''}" data-action="goto-step" data-step="${i}">${esc(m.id)}</button>`).join('') + `</div>`;
   }
@@ -1618,9 +1698,11 @@ window.EXPORTER = EXPORTER;
   function renderModule(preserveScroll) {
     state.view = 'module';
     const y = preserveScroll ? window.scrollY : 0;
-    const mod = SCHEMA.modules[state.step];
+    const mods = activeModules();
+    if (state.step >= mods.length) state.step = mods.length - 1; // clamp if gate shrank the list
+    const mod = mods[state.step];
     const body = mod.fields.map(renderField).join('');
-    const last = state.step === SCHEMA.modules.length - 1;
+    const last = state.step === mods.length - 1;
     $app().innerHTML = header() + `
       <div class="screen">
         ${stepper()}
@@ -1703,7 +1785,9 @@ window.EXPORTER = EXPORTER;
       rerender = true; // change fires on blur for text/select — safe to refresh dependents
     }
     if (rerender && state.view === 'module') {
-      const mod = SCHEMA.modules[state.step];
+      const mod = activeModules()[state.step];
+      // activity_type changes which modules are active — always re-render it.
+      if (field === 'activity_type') { renderModule(true); return; }
       // activity_* reveals the per-age season question; b_taken_* reveals the
       // per-animal use questions / reason field.
       if (triggerFields(mod).has(field)
@@ -1768,7 +1852,7 @@ window.EXPORTER = EXPORTER;
         else { state.step--; state.current._step = state.step; save(); renderModule(); }
         return;
       case 'next':
-        if (state.step === SCHEMA.modules.length - 1) { renderReview(); }
+        if (state.step === activeModules().length - 1) { renderReview(); }
         else { state.step++; state.current._step = state.step; save(); renderModule(); }
         return;
       case 'goto-step':

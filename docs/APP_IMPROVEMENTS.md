@@ -29,6 +29,15 @@ requirement is **consent**.
 
 ## Done
 
+- [x] **Fishing section (Module J)** + a **Hunt / Fish / Both gate** in Module A.
+  "Fishes" skips the hunting modules and jumps to fishing (for people — often
+  women — who fish but don't hunt). Fishing captures main river, targets, and
+  tools incl. destructive methods (dynamite, poisons, mosquito net). Consent
+  script updated (river is a deliberate location exception).
+- [x] **Sampling guidance** added to the interviewer field guide (spread across
+  zones; actively seek 40+ and 60+ for trend data; include women via the fishing
+  gate; quota blanks to fill in).
+
 - [x] **Gate Modules C (tools), E (timing), G (abundance) to hunted species**
   (Module B `b_taken = yes`). Removes not-comparable "negative" data for animals
   the respondent doesn't hunt. Module H (rules) left ungated on purpose — rules

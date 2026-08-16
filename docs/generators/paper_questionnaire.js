@@ -80,6 +80,8 @@ kids.push(new Paragraph({ children: [R('Age: ', { bold: true }), ...CONFIG.ageBa
 kids.push(writein('Zone'));
 kids.push(writein('Ward'));
 kids.push(writein('Clan'));
+kids.push(P([R('Does this person:  ', { bold: true }), ...O.activity_type.map((x) => R(BOX + ' ' + x.label + '    '))]));
+kids.push(note('If "Fishes" only, SKIP Modules B–I and go straight to Module J (Fishing). If "Hunts", skip Module J.'));
 kids.push(H2('Hunting by age — for each age up to the respondent’s own: how often did they hunt, and (if they did) year-round or which season?'));
 {
   const aw = 1900, fw = 2400, sw = (USABLE - aw - fw * 4);
@@ -233,6 +235,16 @@ kids.push(P([R('Which parts are used?  ', { bold: true }), ...O.i_part_used.map(
 kids.push(writein('On what occasions?'));
 kids.push(P([R('Who does this?  ', { bold: true }), ...O.i_who_does.map((x) => R(BOX + ' ' + x.label + '   '))]));
 kids.push(P([R('Importance as income:  ', { bold: true }), ...O.i_income_importance.map((x) => R(BOX + ' ' + x.label + '   '))]));
+
+// --- Module J — Fishing --------------------------------------------------
+kids.push(H1('Module J — Fishing'));
+kids.push(note('Only for people who fish (see the gate in Module A). Keep it brief.'));
+kids.push(writein('Main river or water used for fishing'));
+kids.push(P([R('What is caught?  ', { bold: true }), ...CONFIG.fishTargets.map((x) => R(BOX + ' ' + x.label + '   '))]));
+kids.push(writein('Other target (specify)'));
+kids.push(P([R('Tools / methods (include destructive):  ', { bold: true }), ...CONFIG.fishTools.map((x) => R(BOX + ' ' + x.label + '   '))]));
+kids.push(writein('Other tool / method (specify)'));
+kids.push(writein('Notes', 2));
 
 const doc = new Document({
   styles: { default: { document: { run: { font: 'Calibri', size: 20 } } } },
