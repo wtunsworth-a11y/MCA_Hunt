@@ -261,7 +261,7 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '2.2.0',
+  appVersion: '2.3.0',
 
   // --- Fixed species categories. Order is the canonical order used for every
   // grid row and every CSV column suffix. Edit here to refine. ---
@@ -301,7 +301,8 @@ const CONFIG = {
     { code: '16', label: 'Shotgun (homemade)' },
     { code: '17', label: 'Spear gun' },
     { code: '18', label: 'Pitfall trap' },
-    { code: '19', label: 'Other (specify)' },
+    { code: '19', label: 'Axe' },
+    { code: '20', label: 'Other (specify)' },
   ],
 
   // --- Module J (Fishing) — a simple, separate section. Edit freely. ---
@@ -744,7 +745,7 @@ const SCHEMA = {
         { kind: 'grid_bool', name: 'c_method', rows: 'categories', cols: 'methods',
           nameFn: NAMES.method, rotateHeaders: true, gateHunted: true },
         { kind: 'text', name: 'c_method_other_specify',
-          label: 'If you ticked "Other" (tool 19) for any animal, specify which tool(s)' },
+          label: 'If you ticked "Other" (tool 20) for any animal, specify which tool(s)' },
         { kind: 'single', name: 'c_method_changed', label: 'Have the tools you use changed?',
           options: 'yes_no_notsure' },
         { kind: 'multi', name: 'c_method_changed_previous', label: 'Previous tool(s) used',

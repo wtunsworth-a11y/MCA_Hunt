@@ -142,7 +142,7 @@ kids.push(note('Fill ONLY the rows for animals marked "ever hunted = Yes" in Mod
   const widths = [aw, ...CONFIG.methods.map(() => tw)];
   kids.push(new Table({ width: { size: USABLE, type: WidthType.DXA }, columnWidths: widths, borders: noBorders, rows: [header, ...rows] }));
 }
-kids.push(writein('If "Other" (tool 19) ticked for any animal, specify which tool(s)'));
+kids.push(writein('If "Other" (tool 20) ticked for any animal, specify which tool(s)'));
 kids.push(P([R('Have the tools changed?  ', { bold: true }), ...O.yes_no_notsure.map((x) => R(BOX + ' ' + x.label + '   '))]));
 kids.push(writein('If yes, previous tool(s) used'));
 kids.push(P([R('Usually hunt:  ', { bold: true }), ...O.c_usual_company.map((x) => R(BOX + ' ' + x.label + '   '))]));

@@ -109,7 +109,7 @@ const SCHEMA = {
         { kind: 'grid_bool', name: 'c_method', rows: 'categories', cols: 'methods',
           nameFn: NAMES.method, rotateHeaders: true, gateHunted: true },
         { kind: 'text', name: 'c_method_other_specify',
-          label: 'If you ticked "Other" (tool 19) for any animal, specify which tool(s)' },
+          label: 'If you ticked "Other" (tool 20) for any animal, specify which tool(s)' },
         { kind: 'single', name: 'c_method_changed', label: 'Have the tools you use changed?',
           options: 'yes_no_notsure' },
         { kind: 'multi', name: 'c_method_changed_previous', label: 'Previous tool(s) used',

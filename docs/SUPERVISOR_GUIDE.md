@@ -98,7 +98,7 @@ needs to serve the files over `http(s)`, not be opened from disk.)*
 
 1. Interviewers export a **CSV** from their phone and send it to you (one file
    per phone, per export).
-2. Each CSV has the **same columns** (664 for the current 12 categories / 19
+2. Each CSV has the **same columns** (676 for the current 12 categories / 20
    methods), so you can stack all four phones' files together — keep the header
    from one, append the data rows from the others.
 3. Columns follow the flat, coded naming in Section 4 of the handover, matching
@@ -108,9 +108,9 @@ needs to serve the files over `http(s)`, not be opened from disk.)*
 ### Understanding the export
 
 - One **row per completed interview**.
-- `resp_id_code` is the anonymised key to analyse on. `resp_name` is a separate
-  column you can delete before analysis (or ask interviewers to use the
-  **"Export CSV (without names)"** button, which leaves it blank).
+- `resp_id_code` is the anonymised key to analyse on. `resp_name` is optional and
+  a separate column — if interviewers don't enter names the data is already
+  anonymous; otherwise just delete that one column before analysis.
 - Tick-boxes export as `1`/`0` (blank = not ticked/answered).
 - Multi-answer questions are `;`-joined codes in one cell
   (e.g. `feathers;teeth_claws`).

@@ -50,7 +50,9 @@ requirement is **consent**.
   because Modules C/E/G are gated to hunted species.
 - [x] **"Other tool → specify"** free-text field added to Module C
   (`c_method_other_specify`).
-- [ ] **Consider dropping/renaming "Glue" (tool 13)** — 0 uses in the pilot.
+- [x] **Added "Axe" (tool 19)**; material (stone vs metal) goes in the notes.
+- [x] **Keep "Glue"** — zero pilot use, but the pilot is in Afore; glue is used
+  in other areas. Retained.
 - [ ] **GPS reliability check.** One device captured no GPS on either pilot
   interview — verify Location is enabled/allowed on each phone before roll-out;
   consider surfacing a clearer "Location is OFF" hint.
