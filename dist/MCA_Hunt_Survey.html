@@ -261,7 +261,7 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '2.0.0',
+  appVersion: '2.1.0',
 
   // --- Fixed species categories. Order is the canonical order used for every
   // grid row and every CSV column suffix. Edit here to refine. ---
@@ -276,6 +276,8 @@ const CONFIG = {
     { code: 'bats',          label: 'Bats' },
     { code: 'snake',         label: 'Snake' },
     { code: 'bushfowl',      label: 'Bushfowl' },
+    { code: 'cassowary',     label: 'Cassowary' },
+    { code: 'wild_pig',      label: 'Wild pig' },
   ],
 
   // --- Hunting tools/methods (1..18). Codes are strings to match the field-name
@@ -698,6 +700,8 @@ const SCHEMA = {
         { kind: 'note', text: 'Only the animals marked "ever hunted: yes" in Module B are shown. Tick every tool EVER used for each, then note any change over time below.' },
         { kind: 'grid_bool', name: 'c_method', rows: 'categories', cols: 'methods',
           nameFn: NAMES.method, rotateHeaders: true, gateHunted: true },
+        { kind: 'text', name: 'c_method_other_specify',
+          label: 'If you ticked "Other" (tool 18) for any animal, specify which tool(s)' },
         { kind: 'single', name: 'c_method_changed', label: 'Have the tools you use changed?',
           options: 'yes_no_notsure' },
         { kind: 'multi', name: 'c_method_changed_previous', label: 'Previous tool(s) used',
@@ -884,6 +888,7 @@ const EXPORTER = (function () {
 
     // Module C grid + trip questions (c_trip_style removed)
     cats().forEach((c) => methods().forEach((m) => add(NAMES.method(c, m), 'bool')));
+    add('c_method_other_specify');
     add('c_method_changed');
     add('c_method_changed_previous', 'multi');
     add('c_usual_company');

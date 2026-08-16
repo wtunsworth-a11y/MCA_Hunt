@@ -14,7 +14,7 @@
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '2.0.0',
+  appVersion: '2.1.0',
 
   // --- Fixed species categories. Order is the canonical order used for every
   // grid row and every CSV column suffix. Edit here to refine. ---
@@ -29,6 +29,8 @@ const CONFIG = {
     { code: 'bats',          label: 'Bats' },
     { code: 'snake',         label: 'Snake' },
     { code: 'bushfowl',      label: 'Bushfowl' },
+    { code: 'cassowary',     label: 'Cassowary' },
+    { code: 'wild_pig',      label: 'Wild pig' },
   ],
 
   // --- Hunting tools/methods (1..18). Codes are strings to match the field-name

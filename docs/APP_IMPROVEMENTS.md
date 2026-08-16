@@ -37,9 +37,11 @@ requirement is **consent**.
 
 ## P2 — from the pilot content
 
-- [ ] **Add species: wild pig and cassowary.** Written into the "other animal"
-  box in 3 of 5 pilot interviews. Consider promoting to fixed categories (config
-  change; propagates to all grids + exports).
+- [x] **Add species: wild pig and cassowary** (now 12 categories). Affordable
+  because Modules C/E/G are gated to hunted species.
+- [x] **"Other tool → specify"** free-text field added to Module C
+  (`c_method_other_specify`).
+- [ ] **Consider dropping/renaming "Glue" (tool 13)** — 0 uses in the pilot.
 - [ ] **GPS reliability check.** One device captured no GPS on either pilot
   interview — verify Location is enabled/allowed on each phone before roll-out;
   consider surfacing a clearer "Location is OFF" hint.

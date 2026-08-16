@@ -59,6 +59,7 @@ const EXPORTER = (function () {
 
     // Module C grid + trip questions (c_trip_style removed)
     cats().forEach((c) => methods().forEach((m) => add(NAMES.method(c, m), 'bool')));
+    add('c_method_other_specify');
     add('c_method_changed');
     add('c_method_changed_previous', 'multi');
     add('c_usual_company');
