@@ -40,7 +40,7 @@ k.push(new Paragraph({ spacing: { after: 160 }, children: [R('Managalas and Oro 
 k.push(P([R('This guide explains how to ask each question. Keep it with you. Use it with the app (or the paper form if the app is unavailable). The survey is about '), B('hunting only'), R(' — the taking of animals.')]));
 
 k.push(H1('Golden rules (read first)'));
-k.push(bullet([B('Consent first. '), R('Read the consent aloud. Only start if the person agrees. If they decline, cancel — nothing is saved.')]));
+k.push(bullet([B('Consent first. '), R('Read the consent aloud. If the person agrees, '), B('tick the consent box'), R(' and tap Start — the app will not start without it, and the consent is recorded with the interview. If they decline, cancel — nothing is saved.')]));
 k.push(bullet([B('Never record WHERE anyone hunts. '), R('The app records GPS of where you are sitting only. For fishing, the only place noted is the '), B('name of the main river'), R(' — no hunting locations, ever.')]));
 k.push(bullet([B('Any question can be left blank. '), R('If they don’t know or don’t want to answer, leave it and move on. Never pressure.')]));
 k.push(bullet([B('Write notes in English, in their words. '), R('For “verbatim” fields, write what they say — don’t summarise or tidy it.')]));
@@ -61,6 +61,7 @@ k.push(H1('Module A — Profile'));
 k.push(bullet([R('The '), B('Respondent ID'), R(' and '), B('GPS'), R(' are captured automatically. If GPS shows “missing”, carry on — it’s optional.')]));
 k.push(bullet([R('Record '), B('sex, age band, zone, ward, clan'), R('. The ID appears once you choose the zone.')]));
 k.push(bullet([B('Gate — Hunt, Fish, or Both? '), R('If '), B('“Fishes”'), R(', the app skips the hunting modules (B–I) and jumps to '), B('Fishing (Module J)'), R('. Use this for people (often women) who fish but don’t hunt. “Hunts” skips fishing; “Both” asks everything.')]));
+k.push(note([R('If you tap Next without a '), B('Zone'), R(' (needed for the ID) or without '), B('GPS'), R(', the app asks you to confirm — go back and fix if you can, but you can still continue.')]));
 k.push(H2('Hunting by age'));
 k.push(P([R('Ask, for each age band '), B('up to the respondent’s own age'), R(' (older bands are hidden): “At that age, how often did you hunt?”')]));
 k.push(note([B('Frequency — read the definitions: '), R(freq, {})]));

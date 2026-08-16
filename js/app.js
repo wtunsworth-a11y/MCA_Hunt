@@ -76,6 +76,8 @@
         : 'id-' + Date.now() + '-' + Math.random().toString(36).slice(2)),
       resp_id_code: '',
       resp_name: '',
+      consent_given: '',
+      consent_time: '',
       gps: null,
       gps_status: 'pending',
       gps_error: '',
@@ -171,6 +173,27 @@
     if (c.notEmpty) return !!(v && String(v).trim());
     if (c.includes) return Array.isArray(v) && v.includes(c.includes);
     return true;
+  }
+
+  // Soft, non-blocking warnings shown when leaving a module (the interviewer
+  // can still continue). Module A: Zone (drives the ID) and GPS. Module F:
+  // share allocations that were partly filled but don't total 10.
+  function moduleWarnings(mod) {
+    const w = [];
+    const d = state.current.data;
+    if (mod.id === 'A') {
+      if (!(d.zone && String(d.zone).trim())) w.push('No Zone chosen — this interview will have NO respondent ID.');
+      if (state.current.gps_status !== 'ok') w.push('GPS not captured yet — the interview location will be missing.');
+    }
+    if (mod.id === 'F') {
+      ['recent', 'successful'].forEach((trip) => {
+        const total = CONFIG.shareUses.reduce((s, u) => s + (parseInt(d[`f_${trip}_share_${u.key}`], 10) || 0), 0);
+        if (total > 0 && total !== CONFIG.shareTotal) {
+          w.push(`${trip === 'recent' ? 'Most recent' : 'Most successful'} trip shares add up to ${total}/${CONFIG.shareTotal}, not ${CONFIG.shareTotal}.`);
+        }
+      });
+    }
+    return w;
   }
 
   // Modules active for this interview, based on the Hunt/Fish/Both gate
@@ -559,9 +582,14 @@
       <div class="screen">
         <h2>Consent</h2>
         <div class="consent">${esc(CONFIG.consentScript).replace(/\n/g, '<br>')}</div>
+        <label class="opt consentcheck">
+          <input type="checkbox" id="consent-check">
+          <span>I read this aloud and the respondent <b>agreed</b> to take part.</span>
+        </label>
+        <div class="help">Tick the box to confirm consent. This is recorded with the interview.</div>
         <div class="navbtns">
-          <button class="btn danger" data-action="consent-decline">Consent declined — cancel</button>
-          <button class="btn primary" data-action="consent-give">Consent given — start</button>
+          <button class="btn danger" data-action="consent-decline">Declined — cancel</button>
+          <button class="btn primary" data-action="consent-give">Start interview</button>
         </div>
       </div>`;
   }
@@ -603,9 +631,18 @@
       if (v === '' || v == null) return '';
       return `<tr><td class="mono small">${esc(c.name)}</td><td>${esc(v)}</td></tr>`;
     }).filter(Boolean).join('');
+    const consentOk = r.consent_given === 'yes';
+    const gpsOk = r.gps_status === 'ok';
+    const flags = [];
+    if (!r.resp_id_code) flags.push('no respondent ID (Zone was blank)');
+    if (!gpsOk) flags.push('no GPS');
+    const flagHtml = flags.length
+      ? `<div class="review-consent miss">Check: ${esc(flags.join(' · '))}</div>` : '';
     $app().innerHTML = header() + `
       <div class="screen">
         <h2>Review — ${esc(r.resp_id_code || '(no ID)')}</h2>
+        <div class="review-consent ${consentOk ? 'ok' : 'miss'}">Consent recorded: ${consentOk ? 'YES' : 'NOT RECORDED'}</div>
+        ${flagHtml}
         <div class="help">Only answered fields are shown (${rowsHtml ? '' : 'none yet'}).</div>
         <table class="review"><tbody>${rowsHtml}</tbody></table>
         <div class="navbtns">
@@ -704,7 +741,11 @@
       case 'new': renderConsent(); return;
       case 'consent-decline': renderHome(); return; // no record saved
       case 'consent-give': {
+        const box = document.getElementById('consent-check');
+        if (!box || !box.checked) { alert('Please tick the consent box to confirm the respondent agreed.'); return; }
         state.current = newInterview();
+        state.current.consent_given = 'yes';
+        state.current.consent_time = new Date().toISOString();
         state.step = 0;
         await DB.put(state.current);
         captureGPS();
@@ -728,10 +769,14 @@
         if (state.step === 0) { renderHome(); }
         else { state.step--; state.current._step = state.step; save(); renderModule(); }
         return;
-      case 'next':
-        if (state.step === activeModules().length - 1) { renderReview(); }
+      case 'next': {
+        const mods = activeModules();
+        const warns = moduleWarnings(mods[state.step]);
+        if (warns.length && !confirm('Please check before moving on:\n\n• ' + warns.join('\n• ') + '\n\nContinue anyway?')) return;
+        if (state.step === mods.length - 1) { renderReview(); }
         else { state.step++; state.current._step = state.step; save(); renderModule(); }
         return;
+      }
       case 'goto-step':
         state.step = parseInt(a.dataset.step, 10);
         state.current._step = state.step; save(); renderModule();

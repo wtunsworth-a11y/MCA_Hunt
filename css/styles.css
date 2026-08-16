@@ -180,6 +180,10 @@ table.grid th.rot .lbl {
 
 /* Consent */
 .consent { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: .9rem; line-height: 1.55; }
+.consentcheck { margin-top: .8rem; border-color: var(--sel-line); }
+.review-consent { padding: .5rem .7rem; border-radius: 8px; margin: .4rem 0 .6rem; font-weight: 600; }
+.review-consent.ok { background: #d9f0e1; color: var(--green-d); }
+.review-consent.miss { background: #fbdedb; color: var(--red); }
 
 /* Review */
 table.review { width: 100%; border-collapse: collapse; margin-top: .5rem; }

@@ -130,6 +130,8 @@ const EXPORTER = (function () {
     add('fish_notes');
 
     // Metadata
+    add('consent_given', 'record');
+    add('consent_time', 'record');
     add('interviewer_id', 'record');
     add('interview_start_time', 'record');
     add('interview_end_time', 'record');
