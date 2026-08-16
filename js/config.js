@@ -14,7 +14,7 @@
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '2.1.0',
+  appVersion: '2.2.0',
 
   // --- Fixed species categories. Order is the canonical order used for every
   // grid row and every CSV column suffix. Edit here to refine. ---
@@ -53,7 +53,8 @@ const CONFIG = {
     { code: '15', label: 'Shotgun (factory-made)' },
     { code: '16', label: 'Shotgun (homemade)' },
     { code: '17', label: 'Spear gun' },
-    { code: '18', label: 'Other (specify)' },
+    { code: '18', label: 'Pitfall trap' },
+    { code: '19', label: 'Other (specify)' },
   ],
 
   // Month suffixes for Module E (jan..dec).

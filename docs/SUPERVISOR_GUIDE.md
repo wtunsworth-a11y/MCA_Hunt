@@ -98,7 +98,7 @@ needs to serve the files over `http(s)`, not be opened from disk.)*
 
 1. Interviewers export a **CSV** from their phone and send it to you (one file
    per phone, per export).
-2. Each CSV has the **same columns** (645 for the current 12 categories / 18
+2. Each CSV has the **same columns** (657 for the current 12 categories / 19
    methods), so you can stack all four phones' files together — keep the header
    from one, append the data rows from the others.
 3. Columns follow the flat, coded naming in Section 4 of the handover, matching
