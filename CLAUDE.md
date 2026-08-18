@@ -1,0 +1,41 @@
+# MCA Hunting Survey — working notes for Claude
+
+## Writing for research & survey outputs
+This is a scientific project. In every deliverable — briefs, reports, papers,
+data summaries, chat replies about the data — **report; do not sell.**
+
+- **No booster or self-congratulatory language.** Changing the instrument and
+  getting different data is not a finding. Don't celebrate coverage, effort, or
+  the survey itself.
+- **No confirmation-bias framing.** We collect data to find out, never to source
+  or confirm what we hoped to see. Never call a result "exactly what we're
+  looking for" or "what the project exists to understand."
+- **Don't project analytical frameworks onto people.** The 4 T's
+  (Target / Tool / Tenure / Timing) is an external comparative framework
+  (Pattiselanno et al., 2024), not an indigenous system — the ancestors did not
+  organise their lives around it. Name it as a researcher's lens and its source;
+  don't narrate what people "set out to" do.
+- **Cut the narration.** State the fact and stop. No throat-clearing, no
+  editorial framing around quotes, no explaining the significance of a change.
+- **State sample size and uncertainty plainly.** Prefer "X of Y report…" to
+  adjectives. Percentages carry their denominator.
+- **No group attribution as blame or virtue.** Fishing/hunting methods are
+  method-and-place observations only — never framed as a group's habit or fault
+  (this discourages interviewers from recording faithfully).
+- **Quotes verbatim, anonymised to zone.** No editorialising around them.
+
+If a draft slips into any of the above, cut it without being asked.
+
+## Data handling
+- The GitHub repo is **public** — survey data (the `mca_hunt_named_*.csv` exports
+  and any consolidated file) must **never** be committed here. It lives only in
+  the user's Google Drive **Survey Data** folder and in chat file transfers.
+- Consolidated datasets: dedupe on `interview_id`, align columns by name to the
+  current canonical layout (see `js/export.js`), keep the newest app-version
+  header.
+
+## App
+- Config-driven: `js/config.js` (species, methods, options, appVersion) is the
+  single source of truth; `js/schema.js` renders the form; `js/export.js` builds
+  the CSV columns. Keep the three in sync. Rebuild the single file with
+  `node build.js`. Docs are generated from `docs/generators/*.js`.
