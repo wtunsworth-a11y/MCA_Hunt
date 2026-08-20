@@ -33,6 +33,13 @@ If a draft slips into any of the above, cut it without being asked.
 - Consolidated datasets: dedupe on `interview_id`, align columns by name to the
   current canonical layout (see `js/export.js`), keep the newest app-version
   header.
+- **Survey phases** (apply to every analysis):
+  - **13 Aug = practice — exclude entirely.** Not real data.
+  - **15–16 Aug = pilot** (instrument development, app v2.0.0–2.3.0, mostly Zone
+    7B). Keep the records for provenance but report them separately from results,
+    never pooled with the main survey. Zone 7B is being re-collected on v2.5.0.
+  - **Main survey = app v2.5.0 (17 Aug onward).** Main analysis and paper results
+    run on v2.5.0 records only; this removes the app-version confound.
 
 ## App
 - Config-driven: `js/config.js` (species, methods, options, appVersion) is the
