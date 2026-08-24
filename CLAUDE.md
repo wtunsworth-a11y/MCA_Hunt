@@ -22,6 +22,13 @@ data summaries, chat replies about the data — **report; do not sell.**
 - **No group attribution as blame or virtue.** Fishing/hunting methods are
   method-and-place observations only — never framed as a group's habit or fault
   (this discourages interviewers from recording faithfully).
+- **Hunting and fishing are legitimate resource use by the landowners.** The
+  communities own the land and its resources; the take is theirs to make. Never
+  frame hunting, or the take of any species — including rare or IUCN-listed ones
+  — as bad, alarming, or a problem. Species and takes are neutral records;
+  conservation status is a factual attribute, not a judgement. Disapproving or
+  hand-wringing framing looks down on partners, alienates them, and stops data
+  flowing.
 - **Quotes verbatim, anonymised to zone.** No editorialising around them.
 
 If a draft slips into any of the above, cut it without being asked.
