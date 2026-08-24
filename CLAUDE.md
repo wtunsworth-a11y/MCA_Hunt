@@ -47,6 +47,15 @@ If a draft slips into any of the above, cut it without being asked.
     never pooled with the main survey. Zone 7B is being re-collected on v2.5.0.
   - **Main survey = app v2.5.0 (17 Aug onward).** Main analysis and paper results
     run on v2.5.0 records only; this removes the app-version confound.
+- **Codebook notes** (local meaning of recorded values):
+  - Fishing method `dynamite` is the **local name for a plant root fish poison**
+    (an ichthyotoxic plant), **not an explosive**. Keep the recorded value
+    `dynamite`; in every output gloss it as *plant root poison (locally called
+    "dynamite")*, and treat it as a plant-poison method, not blast fishing.
+  - `Pilai` (free-text "other animal") = **monitor lizard**.
+  - Echidna in Zone 6 (free-text "other animal") = **long-beaked echidna
+    (*Zaglossus*; likely *Z. bartoni* for mainland Oro — confirm species with a
+    specialist before publishing a name).**
 
 ## App
 - Config-driven: `js/config.js` (species, methods, options, appVersion) is the
