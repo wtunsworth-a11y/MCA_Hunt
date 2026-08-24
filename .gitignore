@@ -8,3 +8,14 @@ received_data/**/*.csv
 received_data/**/*.json
 received_data/*.csv
 received_data/*.json
+
+# Belt-and-braces: no interview exports / consolidated datasets anywhere
+**/mca_hunt*named*.csv
+**/*consolidated*.csv
+analysis/data/
+# Rendered deliverables carry verbatim quotes — keep out of the public repo
+*.pdf
+
+# Python bytecode
+__pycache__/
+*.pyc
