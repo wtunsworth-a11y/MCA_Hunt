@@ -45,6 +45,9 @@ If a draft slips into any of the above, cut it without being asked.
   - **15–16 Aug = pilot** (instrument development, app v2.0.0–2.3.0, mostly Zone
     7B). Keep the records for provenance but report them separately from results,
     never pooled with the main survey. Zone 7B is being re-collected on v2.5.0.
+    **Do not report the pilot data unless the user explicitly asks.** Default all
+    updates, highlights, figures and deliverables to the v2.5.0 main survey only;
+    consolidate/keep the pilot rows silently for provenance.
   - **Main survey = app v2.5.0 (17 Aug onward).** Main analysis and paper results
     run on v2.5.0 records only; this removes the app-version confound.
 - **Codebook notes** (local meaning of recorded values):
