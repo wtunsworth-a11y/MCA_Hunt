@@ -40,6 +40,11 @@ If a draft slips into any of the above, cut it without being asked.
 - Consolidated datasets: dedupe on `interview_id`, align columns by name to the
   current canonical layout (see `js/export.js`), keep the newest app-version
   header.
+- **The raw device exports in the Drive Survey Data folder are the lodged data
+  (source of truth).** Do not maintain a stored consolidated file in the Drive —
+  **regenerate the consolidated dataset on request** (from the raw exports) and
+  hand it over / use it for that task. Keep the folder's `_DATA_MANIFEST.md`
+  provenance record current when data materially changes.
 - **Survey phases** (apply to every analysis):
   - **13 Aug = practice — exclude entirely.** Not real data.
   - **15–16 Aug = pilot** (instrument development, app v2.0.0–2.3.0, mostly Zone
