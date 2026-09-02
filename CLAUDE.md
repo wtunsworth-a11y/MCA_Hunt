@@ -78,9 +78,21 @@ it could be ambiguous.
 
 ## Aristolochia survey (`aristolochia/`)
 A separate app and a separate dataset — the rules above are the hunting
-survey's and do not carry over. Sole surveyor: Avril Matawan. Exports go to the
-Drive folder **MCA_QABB_Avril** as two CSVs per day (`..._plots_*.csv`,
-`..._vines_*.csv`) linked by `plot_id`; dedupe on `plot_id`.
+survey's and do not carry over. Sole surveyor: Avril Matawan.
+
+- **Exports go to the Drive folder `MCA_QABB_Avril`, one combined CSV per day**
+  (`mca_aristolochia_named_<date>.csv`, app v1.2.0 onward): long format, one row
+  per vine, plot fields repeated on each of that plot's rows, a plot with no
+  vines getting one row with the vine columns blank.
+  - Rebuild the two analysis tables with
+    `node aristolochia/tools/rebuild_tables.js <files> --out DIR` — it dedupes
+    plots on `plot_id` (latest `updated_at` wins) and recomputes the vine
+    summary columns, which are deliberately absent from the sent file.
+  - **Duplicate uploads are normal.** Drive keeps each send as a new file rather
+    than overwriting, and the app asks the surveyor to re-send when unsure a
+    file arrived. The rebuild collapses them; never treat a repeat as new data.
+  - Earlier practice files from v1.0.0/v1.1.0 are the older two-file shape
+    (`..._plots_*.csv` + `..._vines_*.csv`).
 
 - **Practice data — exclude from analysis.** Records collected by Avril **in
   Popondetta town** (GPS around −8.76, 148.24) are practice on the app, not
