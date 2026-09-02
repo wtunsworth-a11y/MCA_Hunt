@@ -19,6 +19,7 @@
   // --- Local device / surveyor identity (localStorage) ---------------------
   const LS = {
     surveyor: 'mca_aris_surveyor',
+    updateReload: 'mca_aris_update_reload',
     device: 'mca_aris_device_prefix',
     seq: 'mca_aris_seq',
   };
@@ -364,8 +365,15 @@
                data-vine="${esc(s.key)}_count" data-idx="${i}"
                value="${esc(v[s.key + '_count'])}"></div>`
         : '';
+      // A caterpillar on a vine does not mean the egg was laid there — larvae
+      // get moved. Ask, and only when there is a caterpillar to ask about.
+      const origin = (s.origin && cur === 'yes')
+        ? `<div class="followup"><div class="q small">${esc(s.origin.label)}</div>
+             ${selectVine(i, s.origin.field, SCHEMA.resolveOptions(s.origin.options),
+                          v[s.origin.field], '— not asked —')}</div>`
+        : '';
       return `<div class="signrow"><div class="q small">${esc(s.label)}</div>
-        <div class="options inline">${yesNo}</div>${count}</div>`;
+        <div class="options inline">${yesNo}</div>${count}${origin}</div>`;
     }).join('');
 
     // Species identification is only asked where there is something to identify.
@@ -381,6 +389,8 @@
       <div class="field"><div class="q small">Tree DBH (cm)</div>
         <input class="txt num" type="number" inputmode="decimal" min="0" step="0.1"
           data-vine="dbh_cm" data-idx="${i}" value="${esc(v.dbh_cm)}" placeholder="diameter at breast height"></div>
+      <div class="field"><div class="q small">Ask the farmer: was this vine planted, or did it grow by itself?</div>
+        ${selectVine(i, 'vine_origin', CONFIG.options.vine_origin, v.vine_origin, '— not asked —')}</div>
       ${signs}
       ${species}
       <div class="field"><div class="q small">Notes on this vine (optional)</div>
@@ -435,7 +445,7 @@
     return `<div class="topbar">
       <div class="brand">MCA Aristolochia Survey</div>
       <div class="who">${esc(surveyorId() || '')} <button class="btn tiny ghost" data-action="change-surveyor">change</button></div>
-    </div>`;
+    </div>` + updateBannerHtml();
   }
 
   function statusBadge(r) {
@@ -455,6 +465,9 @@
 
   async function renderHome() {
     state.view = 'home';
+    // An update that became ready mid-plot restarts once we are safely home.
+    // Promoted before the HTML is built so the banner is right on first paint.
+    if (update.available && update.state === 'wait') promoteUpdate();
     const list = await DB.getAll();
     const today = todayLocal();
     const done = exportable(list);
@@ -489,8 +502,8 @@
           <button class="btn primary" data-action="send-today">Send today’s data</button>
           <a class="drivelink" href="${esc(CONFIG.driveFolderUrl)}" target="_blank" rel="noopener">
             Open the ${esc(CONFIG.driveFolderName)} folder in Drive →</a>
-          <div class="help">One tap. Choose <b>Drive</b> on the share sheet and save into
-            ${esc(CONFIG.driveFolderName)}. Both files — plots and vines — go together.</div>
+          <div class="help">One tap, one file. Choose <b>Drive</b> on the share sheet and
+            save into ${esc(CONFIG.driveFolderName)}.</div>
         </div>
         ${backlog}
 
@@ -502,6 +515,7 @@
           <div class="exportbar">
             <button class="btn" data-action="send-pending">Send everything not yet sent</button>
             <button class="btn" data-action="export-today">Download today’s data</button>
+            <button class="btn" data-action="export-tables">Download as two tables (plots + vines)</button>
             <button class="btn" data-action="export-all">Download all data (re-export)</button>
             <button class="btn ghost" data-action="export-json">Download JSON (raw)</button>
             <button class="btn ghost" data-action="export-anon">Export without farmer names</button>
@@ -611,8 +625,15 @@
         const sp = v.species && v.species !== 'unknown'
           ? (CONFIG.options.birdwing_species.find((x) => x.code === v.species) || {}).label : '';
         const tree = v.host_tree === 'other' ? v.host_tree_other : v.host_tree;
+        const label = (set, code) => {
+          const o = (CONFIG.options[set] || []).find((x) => x.code === code);
+          return o ? o.label : '';
+        };
+        const extra = [label('vine_origin', v.vine_origin),
+                       label('caterpillar_origin', v.caterpillar_origin)]
+          .filter(Boolean).join(' · ');
         return `<tr><td class="mono small">Vine ${i + 1}</td><td>${esc(tree || '(tree not named)')}${v.dbh_cm ? ` · DBH ${esc(v.dbh_cm)} cm` : ''}<br>
-          <span class="small">${esc(signs)}${sp ? ' · ' + esc(sp) : ''}</span></td></tr>`;
+          <span class="small">${esc(signs)}${sp ? ' · ' + esc(sp) : ''}</span>${extra ? `<br><span class="small">${esc(extra)}</span>` : ''}</td></tr>`;
       }).join('')}</tbody></table>` : '';
 
     const flags = completeWarnings();
@@ -668,7 +689,10 @@
       v[key] = t.value;
       // Clearing a sign to "No" drops a count that would otherwise contradict it.
       const sign = CONFIG.vineSigns.find((s) => s.key === key);
-      if (sign && sign.counted && t.value !== 'yes') v[key + '_count'] = '';
+      if (sign && t.value !== 'yes') {
+        if (sign.counted) v[key + '_count'] = '';
+        if (sign.origin) v[sign.origin.field] = '';   // follow-up no longer applies
+      }
       save();
       if (state.view === 'module') {
         // Radio/select choices reveal or hide fields, so they need the section
@@ -806,6 +830,7 @@
       case 'export-today':   return doExport({ scope: 'today' });
       case 'export-pending': return doExport({ scope: 'pending' });
       case 'export-all':     return doExport({ scope: 'all' });
+      case 'export-tables':  return doExport({ scope: 'all', kind: 'tables' });
       case 'export-anon':    return doExport({ scope: 'all', includeName: false });
       case 'export-json':    return doExport({ scope: 'all', kind: 'json' });
     }
@@ -828,8 +853,19 @@
     return done;
   }
 
-  // Build the day's files once, so Send and Download cannot diverge.
+  // The day goes as ONE file. Two files can half-arrive, and a half-arrival is
+  // indistinguishable from success at the sending end — which is exactly what
+  // happened on the first real send. The plots and vines tables are rebuilt
+  // from this file with tools/rebuild_tables.js.
   function buildFiles(records, includeName, stamp) {
+    const tag = includeName ? 'named' : 'anon';
+    return [{ name: `mca_aristolochia_${tag}_${stamp}.csv`,
+              body: EXPORTER.combinedCSV(records, includeName) }];
+  }
+
+  // The two-table form, kept for analysis convenience under Other export
+  // options. Never the thing that gets sent.
+  function buildTableFiles(records, includeName, stamp) {
     const tag = includeName ? 'named' : 'anon';
     return [
       { name: `mca_aristolochia_plots_${tag}_${stamp}.csv`,
@@ -865,15 +901,15 @@
         // file of the two) looks identical to success here. So the plots are
         // marked exported only once the surveyor confirms both files landed;
         // otherwise they stay pending and the home screen keeps asking.
-        const bothSaved = confirm(
-          `Did BOTH files save to ${CONFIG.driveFolderName}?\n\n`
+        const saved = confirm(
+          `Did the file save to ${CONFIG.driveFolderName}?\n\n`
           + built.map((f) => '• ' + f.name).join('\n')
-          + '\n\nTap Cancel if only one saved, or if you are not sure — '
-          + 'the plots stay marked “not exported” so you can send again.');
-        if (bothSaved) await markExported(records);
+          + '\n\nTap Cancel if you are not sure — the plots stay marked '
+          + '“not exported” so you can simply send again.');
+        if (saved) await markExported(records);
         if (state.view === 'home') renderHome();
-        if (!bothSaved) {
-          alert('Left as NOT exported.\n\nTap “Send today’s data” again, and save both files this time.');
+        if (!saved) {
+          alert('Left as NOT exported.\n\nTap “Send today’s data” again when you are ready.');
         }
         return;
       }
@@ -886,7 +922,7 @@
     await downloadFiles(built);
     await markExported(records);
     if (state.view === 'home') renderHome();
-    alert(`Sharing isn’t available on this phone, so ${built.length} files were downloaded instead.\n\nUpload them to ${CONFIG.driveFolderName} from your Downloads folder.`);
+    alert(`Sharing isn’t available on this phone, so the file was downloaded instead.\n\nUpload it to ${CONFIG.driveFolderName} from your Downloads folder.`);
   }
 
   async function downloadFiles(built) {
@@ -915,6 +951,8 @@
       const tag = includeName ? 'named' : 'anon';
       EXPORTER.download(`mca_aristolochia_${tag}_${stamp}.json`,
         EXPORTER.toJSON(records, includeName), 'application/json');
+    } else if (opts.kind === 'tables') {
+      await downloadFiles(buildTableFiles(records, includeName, stamp));
     } else {
       await downloadFiles(buildFiles(records, includeName, stamp));
     }
@@ -922,6 +960,103 @@
     await markExported(records);
     if (state.view === 'home') renderHome();
     alert(`Exported ${records.length} plot${records.length === 1 ? '' : 's'}.\n\nNow save the file(s) into the ${CONFIG.driveFolderName} folder in Drive.`);
+  }
+
+  // --- Update check --------------------------------------------------------
+  // A running PWA keeps serving the cached build until the service worker has
+  // fetched the new one, so a device can sit on an old version without knowing.
+  // version.json is written by build.js from the same appVersion that is
+  // stamped into records, so comparing against it is exact.
+  //
+  // Only meaningful for the hosted build: the single file opened from disk has
+  // no version.json to fetch and nothing to update to.
+  const update = { available: false, version: '', state: '' };
+
+  // Rendered as part of header(), so it survives every screen re-render.
+  function updateBannerHtml() {
+    if (!update.available) return '';
+    let msg;
+    if (update.state === 'ready') {
+      msg = `Update ready (v${esc(update.version)}). Restarting…`;
+    } else if (update.state === 'wait') {
+      msg = `Update ready (v${esc(update.version)}). It will install when you finish this plot and return to the home screen.`;
+    } else if (update.state === 'stuck') {
+      msg = `Update available (v${esc(update.version)}) but it has not installed. <b>Stay online</b>, then fully close the app and open it again.`;
+    } else {
+      msg = `Update available (v${esc(update.version)}). <b>Stay online and leave the app open</b> until this finishes — do not close it or turn data off.`;
+    }
+    return `<div class="updatebar ${update.state === 'ready' ? 'ready' : ''}">${msg}</div>`;
+  }
+
+  // Repaint the current screen so the banner reflects the new state.
+  function renderUpdateBanner() {
+    if (state.view === 'module') renderModule(true);
+    else if (state.view === 'home') renderHome();
+    else if (state.view === 'review') renderReview();
+  }
+
+  // Reloading mid-form would throw the surveyor out of a plot, so the restart
+  // waits until they are back on the home screen. Entries autosave regardless.
+  //
+  // A restart is attempted at most once per version: if the app comes back and
+  // still sees the same newer version, reloading again would loop forever
+  // (cached build not replaced, or a version.json published ahead of the code).
+  // In that case say so and let the surveyor close and reopen instead.
+  // Decides what a ready update should do, WITHOUT rendering — so the home
+  // screen can call it mid-render and paint the right message first time,
+  // instead of flashing "finish this plot" while already on the home screen.
+  function promoteUpdate() {
+    if (localStorage.getItem(LS.updateReload) === update.version) {
+      update.state = 'stuck';
+      return;
+    }
+    if (state.view !== 'home') { update.state = 'wait'; return; }
+    update.state = 'ready';
+    localStorage.setItem(LS.updateReload, update.version);
+    setTimeout(() => location.reload(), 1200);
+  }
+
+  function applyUpdateWhenSafe() {
+    promoteUpdate();
+    renderUpdateBanner();
+  }
+
+  async function checkForUpdate() {
+    if (!location.protocol.startsWith('http')) return; // file:// build
+    if (!navigator.onLine) return;
+    let remote;
+    try {
+      const res = await fetch('version.json', { cache: 'no-store' });
+      if (!res.ok) return;
+      remote = (await res.json()).appVersion;
+    } catch (e) { return; }              // offline or blocked: say nothing
+    if (!remote) return;
+    if (remote === CONFIG.appVersion) {
+      // Running the published version: clear any restart marker from before.
+      localStorage.removeItem(LS.updateReload);
+      return;
+    }
+
+    update.available = true;
+    update.version = remote;
+    update.state = 'downloading';
+    renderUpdateBanner();
+
+    // Ask the service worker to fetch the new build, then restart into it.
+    if (!('serviceWorker' in navigator)) return;
+    try {
+      const reg = await navigator.serviceWorker.getRegistration();
+      if (!reg) return;
+      navigator.serviceWorker.addEventListener('controllerchange', applyUpdateWhenSafe);
+      reg.addEventListener('updatefound', () => {
+        const sw = reg.installing;
+        if (!sw) return;
+        sw.addEventListener('statechange', () => {
+          if (sw.state === 'installed' || sw.state === 'activated') applyUpdateWhenSafe();
+        });
+      });
+      await reg.update();
+    } catch (e) { /* leave the banner up; it will retry on the next open */ }
   }
 
   // --- Bootstrap -----------------------------------------------------------
@@ -932,6 +1067,9 @@
     document.addEventListener('input', onInput);
     document.addEventListener('click', onClick);
     if (!surveyorId()) renderSurveyorSetup(); else renderHome();
+
+    checkForUpdate();
+    window.addEventListener('online', checkForUpdate);
 
     // Only register the service worker for the hosted build (http/https). The
     // single-file build opened from disk (file://) is already fully offline.

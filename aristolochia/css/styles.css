@@ -234,6 +234,8 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
 .vine .txt.num { max-width: 9rem; }
 .countrow { display: flex; align-items: center; gap: .5rem; margin-top: .45rem; }
 .countrow label { font-size: .9rem; color: var(--muted); }
+.followup { margin-top: .5rem; padding-left: .7rem; border-left: 2px solid var(--sel-line); }
+.followup .q { margin-bottom: .3rem; }
 .vtag {
   font-weight: 400; font-size: .8rem; color: var(--muted);
   border: 1px solid var(--line); border-radius: 999px; padding: 0 .45rem; margin-left: .35rem;
@@ -263,3 +265,13 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
   border-radius: var(--radius); padding: .6rem .7rem; margin: .6rem 0; font-size: .95rem;
 }
 .warnbox div + div { margin-top: .3rem; }
+
+/* Update banner — sits under the top bar on every screen while a new build is
+   being fetched, and while a ready update waits for a safe moment to restart. */
+.updatebar {
+  background: #fff6e5; border-bottom: 1px solid #e8cf9a; color: #6d4b00;
+  padding: .55rem .9rem; font-size: .92rem; line-height: 1.35;
+  position: sticky; top: 0; z-index: 19;
+}
+.updatebar b { font-weight: 700; }
+.updatebar.ready { background: var(--sel); border-bottom-color: var(--sel-line); color: var(--accent-d); }

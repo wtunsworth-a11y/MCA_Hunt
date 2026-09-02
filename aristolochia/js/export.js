@@ -177,6 +177,41 @@ const EXPORTER = (function () {
     return lines.join('\r\n');
   }
 
+  // --- Combined long format: one file, one row per vine ---------------------
+  // What the app sends. Two files can half-arrive and a half-arrival is
+  // indistinguishable from success at the sending end, so the day goes as one
+  // file and the two tables are rebuilt from it (tools/rebuild_tables.js).
+  //
+  // Plot fields repeat on each of that plot's vine rows; a plot with no vines
+  // gets one row with the vine columns blank. Summary columns are deliberately
+  // NOT carried — they are derived from the vine rows, and storing them again
+  // only creates a way for the file to contradict itself.
+  function buildCombinedColumns() {
+    return {
+      plotCols: buildPlotColumns().filter((c) => c.source !== 'summary'),
+      vineCols: ['vine_no'].concat(SCHEMA.VINE_FIELDS),
+    };
+  }
+
+  function combinedCSV(records, includeName) {
+    const { plotCols, vineCols } = buildCombinedColumns();
+    const lines = [plotCols.map((c) => c.name).concat(vineCols).map(csvCell).join(',')];
+    records.forEach((r) => {
+      const base = plotCols.map((c) => csvCell(plotValue(r, c, includeName)));
+      const vines = realVines(r);
+      if (!vines.length) {
+        lines.push(base.concat(vineCols.map(() => '')).join(','));
+        return;
+      }
+      vines.forEach((v, i) => {
+        const vals = vineCols.map((c) => csvCell(
+          c === 'vine_no' ? String(i + 1) : (v[c] == null ? '' : String(v[c]))));
+        lines.push(base.concat(vals).join(','));
+      });
+    });
+    return lines.join('\r\n');
+  }
+
   function toJSON(records, includeName) {
     const clean = records.map((r) => {
       const copy = JSON.parse(JSON.stringify(r));
@@ -203,9 +238,9 @@ const EXPORTER = (function () {
   }
 
   return {
-    buildPlotColumns, buildVineColumns, plotValue, summaryValue,
-    realVines, vineHasContent,
-    plotsCSV, vinesCSV, toJSON, download, timestamp,
+    buildPlotColumns, buildVineColumns, buildCombinedColumns,
+    plotValue, summaryValue, realVines, vineHasContent,
+    plotsCSV, vinesCSV, combinedCSV, toJSON, download, timestamp,
   };
 })();
 

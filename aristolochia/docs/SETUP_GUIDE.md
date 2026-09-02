@@ -123,6 +123,11 @@ If that all works, the app is ready for the field.
      there is a caterpillar, an egg, or signs of leaves being eaten. A count box
      appears when you answer **Yes** — fill it in if you can count them, leave it
      blank if you cannot.
+   - **Ask the farmer whether the vine was planted or grew by itself.** People do
+     plant Aristolochia, so finding one does not mean it came up on its own.
+   - **If there is a caterpillar, ask whether the egg was laid on that vine or
+     the caterpillar was moved there.** Caterpillars get moved between vines.
+     This question only appears once you answer Yes to a caterpillar.
    - The **butterfly species** question only appears once you have recorded a
      caterpillar, egg or feeding sign. **Only choose *O. priamus* or
      *O. alexandrae* if you are sure.** If you are not sure, leave it as
@@ -144,28 +149,23 @@ You need internet for this step.
    completed and how many are **not yet exported**.
 2. Tap **Send today's data**. That is the only button you need.
 3. The phone's share sheet opens. Choose **Drive**, pick the
-   **MCA_QABB_Avril** folder, and save. **Save BOTH files** — Drive may ask you
-   once per file.
-4. The app asks **"Did BOTH files save?"**
+   **MCA_QABB_Avril** folder, and save.
+4. The app asks **"Did the file save?"**
    - **OK** — the plots are marked exported.
-   - **Cancel** — if only one saved, or you are not sure. The plots stay marked
-     *not exported* so you can simply tap Send again. Nothing is lost either way.
+   - **Cancel** — if you are not sure. The plots stay marked *not exported* so
+     you can simply tap Send again. Nothing is lost either way.
 5. Check the home screen now says **0 not yet exported**.
 
-Two files are sent together in that one tap:
-
-- `mca_aristolochia_plots_<date>.csv` — one row per plot
-- `mca_aristolochia_vines_<date>.csv` — one row per vine
-
-They are separate because a plot can have any number of vines. Keep both — the
-office needs the pair. If only one saves, answer **Cancel** and send again: the
-app never deletes a plot after exporting, so re-sending is always safe.
+It is **one file**: `mca_aristolochia_named_<date>.csv`. It holds the plots and
+their vines together, and the office splits it back into two tables. Sending the
+same day twice is harmless — the app never deletes a plot after exporting, so
+when in doubt, send again.
 
 **The share sheet needs the link install.** Android only offers it to a page
 served over the internet, so if you installed from the **file** it will not
-appear — the app downloads the two files instead and tells you so. Then upload
-them to the folder from your **Downloads** with the Google Drive app. This is the
-main reason to prefer the link.
+appear — the app downloads the file instead and tells you so. Then upload it to
+the folder from your **Downloads** with the Google Drive app. This is the main
+reason to prefer the link.
 
 Only plots you marked **Complete** are exported. A plot still in progress is
 held back until you finish it.
@@ -175,6 +175,19 @@ older plots have not been sent. Use **Other export options → Export everything
 not yet sent** to catch up.
 
 ---
+
+## When the app says there is an update
+
+If a yellow bar appears saying **"Update available"**:
+
+- **Stay online and leave the app open** until it finishes. It downloads the new
+  version and restarts itself.
+- It will not interrupt you mid-plot. If you are recording, it waits until you
+  finish and return to the home screen.
+- If the bar says the update **has not installed**, stay online, then fully close
+  the app and open it again.
+
+Your saved plots are never affected by an update.
 
 ## Protecting the data
 

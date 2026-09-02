@@ -50,6 +50,14 @@ ${js}
 </html>
 `;
 
+// version.json is what a running app fetches to notice a new release. Written
+// from config.js here so it cannot drift from the version stamped into records.
+const appVersion = (read('js/config.js').match(/appVersion:\s*'([^']+)'/) || [])[1];
+if (!appVersion) throw new Error('build.js: could not read appVersion from js/config.js');
+fs.writeFileSync(path.join(__dirname, 'version.json'),
+  JSON.stringify({ appVersion }, null, 2) + '\n');
+console.log('Wrote version.json (' + appVersion + ')');
+
 const outDir = path.join(__dirname, 'dist');
 if (!fs.existsSync(outDir)) fs.mkdirSync(outDir);
 const outFile = path.join(outDir, 'MCA_Aristolochia_Survey.html');

@@ -65,7 +65,9 @@ Per vine, when Aristolochia is present:
 | --- | --- |
 | Host tree species | free text by default (see `CONFIG.hostTrees` below) |
 | Tree DBH (cm) | |
+| Vine planted or wild | **asked of the farmer** — people do plant Aristolochia, so a vine's presence is not evidence of natural occurrence |
 | Caterpillar seen | yes/no, plus an optional count |
+| Egg laid here, or caterpillar moved here | **asked of the farmer**, only when a caterpillar is present — larvae get moved between vines |
 | Egg seen | yes/no, plus an optional count |
 | Signs of leaves eaten | yes/no |
 | Butterfly species | *O. priamus* / *O. alexandrae* / other / not identified — asked only where a caterpillar, egg or feeding sign was recorded |
@@ -76,21 +78,60 @@ identified stays `unknown` rather than being forced to a species.
 
 ## Export and daily upload
 
-Uploading is manual, and one tap. **Send today's data** hands both CSVs to the
-phone's share sheet in a single share action, so they can go straight into the
-Drive folder; where file sharing is unavailable (desktop, or the app opened from
-disk) it downloads them instead and says so. The two files are linked by
-`plot_id`:
+Uploading is manual, and one tap. **Send today's data** hands **one file** to
+the phone's share sheet, so it can go straight into the Drive folder; where file
+sharing is unavailable (desktop, or the app opened from disk) it downloads
+instead and says so.
 
-- `mca_aristolochia_plots_named_<date>.csv` — one row per plot, including the
-  derived fallow age and per-plot vine summary counts.
-- `mca_aristolochia_vines_<date>.csv` — one row per vine, with the plot's
-  identifiers denormalised onto it so the file stands alone in analysis.
+`mca_aristolochia_named_<date>.csv` is the combined long format: **one row per
+vine**, with the plot's fields repeated on each of its rows, and a plot with no
+vines getting one row with the vine columns blank.
+
+**Why one file and not two.** Two files can half-arrive, and a half-arrival is
+indistinguishable from success at the sending end — `navigator.share()` resolves
+when the files reach the share sheet, not when the receiving app has saved them.
+That happened on the first real send: the plots file landed and the vines file
+did not, while the app reported everything exported. One file either arrives or
+it does not.
+
+The plot-level summary columns (`vine_count`, `vines_with_*`, `*_total`,
+`vines_species_*`) are **not** carried in the sent file. They are derived from
+the vine rows, and storing them again only creates a way for the file to
+contradict itself.
+
+### Rebuilding the two tables
+
+```
+node tools/rebuild_tables.js <combined.csv ...> --out DIR
+```
+
+writes `plots.csv` (one row per plot, summary columns recomputed) and
+`vines.csv` (one row per vine) from any number of daily files. Plots dedupe on
+`plot_id` keeping the latest `updated_at`, and repeated uploads of the same day
+collapse — Drive keeps each send as a new file rather than overwriting, so
+duplicates are normal.
+
+The two-table form is also available in the app under **Other export options →
+Download as two tables**; it is never what gets sent.
 
 The home screen links to the Google Drive folder (`CONFIG.driveFolderUrl`),
 shows how many of today's plots are still unexported, and warns when completed
 plots from earlier days have not been sent. Download-only variants stay under
 **Other export options**, off the daily path.
+
+Because a share resolving does not prove the file was saved, the app asks
+whether it reached Drive and marks the plots exported **only on confirmation**.
+Answer no and they stay pending. Records are never deleted after export, so
+re-sending is always safe.
+
+### Update notice
+
+`build.js` writes `version.json` from the same `appVersion` stamped into
+records. A running app fetches it when online; on a mismatch it shows a banner
+telling the surveyor to stay online while the new build downloads, then restarts
+itself — but only from the home screen, never mid-plot. A restart is attempted
+at most once per version, so a `version.json` published ahead of the code cannot
+cause a reload loop; the banner then asks them to close and reopen instead.
 
 Only plots marked **Complete** are exported; an in-progress plot is held back so
 a half-entered record is never filed as data.

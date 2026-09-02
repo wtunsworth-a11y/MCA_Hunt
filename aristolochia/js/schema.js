@@ -13,10 +13,11 @@
 // --- Vine sub-record: the ordered key list shared by renderer and exporter.
 // `count` keys only apply where CONFIG.vineSigns marks the sign as counted.
 const VINE_FIELDS = (function () {
-  const f = ['host_tree', 'host_tree_other', 'dbh_cm'];
+  const f = ['host_tree', 'host_tree_other', 'dbh_cm', 'vine_origin'];
   CONFIG.vineSigns.forEach((s) => {
     f.push(s.key);
     if (s.counted) f.push(s.key + '_count');
+    if (s.origin) f.push(s.origin.field);   // follow-up, asked only on "yes"
   });
   f.push('species', 'notes');
   return f;

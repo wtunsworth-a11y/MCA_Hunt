@@ -244,6 +244,8 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
 .vine .txt.num { max-width: 9rem; }
 .countrow { display: flex; align-items: center; gap: .5rem; margin-top: .45rem; }
 .countrow label { font-size: .9rem; color: var(--muted); }
+.followup { margin-top: .5rem; padding-left: .7rem; border-left: 2px solid var(--sel-line); }
+.followup .q { margin-bottom: .3rem; }
 .vtag {
   font-weight: 400; font-size: .8rem; color: var(--muted);
   border: 1px solid var(--line); border-radius: 999px; padding: 0 .45rem; margin-left: .35rem;
@@ -273,6 +275,16 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
   border-radius: var(--radius); padding: .6rem .7rem; margin: .6rem 0; font-size: .95rem;
 }
 .warnbox div + div { margin-top: .3rem; }
+
+/* Update banner — sits under the top bar on every screen while a new build is
+   being fetched, and while a ready update waits for a safe moment to restart. */
+.updatebar {
+  background: #fff6e5; border-bottom: 1px solid #e8cf9a; color: #6d4b00;
+  padding: .55rem .9rem; font-size: .92rem; line-height: 1.35;
+  position: sticky; top: 0; z-index: 19;
+}
+.updatebar b { font-weight: 700; }
+.updatebar.ready { background: var(--sel); border-bottom-color: var(--sel-line); color: var(--accent-d); }
 
   </style>
 </head>
@@ -334,7 +346,7 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '1.1.0',
+  appVersion: '1.3.0',
 
   // Google Drive folder the day's exports are filed into. Shown on the export
   // screen as a tappable link; the app does not upload by itself.
@@ -404,6 +416,20 @@ const CONFIG = {
       { code: 'abandoned',  label: 'Abandoned (in fallow)' },
       { code: 'still_used', label: 'Still being gardened' },
     ],
+    // Asked of the farmer for every vine. People do plant Aristolochia, so a
+    // vine's presence is not evidence of natural occurrence on its own.
+    vine_origin: [
+      { code: 'planted',  label: 'Planted by people' },
+      { code: 'wild',     label: 'Grew by itself' },
+      { code: 'not_sure', label: 'Not sure' },
+    ],
+    // Asked of the farmer when a caterpillar is on the vine. Larvae are moved
+    // between vines, so a caterpillar here does not mean an egg was laid here.
+    caterpillar_origin: [
+      { code: 'egg_laid_here', label: 'Egg was laid on this vine' },
+      { code: 'moved_here',    label: 'Caterpillar was moved here' },
+      { code: 'not_sure',      label: 'Not sure' },
+    ],
     // Recorded per vine, "where possible" — an unidentified caterpillar or egg
     // stays `unknown` rather than being forced to a species.
     birdwing_species: [
@@ -445,7 +471,10 @@ const CONFIG = {
   // The three occupancy observations made on every vine. `key` is the field
   // suffix; the exporter and the renderer both walk this list.
   vineSigns: [
-    { key: 'caterpillar', label: 'Caterpillar seen', counted: true },
+    { key: 'caterpillar', label: 'Caterpillar seen', counted: true,
+      // Follow-up asked only when this sign is answered "yes".
+      origin: { field: 'caterpillar_origin', options: 'caterpillar_origin',
+                label: 'Ask the farmer: was the egg laid on this vine, or was the caterpillar moved here?' } },
     { key: 'egg',         label: 'Egg seen',         counted: true },
     { key: 'feeding',     label: 'Signs of leaves eaten', counted: false },
   ],
@@ -558,10 +587,11 @@ window.DB = DB;
 // --- Vine sub-record: the ordered key list shared by renderer and exporter.
 // `count` keys only apply where CONFIG.vineSigns marks the sign as counted.
 const VINE_FIELDS = (function () {
-  const f = ['host_tree', 'host_tree_other', 'dbh_cm'];
+  const f = ['host_tree', 'host_tree_other', 'dbh_cm', 'vine_origin'];
   CONFIG.vineSigns.forEach((s) => {
     f.push(s.key);
     if (s.counted) f.push(s.key + '_count');
+    if (s.origin) f.push(s.origin.field);   // follow-up, asked only on "yes"
   });
   f.push('species', 'notes');
   return f;
@@ -872,6 +902,41 @@ const EXPORTER = (function () {
     return lines.join('\r\n');
   }
 
+  // --- Combined long format: one file, one row per vine ---------------------
+  // What the app sends. Two files can half-arrive and a half-arrival is
+  // indistinguishable from success at the sending end, so the day goes as one
+  // file and the two tables are rebuilt from it (tools/rebuild_tables.js).
+  //
+  // Plot fields repeat on each of that plot's vine rows; a plot with no vines
+  // gets one row with the vine columns blank. Summary columns are deliberately
+  // NOT carried — they are derived from the vine rows, and storing them again
+  // only creates a way for the file to contradict itself.
+  function buildCombinedColumns() {
+    return {
+      plotCols: buildPlotColumns().filter((c) => c.source !== 'summary'),
+      vineCols: ['vine_no'].concat(SCHEMA.VINE_FIELDS),
+    };
+  }
+
+  function combinedCSV(records, includeName) {
+    const { plotCols, vineCols } = buildCombinedColumns();
+    const lines = [plotCols.map((c) => c.name).concat(vineCols).map(csvCell).join(',')];
+    records.forEach((r) => {
+      const base = plotCols.map((c) => csvCell(plotValue(r, c, includeName)));
+      const vines = realVines(r);
+      if (!vines.length) {
+        lines.push(base.concat(vineCols.map(() => '')).join(','));
+        return;
+      }
+      vines.forEach((v, i) => {
+        const vals = vineCols.map((c) => csvCell(
+          c === 'vine_no' ? String(i + 1) : (v[c] == null ? '' : String(v[c]))));
+        lines.push(base.concat(vals).join(','));
+      });
+    });
+    return lines.join('\r\n');
+  }
+
   function toJSON(records, includeName) {
     const clean = records.map((r) => {
       const copy = JSON.parse(JSON.stringify(r));
@@ -898,9 +963,9 @@ const EXPORTER = (function () {
   }
 
   return {
-    buildPlotColumns, buildVineColumns, plotValue, summaryValue,
-    realVines, vineHasContent,
-    plotsCSV, vinesCSV, toJSON, download, timestamp,
+    buildPlotColumns, buildVineColumns, buildCombinedColumns,
+    plotValue, summaryValue, realVines, vineHasContent,
+    plotsCSV, vinesCSV, combinedCSV, toJSON, download, timestamp,
   };
 })();
 
@@ -928,6 +993,7 @@ window.EXPORTER = EXPORTER;
   // --- Local device / surveyor identity (localStorage) ---------------------
   const LS = {
     surveyor: 'mca_aris_surveyor',
+    updateReload: 'mca_aris_update_reload',
     device: 'mca_aris_device_prefix',
     seq: 'mca_aris_seq',
   };
@@ -1273,8 +1339,15 @@ window.EXPORTER = EXPORTER;
                data-vine="${esc(s.key)}_count" data-idx="${i}"
                value="${esc(v[s.key + '_count'])}"></div>`
         : '';
+      // A caterpillar on a vine does not mean the egg was laid there — larvae
+      // get moved. Ask, and only when there is a caterpillar to ask about.
+      const origin = (s.origin && cur === 'yes')
+        ? `<div class="followup"><div class="q small">${esc(s.origin.label)}</div>
+             ${selectVine(i, s.origin.field, SCHEMA.resolveOptions(s.origin.options),
+                          v[s.origin.field], '— not asked —')}</div>`
+        : '';
       return `<div class="signrow"><div class="q small">${esc(s.label)}</div>
-        <div class="options inline">${yesNo}</div>${count}</div>`;
+        <div class="options inline">${yesNo}</div>${count}${origin}</div>`;
     }).join('');
 
     // Species identification is only asked where there is something to identify.
@@ -1290,6 +1363,8 @@ window.EXPORTER = EXPORTER;
       <div class="field"><div class="q small">Tree DBH (cm)</div>
         <input class="txt num" type="number" inputmode="decimal" min="0" step="0.1"
           data-vine="dbh_cm" data-idx="${i}" value="${esc(v.dbh_cm)}" placeholder="diameter at breast height"></div>
+      <div class="field"><div class="q small">Ask the farmer: was this vine planted, or did it grow by itself?</div>
+        ${selectVine(i, 'vine_origin', CONFIG.options.vine_origin, v.vine_origin, '— not asked —')}</div>
       ${signs}
       ${species}
       <div class="field"><div class="q small">Notes on this vine (optional)</div>
@@ -1344,7 +1419,7 @@ window.EXPORTER = EXPORTER;
     return `<div class="topbar">
       <div class="brand">MCA Aristolochia Survey</div>
       <div class="who">${esc(surveyorId() || '')} <button class="btn tiny ghost" data-action="change-surveyor">change</button></div>
-    </div>`;
+    </div>` + updateBannerHtml();
   }
 
   function statusBadge(r) {
@@ -1364,6 +1439,9 @@ window.EXPORTER = EXPORTER;
 
   async function renderHome() {
     state.view = 'home';
+    // An update that became ready mid-plot restarts once we are safely home.
+    // Promoted before the HTML is built so the banner is right on first paint.
+    if (update.available && update.state === 'wait') promoteUpdate();
     const list = await DB.getAll();
     const today = todayLocal();
     const done = exportable(list);
@@ -1398,8 +1476,8 @@ window.EXPORTER = EXPORTER;
           <button class="btn primary" data-action="send-today">Send today’s data</button>
           <a class="drivelink" href="${esc(CONFIG.driveFolderUrl)}" target="_blank" rel="noopener">
             Open the ${esc(CONFIG.driveFolderName)} folder in Drive →</a>
-          <div class="help">One tap. Choose <b>Drive</b> on the share sheet and save into
-            ${esc(CONFIG.driveFolderName)}. Both files — plots and vines — go together.</div>
+          <div class="help">One tap, one file. Choose <b>Drive</b> on the share sheet and
+            save into ${esc(CONFIG.driveFolderName)}.</div>
         </div>
         ${backlog}
 
@@ -1411,6 +1489,7 @@ window.EXPORTER = EXPORTER;
           <div class="exportbar">
             <button class="btn" data-action="send-pending">Send everything not yet sent</button>
             <button class="btn" data-action="export-today">Download today’s data</button>
+            <button class="btn" data-action="export-tables">Download as two tables (plots + vines)</button>
             <button class="btn" data-action="export-all">Download all data (re-export)</button>
             <button class="btn ghost" data-action="export-json">Download JSON (raw)</button>
             <button class="btn ghost" data-action="export-anon">Export without farmer names</button>
@@ -1520,8 +1599,15 @@ window.EXPORTER = EXPORTER;
         const sp = v.species && v.species !== 'unknown'
           ? (CONFIG.options.birdwing_species.find((x) => x.code === v.species) || {}).label : '';
         const tree = v.host_tree === 'other' ? v.host_tree_other : v.host_tree;
+        const label = (set, code) => {
+          const o = (CONFIG.options[set] || []).find((x) => x.code === code);
+          return o ? o.label : '';
+        };
+        const extra = [label('vine_origin', v.vine_origin),
+                       label('caterpillar_origin', v.caterpillar_origin)]
+          .filter(Boolean).join(' · ');
         return `<tr><td class="mono small">Vine ${i + 1}</td><td>${esc(tree || '(tree not named)')}${v.dbh_cm ? ` · DBH ${esc(v.dbh_cm)} cm` : ''}<br>
-          <span class="small">${esc(signs)}${sp ? ' · ' + esc(sp) : ''}</span></td></tr>`;
+          <span class="small">${esc(signs)}${sp ? ' · ' + esc(sp) : ''}</span>${extra ? `<br><span class="small">${esc(extra)}</span>` : ''}</td></tr>`;
       }).join('')}</tbody></table>` : '';
 
     const flags = completeWarnings();
@@ -1577,7 +1663,10 @@ window.EXPORTER = EXPORTER;
       v[key] = t.value;
       // Clearing a sign to "No" drops a count that would otherwise contradict it.
       const sign = CONFIG.vineSigns.find((s) => s.key === key);
-      if (sign && sign.counted && t.value !== 'yes') v[key + '_count'] = '';
+      if (sign && t.value !== 'yes') {
+        if (sign.counted) v[key + '_count'] = '';
+        if (sign.origin) v[sign.origin.field] = '';   // follow-up no longer applies
+      }
       save();
       if (state.view === 'module') {
         // Radio/select choices reveal or hide fields, so they need the section
@@ -1715,6 +1804,7 @@ window.EXPORTER = EXPORTER;
       case 'export-today':   return doExport({ scope: 'today' });
       case 'export-pending': return doExport({ scope: 'pending' });
       case 'export-all':     return doExport({ scope: 'all' });
+      case 'export-tables':  return doExport({ scope: 'all', kind: 'tables' });
       case 'export-anon':    return doExport({ scope: 'all', includeName: false });
       case 'export-json':    return doExport({ scope: 'all', kind: 'json' });
     }
@@ -1737,8 +1827,19 @@ window.EXPORTER = EXPORTER;
     return done;
   }
 
-  // Build the day's files once, so Send and Download cannot diverge.
+  // The day goes as ONE file. Two files can half-arrive, and a half-arrival is
+  // indistinguishable from success at the sending end — which is exactly what
+  // happened on the first real send. The plots and vines tables are rebuilt
+  // from this file with tools/rebuild_tables.js.
   function buildFiles(records, includeName, stamp) {
+    const tag = includeName ? 'named' : 'anon';
+    return [{ name: `mca_aristolochia_${tag}_${stamp}.csv`,
+              body: EXPORTER.combinedCSV(records, includeName) }];
+  }
+
+  // The two-table form, kept for analysis convenience under Other export
+  // options. Never the thing that gets sent.
+  function buildTableFiles(records, includeName, stamp) {
     const tag = includeName ? 'named' : 'anon';
     return [
       { name: `mca_aristolochia_plots_${tag}_${stamp}.csv`,
@@ -1774,15 +1875,15 @@ window.EXPORTER = EXPORTER;
         // file of the two) looks identical to success here. So the plots are
         // marked exported only once the surveyor confirms both files landed;
         // otherwise they stay pending and the home screen keeps asking.
-        const bothSaved = confirm(
-          `Did BOTH files save to ${CONFIG.driveFolderName}?\n\n`
+        const saved = confirm(
+          `Did the file save to ${CONFIG.driveFolderName}?\n\n`
           + built.map((f) => '• ' + f.name).join('\n')
-          + '\n\nTap Cancel if only one saved, or if you are not sure — '
-          + 'the plots stay marked “not exported” so you can send again.');
-        if (bothSaved) await markExported(records);
+          + '\n\nTap Cancel if you are not sure — the plots stay marked '
+          + '“not exported” so you can simply send again.');
+        if (saved) await markExported(records);
         if (state.view === 'home') renderHome();
-        if (!bothSaved) {
-          alert('Left as NOT exported.\n\nTap “Send today’s data” again, and save both files this time.');
+        if (!saved) {
+          alert('Left as NOT exported.\n\nTap “Send today’s data” again when you are ready.');
         }
         return;
       }
@@ -1795,7 +1896,7 @@ window.EXPORTER = EXPORTER;
     await downloadFiles(built);
     await markExported(records);
     if (state.view === 'home') renderHome();
-    alert(`Sharing isn’t available on this phone, so ${built.length} files were downloaded instead.\n\nUpload them to ${CONFIG.driveFolderName} from your Downloads folder.`);
+    alert(`Sharing isn’t available on this phone, so the file was downloaded instead.\n\nUpload it to ${CONFIG.driveFolderName} from your Downloads folder.`);
   }
 
   async function downloadFiles(built) {
@@ -1824,6 +1925,8 @@ window.EXPORTER = EXPORTER;
       const tag = includeName ? 'named' : 'anon';
       EXPORTER.download(`mca_aristolochia_${tag}_${stamp}.json`,
         EXPORTER.toJSON(records, includeName), 'application/json');
+    } else if (opts.kind === 'tables') {
+      await downloadFiles(buildTableFiles(records, includeName, stamp));
     } else {
       await downloadFiles(buildFiles(records, includeName, stamp));
     }
@@ -1831,6 +1934,103 @@ window.EXPORTER = EXPORTER;
     await markExported(records);
     if (state.view === 'home') renderHome();
     alert(`Exported ${records.length} plot${records.length === 1 ? '' : 's'}.\n\nNow save the file(s) into the ${CONFIG.driveFolderName} folder in Drive.`);
+  }
+
+  // --- Update check --------------------------------------------------------
+  // A running PWA keeps serving the cached build until the service worker has
+  // fetched the new one, so a device can sit on an old version without knowing.
+  // version.json is written by build.js from the same appVersion that is
+  // stamped into records, so comparing against it is exact.
+  //
+  // Only meaningful for the hosted build: the single file opened from disk has
+  // no version.json to fetch and nothing to update to.
+  const update = { available: false, version: '', state: '' };
+
+  // Rendered as part of header(), so it survives every screen re-render.
+  function updateBannerHtml() {
+    if (!update.available) return '';
+    let msg;
+    if (update.state === 'ready') {
+      msg = `Update ready (v${esc(update.version)}). Restarting…`;
+    } else if (update.state === 'wait') {
+      msg = `Update ready (v${esc(update.version)}). It will install when you finish this plot and return to the home screen.`;
+    } else if (update.state === 'stuck') {
+      msg = `Update available (v${esc(update.version)}) but it has not installed. <b>Stay online</b>, then fully close the app and open it again.`;
+    } else {
+      msg = `Update available (v${esc(update.version)}). <b>Stay online and leave the app open</b> until this finishes — do not close it or turn data off.`;
+    }
+    return `<div class="updatebar ${update.state === 'ready' ? 'ready' : ''}">${msg}</div>`;
+  }
+
+  // Repaint the current screen so the banner reflects the new state.
+  function renderUpdateBanner() {
+    if (state.view === 'module') renderModule(true);
+    else if (state.view === 'home') renderHome();
+    else if (state.view === 'review') renderReview();
+  }
+
+  // Reloading mid-form would throw the surveyor out of a plot, so the restart
+  // waits until they are back on the home screen. Entries autosave regardless.
+  //
+  // A restart is attempted at most once per version: if the app comes back and
+  // still sees the same newer version, reloading again would loop forever
+  // (cached build not replaced, or a version.json published ahead of the code).
+  // In that case say so and let the surveyor close and reopen instead.
+  // Decides what a ready update should do, WITHOUT rendering — so the home
+  // screen can call it mid-render and paint the right message first time,
+  // instead of flashing "finish this plot" while already on the home screen.
+  function promoteUpdate() {
+    if (localStorage.getItem(LS.updateReload) === update.version) {
+      update.state = 'stuck';
+      return;
+    }
+    if (state.view !== 'home') { update.state = 'wait'; return; }
+    update.state = 'ready';
+    localStorage.setItem(LS.updateReload, update.version);
+    setTimeout(() => location.reload(), 1200);
+  }
+
+  function applyUpdateWhenSafe() {
+    promoteUpdate();
+    renderUpdateBanner();
+  }
+
+  async function checkForUpdate() {
+    if (!location.protocol.startsWith('http')) return; // file:// build
+    if (!navigator.onLine) return;
+    let remote;
+    try {
+      const res = await fetch('version.json', { cache: 'no-store' });
+      if (!res.ok) return;
+      remote = (await res.json()).appVersion;
+    } catch (e) { return; }              // offline or blocked: say nothing
+    if (!remote) return;
+    if (remote === CONFIG.appVersion) {
+      // Running the published version: clear any restart marker from before.
+      localStorage.removeItem(LS.updateReload);
+      return;
+    }
+
+    update.available = true;
+    update.version = remote;
+    update.state = 'downloading';
+    renderUpdateBanner();
+
+    // Ask the service worker to fetch the new build, then restart into it.
+    if (!('serviceWorker' in navigator)) return;
+    try {
+      const reg = await navigator.serviceWorker.getRegistration();
+      if (!reg) return;
+      navigator.serviceWorker.addEventListener('controllerchange', applyUpdateWhenSafe);
+      reg.addEventListener('updatefound', () => {
+        const sw = reg.installing;
+        if (!sw) return;
+        sw.addEventListener('statechange', () => {
+          if (sw.state === 'installed' || sw.state === 'activated') applyUpdateWhenSafe();
+        });
+      });
+      await reg.update();
+    } catch (e) { /* leave the banner up; it will retry on the next open */ }
   }
 
   // --- Bootstrap -----------------------------------------------------------
@@ -1841,6 +2041,9 @@ window.EXPORTER = EXPORTER;
     document.addEventListener('input', onInput);
     document.addEventListener('click', onClick);
     if (!surveyorId()) renderSurveyorSetup(); else renderHome();
+
+    checkForUpdate();
+    window.addEventListener('online', checkForUpdate);
 
     // Only register the service worker for the hosted build (http/https). The
     // single-file build opened from disk (file://) is already fully offline.

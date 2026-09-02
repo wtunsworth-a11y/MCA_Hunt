@@ -13,7 +13,7 @@
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '1.1.0',
+  appVersion: '1.3.0',
 
   // Google Drive folder the day's exports are filed into. Shown on the export
   // screen as a tappable link; the app does not upload by itself.
@@ -83,6 +83,20 @@ const CONFIG = {
       { code: 'abandoned',  label: 'Abandoned (in fallow)' },
       { code: 'still_used', label: 'Still being gardened' },
     ],
+    // Asked of the farmer for every vine. People do plant Aristolochia, so a
+    // vine's presence is not evidence of natural occurrence on its own.
+    vine_origin: [
+      { code: 'planted',  label: 'Planted by people' },
+      { code: 'wild',     label: 'Grew by itself' },
+      { code: 'not_sure', label: 'Not sure' },
+    ],
+    // Asked of the farmer when a caterpillar is on the vine. Larvae are moved
+    // between vines, so a caterpillar here does not mean an egg was laid here.
+    caterpillar_origin: [
+      { code: 'egg_laid_here', label: 'Egg was laid on this vine' },
+      { code: 'moved_here',    label: 'Caterpillar was moved here' },
+      { code: 'not_sure',      label: 'Not sure' },
+    ],
     // Recorded per vine, "where possible" — an unidentified caterpillar or egg
     // stays `unknown` rather than being forced to a species.
     birdwing_species: [
@@ -124,7 +138,10 @@ const CONFIG = {
   // The three occupancy observations made on every vine. `key` is the field
   // suffix; the exporter and the renderer both walk this list.
   vineSigns: [
-    { key: 'caterpillar', label: 'Caterpillar seen', counted: true },
+    { key: 'caterpillar', label: 'Caterpillar seen', counted: true,
+      // Follow-up asked only when this sign is answered "yes".
+      origin: { field: 'caterpillar_origin', options: 'caterpillar_origin',
+                label: 'Ask the farmer: was the egg laid on this vine, or was the caterpillar moved here?' } },
     { key: 'egg',         label: 'Egg seen',         counted: true },
     { key: 'feeding',     label: 'Signs of leaves eaten', counted: false },
   ],
