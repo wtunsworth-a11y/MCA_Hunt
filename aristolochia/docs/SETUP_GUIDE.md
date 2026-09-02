@@ -144,8 +144,13 @@ You need internet for this step.
    completed and how many are **not yet exported**.
 2. Tap **Send today's data**. That is the only button you need.
 3. The phone's share sheet opens. Choose **Drive**, pick the
-   **MCA_QABB_Avril** folder, and save.
-4. Check the home screen now says **0 not yet exported**.
+   **MCA_QABB_Avril** folder, and save. **Save BOTH files** — Drive may ask you
+   once per file.
+4. The app asks **"Did BOTH files save?"**
+   - **OK** — the plots are marked exported.
+   - **Cancel** — if only one saved, or you are not sure. The plots stay marked
+     *not exported* so you can simply tap Send again. Nothing is lost either way.
+5. Check the home screen now says **0 not yet exported**.
 
 Two files are sent together in that one tap:
 
@@ -153,7 +158,8 @@ Two files are sent together in that one tap:
 - `mca_aristolochia_vines_<date>.csv` — one row per vine
 
 They are separate because a plot can have any number of vines. Keep both — the
-office needs the pair.
+office needs the pair. If only one saves, answer **Cancel** and send again: the
+app never deletes a plot after exporting, so re-sending is always safe.
 
 **The share sheet needs the link install.** Android only offers it to a page
 served over the internet, so if you installed from the **file** it will not

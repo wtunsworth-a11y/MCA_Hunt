@@ -860,8 +860,21 @@
           title: 'MCA Aristolochia Survey',
           text: `${records.length} plot(s) from ${surveyorId() || 'this device'} — save both files into ${CONFIG.driveFolderName}.`,
         });
-        await markExported(records);
+        // navigator.share() resolves when the files are handed to the share
+        // sheet, NOT when the receiving app saved them — a partial save (one
+        // file of the two) looks identical to success here. So the plots are
+        // marked exported only once the surveyor confirms both files landed;
+        // otherwise they stay pending and the home screen keeps asking.
+        const bothSaved = confirm(
+          `Did BOTH files save to ${CONFIG.driveFolderName}?\n\n`
+          + built.map((f) => '• ' + f.name).join('\n')
+          + '\n\nTap Cancel if only one saved, or if you are not sure — '
+          + 'the plots stay marked “not exported” so you can send again.');
+        if (bothSaved) await markExported(records);
         if (state.view === 'home') renderHome();
+        if (!bothSaved) {
+          alert('Left as NOT exported.\n\nTap “Send today’s data” again, and save both files this time.');
+        }
         return;
       }
     } catch (e) {

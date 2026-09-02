@@ -99,3 +99,11 @@ Drive folder **MCA_QABB_Avril** as two CSVs per day (`..._plots_*.csv`,
   `node build.js`. Docs are generated from `docs/generators/*.js`.
 - The Aristolochia app has its own `aristolochia/js/config.js`, `schema.js` and
   `export.js` on the same contract, and its own `aristolochia/build.js`.
+- **Bump `appVersion` on every change that alters what the app does or records**
+  — schema, export columns, or collection/export behaviour. It is written into
+  every record as `app_version`, so a version that does not move makes two
+  different instruments indistinguishable in the data. Rebuild (`node build.js`)
+  in the same commit so the single-file build carries the new version too.
+  - `app_version` is stamped when a record is **created**, not when it is
+    exported. A plot started before an update keeps the old version — that is
+    the intended provenance, and it means a bump never rewrites existing rows.
