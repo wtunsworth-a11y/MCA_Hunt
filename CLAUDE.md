@@ -33,6 +33,17 @@ data summaries, chat replies about the data — **report; do not sell.**
 
 If a draft slips into any of the above, cut it without being asked.
 
+## Reporting times
+Report every time and date in the user's **local time**, not UTC — timestamps
+read out of files, Drive metadata, git history, CI, anything. Say the zone when
+it could be ambiguous.
+
+- The user is in **Papua New Guinea: UTC+10, no daylight saving** (so UTC+10 all
+  year). Convert before reporting; don't hand over a raw `Z` timestamp.
+- Data itself stays as recorded — exports and stored fields keep their ISO/UTC
+  form. This is about what is said in chat and written in prose, not about
+  rewriting values in files.
+
 ## Data handling
 - The GitHub repo is **public** — survey data (the `mca_hunt_named_*.csv` exports
   and any consolidated file) must **never** be committed here. It lives only in
