@@ -90,6 +90,8 @@
       gps: null,
       gps_status: 'pending',
       gps_error: '',
+      consent_given: '',
+      consent_time: '',
       plot_status: 'in_progress',
       sync_status: 'not_exported',
       exported_at: '',
@@ -215,6 +217,7 @@
   function completeWarnings() {
     const r = state.current;
     const w = yearWarnings(r.data);
+    if (r.consent_given !== 'yes') w.push('consent not recorded');
     if (!r.plot_code) w.push('no plot code (Zone was blank)');
     if (r.gps_status !== 'ok') w.push('no GPS point');
     if (!r.data.aristolochia_present) w.push('Aristolochia present/absent not recorded');
@@ -483,6 +486,25 @@
       </div>`;
   }
 
+  function renderConsent() {
+    state.view = 'consent';
+    const script = CONFIG.consentScript.replace('[surveyor name]', surveyorId() || '[your name]');
+    $app().innerHTML = header() + `
+      <div class="screen">
+        <h2>Permission and consent</h2>
+        <div class="consent">${esc(script).replace(/\n/g, '<br>')}</div>
+        <label class="opt consentcheck">
+          <input type="checkbox" id="consent-check">
+          <span>I read this aloud and the farmer <b>agreed</b> to take part and to this garden being recorded.</span>
+        </label>
+        <div class="help">Tick the box to confirm consent. This is recorded with the plot.</div>
+        <div class="navbtns">
+          <button class="btn danger" data-action="consent-decline">Declined — cancel</button>
+          <button class="btn primary" data-action="consent-give">Start recording</button>
+        </div>
+      </div>`;
+  }
+
   function stepper() {
     return `<div class="stepper">` + SCHEMA.modules.map((m, i) => `
       <button class="stepdot ${i === state.step ? 'active' : ''}" data-action="goto-step" data-step="${i}">${esc(m.id)}</button>`).join('') + `</div>`;
@@ -572,10 +594,16 @@
     const flagHtml = flags.length
       ? `<div class="review-consent miss">Check: ${esc(flags.join(' · '))}</div>` : '';
 
+    const consentOk = r.consent_given === 'yes';
     $app().innerHTML = header() + `
       <div class="screen">
         <h2>Review — ${esc(r.plot_code || '(no code)')}</h2>
+        <div class="review-consent ${consentOk ? 'ok' : 'miss'}">Consent recorded: ${consentOk ? 'YES' : 'NOT RECORDED'}</div>
         ${flagHtml}
+        <div class="thanks">
+          <div class="q">Before you finish — read aloud:</div>
+          <div>${esc(CONFIG.thankYouScript)}</div>
+        </div>
         <div class="help">Only answered fields are shown${rowsHtml ? '' : ' (none yet)'}.</div>
         <table class="review"><tbody>${rowsHtml}</tbody></table>
         ${vineHtml}
@@ -678,8 +706,14 @@
       }
       case 'change-surveyor': renderSurveyorSetup(); return;
 
-      case 'new': {
+      case 'new': renderConsent(); return;
+      case 'consent-decline': renderHome(); return; // no record saved, no code used
+      case 'consent-give': {
+        const box = document.getElementById('consent-check');
+        if (!box || !box.checked) { alert('Please tick the consent box to confirm the farmer agreed.'); return; }
         state.current = newPlot();
+        state.current.consent_given = 'yes';
+        state.current.consent_time = new Date().toISOString();
         state.step = 0;
         await DB.put(state.current);
         captureGPS();

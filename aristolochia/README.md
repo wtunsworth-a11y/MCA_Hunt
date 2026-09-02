@@ -8,12 +8,33 @@ structure and the same Zone/Ward lists (`../data/reference.json`). The two apps
 are independent at runtime: separate IndexedDB databases, separate localStorage
 keys, separate exports.
 
+The interface uses a blue colour scheme so it is not mistaken for the hunting
+survey on a shared device.
+
+## Consent
+
+`+ New plot` opens a permission and consent screen before anything is recorded.
+The script (`CONFIG.consentScript`) is read aloud and covers both permission to
+walk the garden and consent to record the farmer's name and answers; it names
+the GPS point explicitly, since unlike the hunting survey this instrument does
+record location. The surveyor's name from the device is substituted into the
+script.
+
+Recording starts only once the box is ticked. **Declining saves nothing** — no
+record is written and no plot code is used up. `consent_given` and
+`consent_time` are exported with every plot, the Review screen shows whether
+consent was recorded, and completing a plot without it raises a warning.
+
+`CONFIG.thankYouScript` is shown on the Review screen to be read aloud at the
+end.
+
 ## What it records
 
 Per plot:
 
 | Field | Notes |
 | --- | --- |
+| Consent | `consent_given` / `consent_time`, recorded at the consent screen |
 | GPS point | lat, lon, accuracy, fix time — captured when the plot is created, retryable |
 | Farmer's name | stored outside the data map, so it can be left out of an export |
 | Village, Zone, Ward | Zone and Ward from the shared reference lists |

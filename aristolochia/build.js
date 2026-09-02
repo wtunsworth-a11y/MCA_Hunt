@@ -29,7 +29,7 @@ const html = `<!DOCTYPE html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0e7c66">
+  <meta name="theme-color" content="#1560a8">
   <title>MCA Aristolochia Survey</title>
   <link rel="icon" href="${iconDataUri}" type="image/svg+xml">
   <link rel="apple-touch-icon" href="${iconDataUri}">

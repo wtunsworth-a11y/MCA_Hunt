@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <rect width="512" height="512" rx="96" fill="#0e7c66"/>
+  <rect width="512" height="512" rx="96" fill="#1560a8"/>
   <!-- Stylised birdwing: two forewings, two hindwings, body and antennae. -->
   <g fill="#ffffff">
     <path d="M256 176c-28-46-78-78-124-70-22 4-30 24-22 46 16 44 62 82 112 96 12 3 22-2 27-13 6-14 10-33 7-59z"/>

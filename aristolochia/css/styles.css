@@ -1,16 +1,16 @@
-/* MCA Aristolochia Survey PWA — mobile-first, large touch targets, offline field UI */
+/* MCA Aristolochia Survey PWA (blue scheme — distinct from the hunting survey) — mobile-first, large touch targets, offline field UI */
 :root {
-  --bg: #f4f6f4;
+  --bg: #f2f5f8;
   --card: #ffffff;
-  --ink: #16261c;
-  --muted: #5c6b60;
-  --line: #d6ddd6;
-  --green: #0e7c66;
-  --green-d: #0a5c4c;
+  --ink: #16212b;
+  --muted: #5a6672;
+  --line: #d3dae1;
+  --accent: #1560a8;
+  --accent-d: #0e4477;
   --amber: #b26a00;
   --red: #b3261e;
-  --sel: #dcefe9;
-  --sel-line: #0e7c66;
+  --sel: #dde9f6;
+  --sel-line: #1560a8;
   --radius: 12px;
   --tap: 48px;
 }
@@ -21,12 +21,12 @@ html, body {
   font-size: 17px; line-height: 1.4;
 }
 h1 { font-size: 1.5rem; margin: .2rem 0 .6rem; }
-h2 { font-size: 1.2rem; margin: .8rem 0 .4rem; color: var(--green-d); }
+h2 { font-size: 1.2rem; margin: .8rem 0 .4rem; color: var(--accent-d); }
 button { font-family: inherit; }
 
 .topbar {
   position: sticky; top: 0; z-index: 20; display: flex; justify-content: space-between;
-  align-items: center; gap: .5rem; padding: .6rem .9rem; background: var(--green);
+  align-items: center; gap: .5rem; padding: .6rem .9rem; background: var(--accent);
   color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.15);
 }
 .topbar .brand { font-weight: 700; }
@@ -42,7 +42,7 @@ button { font-family: inherit; }
   background: var(--card); color: var(--ink); border-radius: var(--radius);
   font-size: 1rem; cursor: pointer;
 }
-.btn.primary { background: var(--green); color: #fff; border-color: var(--green-d); font-weight: 600; }
+.btn.primary { background: var(--accent); color: #fff; border-color: var(--accent-d); font-weight: 600; }
 .btn.danger { color: var(--red); border-color: #e6c3c1; }
 .btn.ghost { background: transparent; }
 .btn.big { width: 100%; font-size: 1.1rem; margin: .4rem 0 1rem; }
@@ -67,7 +67,7 @@ button { font-family: inherit; }
 
 /* Badges */
 .badge { display: inline-block; padding: .1rem .5rem; border-radius: 999px; font-size: .75rem; font-weight: 600; }
-.badge.ok { background: #d9f0e1; color: var(--green-d); }
+.badge.ok { background: #d9f0e1; color: var(--accent-d); }
 .badge.done { background: #e5ecff; color: #234; }
 .badge.warn { background: #ffe9c9; color: var(--amber); }
 .badge.miss { background: #fbdedb; color: var(--red); }
@@ -78,14 +78,14 @@ button { font-family: inherit; }
   width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line);
   background: var(--card); color: var(--muted); font-weight: 700; cursor: pointer;
 }
-.stepdot.active { background: var(--green); color: #fff; border-color: var(--green-d); }
+.stepdot.active { background: var(--accent); color: #fff; border-color: var(--accent-d); }
 
 /* Fields */
 .field { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: .7rem .8rem; margin-bottom: .7rem; }
 .q { font-weight: 600; margin-bottom: .35rem; }
 .q.small { font-size: .95rem; }
 .help { color: var(--muted); font-size: .82rem; margin-bottom: .4rem; }
-.note { background: #eef4ef; border-left: 4px solid var(--green); padding: .5rem .7rem; border-radius: 8px; color: var(--muted); margin-bottom: .7rem; font-size: .9rem; }
+.note { background: #eef4ef; border-left: 4px solid var(--accent); padding: .5rem .7rem; border-radius: 8px; color: var(--muted); margin-bottom: .7rem; font-size: .9rem; }
 .subq { margin-top: .5rem; }
 
 /* Option buttons (radio / checkbox as big tap targets) */
@@ -98,7 +98,7 @@ button { font-family: inherit; }
 /* Instant selected-highlight without needing a re-render (modern browsers).
    The .sel class (applied at render time) remains as a fallback. */
 .opt.sel, .opt:has(input:checked) { border-color: var(--sel-line); background: var(--sel); }
-.opt input { width: 22px; height: 22px; accent-color: var(--green); flex: 0 0 auto; }
+.opt input { width: 22px; height: 22px; accent-color: var(--accent); flex: 0 0 auto; }
 .opt span { flex: 1; }
 
 /* Text / select */
@@ -116,12 +116,12 @@ textarea.txt { min-height: 84px; resize: vertical; }
 
 /* Category block (Module B) */
 .catblock { border: 1px solid var(--line); border-radius: var(--radius); padding: .5rem .6rem; margin-bottom: .8rem; background: #fbfdfb; }
-.cathead { font-weight: 700; color: var(--green-d); border-bottom: 1px solid var(--line); padding-bottom: .3rem; margin-bottom: .5rem; }
+.cathead { font-weight: 700; color: var(--accent-d); border-bottom: 1px solid var(--line); padding-bottom: .3rem; margin-bottom: .5rem; }
 .catblock .field { border: none; padding: .3rem 0; margin: 0; background: transparent; }
 
 /* Trip block (Module F) */
 .tripblock { border: 2px solid var(--sel-line); border-radius: var(--radius); padding: .5rem .7rem; margin-bottom: .9rem; }
-.triphead { font-weight: 700; color: var(--green-d); margin-bottom: .5rem; }
+.triphead { font-weight: 700; color: var(--accent-d); margin-bottom: .5rem; }
 .tripblock .field { background: #fbfdfb; }
 
 /* Catch list */
@@ -142,7 +142,7 @@ table.grid th.rowhead {
 table.grid thead th.rowhead { z-index: 3; }
 table.grid th.disabled { color: #b7c2ba; }
 .cell { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; cursor: pointer; }
-.cell input { width: 22px; height: 22px; accent-color: var(--green); }
+.cell input { width: 22px; height: 22px; accent-color: var(--accent); }
 .cell.sel, .cell:has(input:checked) { background: var(--sel); }
 .cellsel { min-height: 40px; border: 1px solid var(--line); border-radius: 8px; background: #fff; font-size: .95rem; padding: .1rem .2rem; }
 .na { color: #c2ccc4; }
@@ -167,7 +167,7 @@ table.grid th.rot .lbl {
 .seg-bilas { background: #b26a00; }
 .seg-sold  { background: #3b6ea5; }
 .sharetotal { font-weight: 700; font-size: .9rem; margin-bottom: .4rem; }
-.sharetotal.ok { color: var(--green-d); }
+.sharetotal.ok { color: var(--accent-d); }
 .sharetotal.warn { color: var(--amber); }
 .sharerow { display: flex; align-items: center; gap: .6rem; padding: .35rem 0; border-top: 1px solid var(--line); }
 .sharelabel { flex: 1; }
@@ -182,11 +182,11 @@ table.grid th.rot .lbl {
 .consent { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: .9rem; line-height: 1.55; }
 .consentcheck { margin-top: .8rem; border-color: var(--sel-line); }
 .review-consent { padding: .5rem .7rem; border-radius: 8px; margin: .4rem 0 .6rem; font-weight: 600; }
-.review-consent.ok { background: #d9f0e1; color: var(--green-d); }
+.review-consent.ok { background: #d9f0e1; color: var(--accent-d); }
 .review-consent.miss { background: #fbdedb; color: var(--red); }
 
 /* Review */
-.thanks { background: #eef4ef; border-left: 4px solid var(--green); border-radius: 8px; padding: .6rem .7rem; margin: .2rem 0 .6rem; line-height: 1.5; }
+.thanks { background: #eef4ef; border-left: 4px solid var(--accent); border-radius: 8px; padding: .6rem .7rem; margin: .2rem 0 .6rem; line-height: 1.5; }
 table.review { width: 100%; border-collapse: collapse; margin-top: .5rem; }
 table.review td { border-bottom: 1px solid var(--line); padding: .35rem .4rem; vertical-align: top; }
 table.review td:first-child { color: var(--muted); width: 42%; word-break: break-all; }
@@ -223,7 +223,7 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
 .vines { margin: .4rem 0 1rem; }
 .vinecount { color: var(--muted); font-size: .9rem; margin-bottom: .5rem; }
 .vine {
-  background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--green);
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--accent);
   border-radius: var(--radius); padding: .6rem .7rem; margin-bottom: .7rem;
 }
 .vinehead { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem; }
@@ -244,11 +244,11 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
   padding: .75rem .8rem; margin-bottom: .8rem;
 }
-.dayhead { font-weight: 700; color: var(--green-d); }
+.dayhead { font-weight: 700; color: var(--accent-d); }
 .daystat { color: var(--muted); font-size: .9rem; margin: .2rem 0 .6rem; }
 .daycard .btn { width: 100%; }
 .drivelink {
-  display: block; margin-top: .55rem; color: var(--green-d); font-size: .95rem;
+  display: block; margin-top: .55rem; color: var(--accent-d); font-size: .95rem;
   text-decoration: none; font-weight: 600;
 }
 .drivelink:hover { text-decoration: underline; }

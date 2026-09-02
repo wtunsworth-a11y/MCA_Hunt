@@ -49,6 +49,8 @@ const EXPORTER = (function () {
       add('vines_species_' + sp.code, 'summary');
     });
 
+    add('consent_given', 'record');
+    add('consent_time', 'record');
     add('plot_status', 'record');
     add('created_at', 'record');
     add('updated_at', 'record');

@@ -73,6 +73,33 @@ const CONFIG = {
     ],
   },
 
+  // Read aloud before recording a garden. Covers both permission to walk the
+  // garden and consent to record the farmer's name and answers. The
+  // "[surveyor name]" placeholder is filled in with the name set on the device.
+  consentScript:
+    'My name is [surveyor name] and I am helping with a survey run by the ' +
+    'Managalas and Oro Province Project, part of CIFOR-ICRAF, funded by the ' +
+    'European Union.\n\n' +
+    'We are looking at gardens across the Managalas Conservation Area — gardens ' +
+    'being used now and old ones left to fallow — and at a vine called ' +
+    'Aristolochia that grows in them. It is the plant the large birdwing ' +
+    'butterflies lay their eggs on.\n\n' +
+    'I am asking your permission to walk over this garden and record what is ' +
+    'here. I would write down your name, the village, the type of garden, the ' +
+    'year it was cleared and the year it was left, and I would take a GPS point ' +
+    'of the garden. If I find any Aristolochia vines I would record the tree ' +
+    'each one is growing on and whether there are caterpillars or eggs on it.\n\n' +
+    'Taking part is voluntary. You do not have to answer any question you do not ' +
+    'want to, and you can stop at any time. Your answers are grouped with ' +
+    'everyone else\u2019s for analysis. This takes about 20 to 30 minutes.\n\n' +
+    'Do you agree, and may I record this garden?',
+
+  // Read aloud at the end (shown on the Review screen).
+  thankYouScript:
+    'Thank you for your time and for letting me record this garden. What is ' +
+    'written down here, together with the other gardens in the survey, will ' +
+    'inform conservation planning for the Managalas Conservation Area.',
+
   // The three occupancy observations made on every vine. `key` is the field
   // suffix; the exporter and the renderer both walk this list.
   vineSigns: [
