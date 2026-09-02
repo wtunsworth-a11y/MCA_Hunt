@@ -891,11 +891,11 @@
     try {
       const files = built.map((f) => new File([f.body], f.name, { type: 'text/csv' }));
       if (navigator.canShare && navigator.canShare({ files })) {
-        await navigator.share({
-          files,
-          title: 'MCA Aristolochia Survey',
-          text: `${records.length} plot(s) from ${surveyorId() || 'this device'} — save both files into ${CONFIG.driveFolderName}.`,
-        });
+        // Share ONLY the files. A `title` or `text` here is taken by some
+        // targets (Drive among them) as the name to save under, which threw
+        // away the filename — the day's export landed as "MCA Aristolochia
+        // Survey", with no date and no .csv extension.
+        await navigator.share({ files });
         // navigator.share() resolves when the files are handed to the share
         // sheet, NOT when the receiving app saved them — a partial save (one
         // file of the two) looks identical to success here. So the plots are

@@ -13,7 +13,7 @@
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '1.3.0',
+  appVersion: '1.3.1',
 
   // Google Drive folder the day's exports are filed into. Shown on the export
   // screen as a tappable link; the app does not upload by itself.
