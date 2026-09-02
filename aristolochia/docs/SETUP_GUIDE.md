@@ -2,9 +2,9 @@
 
 **For: Avril Matawan**
 
-This app records garden plots and the *Aristolochia* vines on them. It runs on
+This app records garden and forest plots, and the *Aristolochia* vines on them. It runs on
 your phone **with no internet**. You set it up **once**, and after that it works
-anywhere — in the garden, in the village, with the phone in airplane mode.
+anywhere — out in the garden or forest, in the village, with the phone in airplane mode.
 
 Internet is needed for two things only: setting the app up the first time, and
 sending each day's data to Google Drive.
@@ -22,7 +22,7 @@ Read this once before your first garden. Setting up takes about 5 minutes.
   and works out fallow age from the year — a wrong clock puts wrong dates in the
   data.
 - You will be asked to allow **Location** — tap **Allow**. This app **does record
-  a GPS point of each garden**. That is deliberate, and the consent script tells
+  a GPS point of every plot**. That is deliberate, and the consent script tells
   the farmer so.
 - Have the **Google Drive app** installed and signed in to the account that can
   write to the **Aristolochia Survey Data** folder.
@@ -88,11 +88,12 @@ If that all works, the app is ready for the field.
 
 ---
 
-## Recording a garden
+## Recording a plot
 
 1. On the home screen tap **➕ New plot**.
-2. **Read the consent script aloud.** It asks permission to walk the garden and
-   to record the farmer's name, the garden details and a GPS point.
+2. **Read the consent script aloud.** It asks permission to walk the place —
+   garden or forest — and to record the farmer's name, what is there, and a GPS
+   point.
    - If the farmer agrees, **tick the box** and tap **Start recording**.
    - If the farmer does not agree, tap **Declined — cancel**. Nothing is saved.
 3. **Section A — Plot and farmer.** The GPS point is taken automatically when
@@ -101,10 +102,17 @@ If that all works, the app is ready for the field.
    Ward.
    - The **plot code** (like `Z6-M46-001`) appears once you choose the Zone. You
      never type it yourself.
-4. **Section B — Garden history.** Garden type and description, the year it was
-   cleared, whether it is still gardened or abandoned, and the year abandoned.
-   - **Fallow age is worked out for you** and shown in the blue box. Do not try
-     to type it.
+4. **Section B — Garden or forest.** First say whether the plot is a **garden**
+   or **forest**. The rest of the section changes to match.
+   - **Garden:** garden type and description, the year it was cleared, whether
+     it is still gardened or abandoned, and the year abandoned. **Fallow age is
+     worked out for you** and shown in the blue box — do not try to type it.
+   - **Forest:** forest type and description. A forest plot is **not** asked for
+     a year, and gets **no fallow age** — the box says *forest, age not
+     determined*. That is correct, not a gap. Only write an age into the
+     description if someone actually knows it.
+   - If you pick the wrong one and change it, the answers from the other side
+     are cleared. Re-enter them if you switch back.
 5. **Section C — Aristolochia.** Answer whether Aristolochia is present.
    - If **yes**, tap **➕ Add vine** for **each vine you find**. For every vine
      record the tree it is climbing, that tree's DBH in centimetres, and whether
@@ -130,14 +138,24 @@ You need internet for this step.
 
 1. Open the app. The home screen shows **Today**, with how many plots are
    completed and how many are **not yet exported**.
-2. Tap **Export today's data**. **Two files** download:
-   - `mca_aristolochia_plots_<date>.csv` — one row per garden
-   - `mca_aristolochia_vines_<date>.csv` — one row per vine
-3. Open the **Google Drive** app → **+ New** → **Upload**, and pick **both**
-   files from your phone's **Downloads**.
-4. Put them in the **Aristolochia Survey Data** folder. (The app's home screen
-   also has a link straight to that folder.)
-5. Go back to the app. The home screen should now say **0 not yet exported**.
+2. Tap **Send today's data**. That is the only button you need.
+3. The phone's share sheet opens. Choose **Drive**, pick the
+   **Aristolochia Survey Data** folder, and save.
+4. Check the home screen now says **0 not yet exported**.
+
+Two files are sent together in that one tap:
+
+- `mca_aristolochia_plots_<date>.csv` — one row per plot
+- `mca_aristolochia_vines_<date>.csv` — one row per vine
+
+They are separate because a plot can have any number of vines. Keep both — the
+office needs the pair.
+
+**The share sheet needs the link install.** Android only offers it to a page
+served over the internet, so if you installed from the **file** it will not
+appear — the app downloads the two files instead and tells you so. Then upload
+them to the folder from your **Downloads** with the Google Drive app. This is the
+main reason to prefer the link.
 
 Only plots you marked **Complete** are exported. A plot still in progress is
 held back until you finish it.

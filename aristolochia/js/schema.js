@@ -31,8 +31,10 @@ function emptyVine() {
 // --- Derived values. Computed on read, never stored, so they cannot go stale
 // as the year rolls over. Both are exported as their own columns. ---
 const DERIVED = {
-  // Years since the garden was abandoned, to today. Blank while still gardened.
+  // Years since the garden was abandoned, to today. Blank while still gardened,
+  // and blank for a forest plot — a forest's age is not determined here.
   fallowAge(data) {
+    if (data.plot_type === 'forest') return '';
     if (data.garden_status !== 'abandoned') return '';
     const y = parseInt(data.year_abandoned, 10);
     if (!y) return '';
@@ -42,6 +44,7 @@ const DERIVED = {
   },
   // Years the garden was under cultivation (cleared -> abandoned).
   cultivationYears(data) {
+    if (data.plot_type === 'forest') return '';
     const c = parseInt(data.year_cleared, 10);
     const a = parseInt(data.year_abandoned, 10);
     if (!c || !a) return '';
@@ -50,8 +53,18 @@ const DERIVED = {
   },
 };
 
+// Fields owned by each branch of the plot_type gate. When the gate changes, the
+// other branch's answers are cleared so a forest plot cannot export a clearing
+// year, nor a garden plot a forest type.
+const BRANCH_FIELDS = {
+  garden: ['garden_type', 'garden_type_other', 'garden_description',
+           'year_cleared', 'garden_status', 'year_abandoned'],
+  forest: ['forest_type', 'forest_type_other', 'forest_description'],
+};
+
 const SCHEMA = {
   VINE_FIELDS,
+  BRANCH_FIELDS,
   emptyVine,
   DERIVED,
 
@@ -63,6 +76,7 @@ const SCHEMA = {
       case 'zones':       return CONFIG.zones;
       case 'wards':       return CONFIG.wards;
       case 'gardenTypes': return CONFIG.gardenTypes;
+      case 'forestTypes': return CONFIG.forestTypes;
       case 'hostTrees':   return CONFIG.hostTrees;
       default:            return [];
     }
@@ -82,19 +96,38 @@ const SCHEMA = {
       ],
     },
     {
-      id: 'B', title: 'Section B — Garden history',
+      id: 'B', title: 'Section B — Garden or forest',
       fields: [
-        { kind: 'single', name: 'garden_type', label: 'Garden type', options: 'gardenTypes', dropdown: true },
+        { kind: 'single', name: 'plot_type', label: 'Is this plot a garden or forest?',
+          options: 'plot_type',
+          help: 'A forest plot is not asked for a clearing year — its age is not determined here.' },
+
+        // --- Garden branch ---
+        { kind: 'single', name: 'garden_type', label: 'Garden type', options: 'gardenTypes', dropdown: true,
+          showIf: { field: 'plot_type', equals: 'garden' } },
         { kind: 'text', name: 'garden_type_other', label: 'Other garden type (specify)',
-          showIf: { field: 'garden_type', equals: 'other' } },
+          showIf: [{ field: 'plot_type', equals: 'garden' }, { field: 'garden_type', equals: 'other' }] },
         { kind: 'text', name: 'garden_description', label: 'Garden description', multiline: true,
-          help: 'What was grown, how it looks now, regrowth stage.' },
+          help: 'What was grown, how it looks now, regrowth stage.',
+          showIf: { field: 'plot_type', equals: 'garden' } },
         { kind: 'year', name: 'year_cleared', label: 'Year cleared',
-          help: 'The year the forest or fallow was cut to make this garden.' },
+          help: 'The year the forest or fallow was cut to make this garden.',
+          showIf: { field: 'plot_type', equals: 'garden' } },
         { kind: 'single', name: 'garden_status', label: 'Is the garden still being gardened?',
-          options: 'garden_status' },
+          options: 'garden_status',
+          showIf: { field: 'plot_type', equals: 'garden' } },
         { kind: 'year', name: 'year_abandoned', label: 'Year abandoned',
-          showIf: { field: 'garden_status', equals: 'abandoned' } },
+          showIf: [{ field: 'plot_type', equals: 'garden' }, { field: 'garden_status', equals: 'abandoned' }] },
+
+        // --- Forest branch ---
+        { kind: 'single', name: 'forest_type', label: 'Forest type', options: 'forestTypes', dropdown: true,
+          showIf: { field: 'plot_type', equals: 'forest' } },
+        { kind: 'text', name: 'forest_type_other', label: 'Other forest type (specify)',
+          showIf: [{ field: 'plot_type', equals: 'forest' }, { field: 'forest_type', equals: 'other' }] },
+        { kind: 'text', name: 'forest_description', label: 'Forest description', multiline: true,
+          help: 'Canopy, understorey, any sign of past gardening. Note an age only if someone actually knows it.',
+          showIf: { field: 'plot_type', equals: 'forest' } },
+
         { kind: 'fallow_age' },
       ],
     },

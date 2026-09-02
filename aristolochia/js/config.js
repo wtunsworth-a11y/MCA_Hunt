@@ -46,6 +46,20 @@ const CONFIG = {
     { code: 'other',        label: 'Other (specify)' },
   ],
 
+  // --- Forest types, for plots that are forest rather than garden. Editable
+  // on the same terms as gardenTypes: `code` lands in the CSV, so keep codes
+  // stable once collection starts. ---
+  forestTypes: [
+    { code: 'primary',        label: 'Primary forest (no record of gardening)' },
+    { code: 'old_secondary',  label: 'Old secondary forest (long regrowth)' },
+    { code: 'secondary',      label: 'Secondary forest / regrowth' },
+    { code: 'riverine',       label: 'Riverine / riparian forest' },
+    { code: 'swamp',          label: 'Swamp forest' },
+    { code: 'montane',        label: 'Montane forest' },
+    { code: 'disturbed',      label: 'Disturbed / logged forest' },
+    { code: 'other',          label: 'Other (specify)' },
+  ],
+
   // Reusable option sets referenced by the schema (js/schema.js).
   options: {
     yes_no: [
@@ -56,6 +70,12 @@ const CONFIG = {
       { code: 'yes',      label: 'Yes' },
       { code: 'no',       label: 'No' },
       { code: 'not_sure', label: 'Not sure' },
+    ],
+    // Decides which of Section B is asked. A forest plot has no clearing year,
+    // no abandonment and no fallow age — its age is not determined here.
+    plot_type: [
+      { code: 'garden', label: 'Garden (in use or in fallow)' },
+      { code: 'forest', label: 'Forest' },
     ],
     // Whether the garden has been abandoned yet. Drives the year-abandoned and
     // fallow-age fields: a garden still in use has no fallow age.
@@ -80,15 +100,16 @@ const CONFIG = {
     'My name is [surveyor name] and I am helping with a survey run by the ' +
     'Managalas and Oro Province Project, part of CIFOR-ICRAF, funded by the ' +
     'European Union.\n\n' +
-    'We are looking at gardens across the Managalas Conservation Area — gardens ' +
-    'being used now and old ones left to fallow — and at a vine called ' +
-    'Aristolochia that grows in them. It is the plant the large birdwing ' +
-    'butterflies lay their eggs on.\n\n' +
-    'I am asking your permission to walk over this garden and record what is ' +
-    'here. I would write down your name, the village, the type of garden, the ' +
-    'year it was cleared and the year it was left, and I would take a GPS point ' +
-    'of the garden. If I find any Aristolochia vines I would record the tree ' +
-    'each one is growing on and whether there are caterpillars or eggs on it.\n\n' +
+    'We are looking at gardens and forest across the Managalas Conservation ' +
+    'Area — gardens being used now, old ones left to fallow, and forest — and ' +
+    'at a vine called Aristolochia that grows in them. It is the plant the ' +
+    'large birdwing butterflies lay their eggs on.\n\n' +
+    'I am asking your permission to walk over this place — whether it is a ' +
+    'garden or forest — and record what is here. I would write down your name, ' +
+    'the village, what kind of place it is, and for a garden the year it was ' +
+    'cleared and the year it was left. I would take a GPS point. If I find any ' +
+    'Aristolochia vines I would record the tree each one is growing on and ' +
+    'whether there are caterpillars or eggs on it.\n\n' +
     'Taking part is voluntary. You do not have to answer any question you do not ' +
     'want to, and you can stop at any time. Your answers are grouped with ' +
     'everyone else\u2019s for analysis. This takes about 20 to 30 minutes.\n\n' +
@@ -96,8 +117,8 @@ const CONFIG = {
 
   // Read aloud at the end (shown on the Review screen).
   thankYouScript:
-    'Thank you for your time and for letting me record this garden. What is ' +
-    'written down here, together with the other gardens in the survey, will ' +
+    'Thank you for your time and for letting me record this place. What is ' +
+    'written down here, together with the other places in the survey, will ' +
     'inform conservation planning for the Managalas Conservation Area.',
 
   // The three occupancy observations made on every vine. `key` is the field

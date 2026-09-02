@@ -1,0 +1,591 @@
+<title>Aristolochia Survey Field Setup</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+  :root {
+    --ground: #f4f7fa;
+    --surface: #ffffff;
+    --ink: #16212b;
+    --muted: #5a6672;
+    --line: #d3dae1;
+    --line-soft: #e4eaf0;
+    --accent: #1560a8;
+    --accent-deep: #0e4477;
+    --accent-wash: #e6eef8;
+    --warn: #8a5200;
+    --warn-wash: #fdf3e0;
+    --warn-line: #e3c68d;
+    --hunt: #256d40;
+    --shadow: 0 1px 2px rgba(22, 33, 43, .06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0f151b;
+      --surface: #161f28;
+      --ink: #e3eaf1;
+      --muted: #9aa8b6;
+      --line: #2b3946;
+      --line-soft: #232f3a;
+      --accent: #6aa9e4;
+      --accent-deep: #a8cdf0;
+      --accent-wash: #16283a;
+      --warn: #e9bd72;
+      --warn-wash: #2c2413;
+      --warn-line: #4d3f1d;
+      --hunt: #63b184;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0f151b;
+    --surface: #161f28;
+    --ink: #e3eaf1;
+    --muted: #9aa8b6;
+    --line: #2b3946;
+    --line-soft: #232f3a;
+    --accent: #6aa9e4;
+    --accent-deep: #a8cdf0;
+    --accent-wash: #16283a;
+    --warn: #e9bd72;
+    --warn-wash: #2c2413;
+    --warn-line: #4d3f1d;
+    --hunt: #63b184;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    margin: 0;
+    padding: 0 1.1rem 5rem;
+  }
+
+  .wrap { max-width: 40rem; margin: 0 auto; }
+
+  /* ---- Masthead ---------------------------------------------------- */
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 2.4rem 0 1.5rem;
+    border-bottom: 3px solid var(--accent);
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .72rem;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  h1 {
+    font-family: Bitter, Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(1.85rem, 6vw, 2.4rem);
+    line-height: 1.15;
+    text-wrap: balance;
+    margin: 0;
+  }
+  .standfirst { color: var(--muted); margin: 0; max-width: 34rem; }
+  .forwhom {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .5rem;
+    margin-top: .3rem;
+    padding: .4rem .7rem;
+    background: var(--accent-wash);
+    border-left: 3px solid var(--accent);
+    align-self: flex-start;
+  }
+  .forwhom .k {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .7rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .forwhom .v { font-weight: 600; }
+
+  /* ---- Sections ---------------------------------------------------- */
+  section { padding-top: 2.4rem; }
+  h2 {
+    font-family: Bitter, Georgia, serif;
+    font-weight: 700;
+    font-size: 1.32rem;
+    line-height: 1.25;
+    text-wrap: balance;
+    margin: 0 0 .2rem;
+  }
+  h3 {
+    font-family: Bitter, Georgia, serif;
+    font-weight: 600;
+    font-size: 1.03rem;
+    margin: 1.7rem 0 .4rem;
+  }
+  .sectionnote { color: var(--muted); margin: 0 0 1rem; }
+  p { margin: 0 0 .85rem; }
+  a { color: var(--accent-deep); }
+
+  code, .mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .87em;
+  }
+  code {
+    background: var(--accent-wash);
+    padding: .1em .35em;
+    border-radius: 3px;
+    word-break: break-word;
+  }
+
+  /* ---- Which app is which ------------------------------------------ */
+  .apps { display: grid; gap: .6rem; margin: 0; }
+  .app {
+    display: grid;
+    grid-template-columns: 2.6rem 1fr;
+    gap: .85rem;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: .75rem .85rem;
+    box-shadow: var(--shadow);
+  }
+  .chip {
+    width: 2.6rem; height: 2.6rem;
+    border-radius: 9px;
+    display: grid; place-items: center;
+    color: #fff; font-weight: 700; font-size: 1.15rem;
+    font-family: Bitter, Georgia, serif;
+  }
+  .chip.blue { background: #1560a8; }
+  .chip.green { background: #256d40; }
+  .app .name { font-weight: 600; }
+  .app .what { color: var(--muted); font-size: .92rem; }
+  .thisone {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent); margin-left: .4rem;
+  }
+
+  /* ---- Checklist ---------------------------------------------------- */
+  .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: .7rem; }
+  /* Marker is absolutely positioned, not a grid column: inline elements inside
+     a grid item would each become their own grid item and land in the marker
+     column, breaking the text into one word per line. */
+  .checks li { position: relative; padding-left: 1.85rem; }
+  .checks li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: .34rem;
+    width: 1.15rem; height: 1.15rem;
+    border: 1.5px solid var(--accent);
+    border-radius: 3px;
+  }
+
+  /* ---- Numbered procedures ------------------------------------------ */
+  ol.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; gap: 1.05rem; }
+  ol.steps > li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 2.55rem;
+  }
+  ol.steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: .1rem;
+    width: 1.7rem;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .8rem;
+    font-weight: 500;
+    color: var(--accent);
+    border-top: 2px solid var(--accent);
+    padding-top: .28rem;
+  }
+  ol.steps p:last-child { margin-bottom: 0; }
+  .sub { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; gap: .4rem; }
+  .sub li {
+    padding-left: .85rem;
+    border-left: 2px solid var(--line);
+    color: var(--muted);
+    font-size: .94rem;
+  }
+
+  /* ---- Callouts ------------------------------------------------------ */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    padding: .85rem 1rem;
+    margin: 1.1rem 0;
+  }
+  .callout.warn {
+    background: var(--warn-wash);
+    border-color: var(--warn-line);
+    border-left-color: var(--warn);
+  }
+  .callout .title {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .68rem; letter-spacing: .11em; text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .35rem;
+  }
+  .callout.warn .title { color: var(--warn); }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* ---- Two install routes -------------------------------------------- */
+  .route {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 1rem 1.1rem 1.1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
+  .routehead {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: .55rem;
+    margin-bottom: .2rem;
+  }
+  .routehead h3 { margin: 0; }
+  .tag {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .65rem; letter-spacing: .1em; text-transform: uppercase;
+    padding: .16rem .45rem;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+  }
+  .tag.best { color: var(--accent); }
+  .tag.fallback { color: var(--muted); }
+  .route > p.sectionnote { margin-bottom: .9rem; }
+
+  /* ---- Troubleshooting ------------------------------------------------ */
+  .trouble { display: grid; gap: 0; }
+  .trouble > div {
+    padding: .95rem 0;
+    border-top: 1px solid var(--line-soft);
+  }
+  .trouble > div:last-child { border-bottom: 1px solid var(--line-soft); }
+  .symptom { font-weight: 600; margin-bottom: .25rem; }
+  .trouble p { margin: 0; color: var(--muted); }
+
+  /* ---- Files produced -------------------------------------------------- */
+  .files { display: grid; gap: .5rem; margin: .9rem 0 0; }
+  .file {
+    display: grid; gap: .15rem;
+    background: var(--accent-wash);
+    padding: .6rem .75rem;
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+  .file .fname {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .82rem;
+    white-space: nowrap;
+  }
+  .file .fwhat { color: var(--muted); font-size: .9rem; }
+
+  /* ---- Supervisor coda -------------------------------------------------- */
+  .coda {
+    margin-top: 3.2rem;
+    padding: 1.3rem 1.2rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--muted);
+  }
+  .coda h2 { font-size: 1.08rem; }
+  .coda, .coda p { font-size: .94rem; }
+  .coda ul { margin: 0 0 .85rem; padding-left: 1.1rem; color: var(--muted); }
+  .coda li { margin-bottom: .35rem; }
+
+  em.sci { font-style: italic; }
+
+  /* ---- Print / PDF -------------------------------------------------------
+     Forces the light palette even from a dark-mode browser, and keeps blocks
+     that are read as a unit from splitting across a page break. */
+  @media print {
+    :root, :root[data-theme="dark"] {
+      --ground: #ffffff;
+      --surface: #ffffff;
+      --ink: #16212b;
+      --muted: #4a5561;
+      --line: #c3ccd6;
+      --line-soft: #dde4ea;
+      --accent: #1560a8;
+      --accent-deep: #0e4477;
+      --accent-wash: #eef4fb;
+      --warn: #7a4800;
+      --warn-wash: #fdf6e8;
+      --warn-line: #d8bf8e;
+      --shadow: none;
+    }
+    @page { margin: 14mm 15mm 16mm; }
+    /* Keep the webfonts first, then fall back to real installed faces rather
+       than whatever the renderer picks when the font host is unreachable. */
+    body, .sub li, .app .what, .trouble p {
+      font-family: "Source Sans 3", "Liberation Sans", Arial, sans-serif;
+    }
+    h1, h2, h3, .chip {
+      font-family: Bitter, "Bitstream Charter", Charter, Georgia, serif;
+    }
+    code, .mono, .eyebrow, .forwhom .k, .thisone, .tag,
+    .callout .title, .file .fname, ol.steps > li::before {
+      font-family: "IBM Plex Mono", "DejaVu Sans Mono", monospace;
+    }
+    body { font-size: 10.5pt; line-height: 1.45; padding: 0; }
+    .wrap { max-width: none; }
+    .masthead { padding-top: 0; }
+    section { padding-top: 1.5rem; }
+    h1 { font-size: 22pt; }
+    h2 { font-size: 13pt; }
+    h3 { font-size: 11pt; }
+    h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+    .callout, .route, .app, .file, .trouble > div, ol.steps > li, .checks li {
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .route, .app { box-shadow: none; }
+    .coda { break-before: page; page-break-before: always; }
+    a { color: var(--ink); text-decoration: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+  a:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Managalas Conservation Area · Field setup</div>
+    <h1>Aristolochia Survey Field Setup</h1>
+    <p class="standfirst">Recording garden and forest plots, and the <em class="sci">Aristolochia</em> vines on them — the plant the large birdwing butterflies lay their eggs on.</p>
+    <div class="forwhom"><span class="k">For</span><span class="v">Avril Matawan</span></div>
+  </header>
+
+  <section>
+    <h2>What this app does</h2>
+    <p class="sectionnote">It runs on your phone <strong>with no internet</strong>. You set it up once, and after that it works anywhere — out in the garden or forest, in the village, with the phone in airplane mode.</p>
+    <p>Internet is needed for two things only: installing it the first time, and sending each day's data to Google Drive.</p>
+  </section>
+
+  <section>
+    <h2>Two apps — don't mix them up</h2>
+    <p class="sectionnote">Both may be on the phone. They keep completely separate records, and updating one never touches the other.</p>
+    <div class="apps">
+      <div class="app">
+        <div class="chip blue">A</div>
+        <div>
+          <div class="name">MCA Aristolochia Survey <span class="thisone">This one</span></div>
+          <div class="what">Blue. Garden and forest plots, and Aristolochia vines.</div>
+        </div>
+      </div>
+      <div class="app">
+        <div class="chip green">H</div>
+        <div>
+          <div class="name">MCA Hunting Survey</div>
+          <div class="what">Green. Hunting and fishing interviews.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Before you start</h2>
+    <ul class="checks">
+      <li>An <strong>Android phone</strong> with the <strong>Chrome</strong> browser — the default on most phones.</li>
+      <li>The phone's <strong>date and time set to automatic</strong> (Settings → System → Date &amp; time). The app stamps every plot with the date and works out fallow age from the year, so a wrong clock puts wrong data in the file.</li>
+      <li>When it asks to use <strong>Location</strong>, tap <strong>Allow</strong>.</li>
+      <li>The <strong>Google Drive app</strong> installed and signed in to the account that can write to the <strong>Aristolochia Survey Data</strong> folder.</li>
+    </ul>
+    <div class="callout">
+      <div class="title">Worth knowing</div>
+      <p>This app <strong>does record a GPS point of every plot</strong>. That is deliberate, and the consent script tells the farmer so before anything is written down. It is different from the hunting survey, which never records where anyone hunts.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Installing</h2>
+
+    <div class="route">
+      <div class="routehead"><h3>A link</h3><span class="tag best">Recommended</span></div>
+      <p class="sectionnote">Ask your supervisor for the link before you go to the field.</p>
+      <ol class="steps">
+        <li><p><strong>While you have internet</strong>, tap the link. The app opens in Chrome.</p></li>
+        <li><p>Tap the <strong>⋮ menu</strong> (three dots, top right) → <strong>Add to Home screen</strong>. Some phones say <strong>Install app</strong>.</p></li>
+        <li><p>Confirm. A blue <strong>MCA Aristolochia</strong> icon appears on your home screen.</p></li>
+        <li><p>Open it from that icon from now on. <strong>You do not need internet again</strong> until you send the data in.</p></li>
+      </ol>
+    </div>
+
+    <div class="route">
+      <div class="routehead"><h3>A file</h3><span class="tag fallback">Only if you can't get a link</span></div>
+      <p class="sectionnote">The file is called <code>MCA_Aristolochia_Survey.html</code>.</p>
+      <ol class="steps">
+        <li><p>Save it to the phone. <strong>Do not move or rename it afterwards</strong> — if the file moves, the app will not find plots you already saved.</p></li>
+        <li><p>Open it. If the phone asks which app to use, choose <strong>Chrome</strong>.</p></li>
+        <li>
+          <p><strong>Check it remembers things before using it for real.</strong> Record a pretend plot, complete it, fully close Chrome, then open the file again.</p>
+          <ul class="sub">
+            <li>Pretend plot still on the home screen → the file method works on this phone.</li>
+            <li>Pretend plot gone → <strong>stop and ask for the link instead.</strong> Some phones do not let a file opened from storage save anything.</li>
+          </ul>
+        </li>
+        <li><p>Delete the pretend plot once you are satisfied.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <h2>The first time you open it</h2>
+    <ol class="steps">
+      <li><p>It asks for your <strong>name or ID</strong>. Type <strong>Avril Matawan</strong> and tap <strong>Save and continue</strong>. This stays on the phone and is attached to every plot you record.</p></li>
+      <li><p>You land on the <strong>home screen</strong>, with an empty list of plots.</p></li>
+    </ol>
+
+    <h3>Test it offline, before your first real garden</h3>
+    <ol class="steps">
+      <li><p>Turn on <strong>airplane mode</strong>.</p></li>
+      <li><p>Record a pretend plot all the way through to <strong>Complete plot</strong>.</p></li>
+      <li><p>Close the app completely, then reopen it. The pretend plot should still be there.</p></li>
+      <li><p>Delete it with the <strong>Delete</strong> button on the home screen.</p></li>
+    </ol>
+    <p>If all of that works, the app is ready for the field.</p>
+  </section>
+
+  <section>
+    <h2>Recording a plot</h2>
+    <p class="sectionnote">Any question can be left blank, and your work saves as you go.</p>
+    <ol class="steps">
+      <li><p>On the home screen tap <strong>+ New plot</strong>.</p></li>
+      <li>
+        <p><strong>Read the consent script aloud.</strong> It asks permission to walk the place — garden or forest — and to record the farmer's name, what is there, and a GPS point.</p>
+        <ul class="sub">
+          <li>Farmer agrees → tick the box, tap <strong>Start recording</strong>.</li>
+          <li>Farmer does not agree → tap <strong>Declined — cancel</strong>. Nothing is saved.</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>Section A — Plot and farmer.</strong> The GPS point is taken automatically when the plot opens. Fill in the farmer's name, village, Zone and Ward.</p>
+        <ul class="sub">
+          <li>If it says <em>No GPS point</em>, move to open sky away from thick canopy and tap <strong>Retry GPS</strong>.</li>
+          <li>The plot code — like <code>Z6-M46-001</code> — appears once you choose the Zone. You never type it yourself.</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>Section B — Garden or forest.</strong> First say whether the plot is a <strong>garden</strong> or <strong>forest</strong>. The rest of the section changes to match.</p>
+        <ul class="sub">
+          <li><strong>Garden</strong> — garden type and description, the year cleared, whether it is still gardened or abandoned, and the year abandoned. Fallow age is worked out for you and shown in the blue box; don't try to type it.</li>
+          <li><strong>Forest</strong> — forest type and description only. No year is asked, and there is no fallow age: the box says <em>forest, age not determined</em>.</li>
+          <li>If you pick the wrong one and change it, the answers from the other side are cleared. Re-enter them if you switch back.</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>Section C — Aristolochia.</strong> Answer whether it is present. If yes, tap <strong>+ Add vine</strong> for <strong>every vine you find</strong> — the same on a garden plot and a forest plot — and for each one record the tree it is climbing, that tree's DBH in centimetres, and whether there is a caterpillar, an egg, or signs of leaves being eaten.</p>
+        <ul class="sub">
+          <li>A count box appears when you answer <strong>Yes</strong>. Fill it in if you can count them; leave it blank if you cannot.</li>
+          <li>The butterfly species question only appears once you have recorded a caterpillar, egg or feeding sign.</li>
+        </ul>
+      </li>
+      <li><p>Tap <strong>Review</strong>. Check what is recorded, read the thank-you aloud, then tap <strong>Complete plot</strong>.</p></li>
+    </ol>
+
+    <div class="callout">
+      <div class="title">On forest plots</div>
+      <p>A forest plot gets <strong>no age</strong>. That is how the app is meant to work — the age of forest is not determined by this survey, and a blank there is a correct answer, not a missing one. Only write an age into the description if somebody actually knows it.</p>
+    </div>
+
+    <div class="callout">
+      <div class="title">On naming the butterfly</div>
+      <p>Only choose <em class="sci">O. priamus</em> or <em class="sci">O. alexandrae</em> if you are sure. If you are not sure, leave it as <strong>not identified</strong> — that is a normal answer, not a gap. A wrong identification is worse than none.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sending the day's data — every evening</h2>
+    <p class="sectionnote">You need internet for this step.</p>
+    <ol class="steps">
+      <li><p>Open the app. The home screen shows <strong>Today</strong>, with how many plots are completed and how many are <strong>not yet exported</strong>.</p></li>
+      <li>
+        <p>Tap <strong>Send today's data</strong>. That is the only button you need.</p>
+      </li>
+      <li><p>The phone's share sheet opens. Choose <strong>Drive</strong>, pick the <strong>Aristolochia Survey Data</strong> folder, and save.</p></li>
+      <li><p>Check the home screen now says <strong>0 not yet exported</strong>.</p></li>
+    </ol>
+
+    <p style="margin-top:1.1rem">Two files go together in that one tap:</p>
+    <div class="files">
+      <div class="file">
+        <div class="fname">mca_aristolochia_plots_&lt;date&gt;.csv</div>
+        <div class="fwhat">One row per plot</div>
+      </div>
+      <div class="file">
+        <div class="fname">mca_aristolochia_vines_&lt;date&gt;.csv</div>
+        <div class="fwhat">One row per vine</div>
+      </div>
+    </div>
+    <p style="margin-top:.8rem">They are separate because a plot can have any number of vines. Keep both — the office needs the pair.</p>
+
+    <div class="callout warn">
+      <div class="title">The share sheet needs the link install</div>
+      <p>Android only offers the share sheet to a page served over the internet. If you installed from the <strong>file</strong>, it will not appear — the app downloads the two files instead and tells you so, and you upload them from <strong>Downloads</strong> with the Google Drive app. This is the main reason to prefer the link.</p>
+    </div>
+    <p>Only plots you marked <strong>Complete</strong> are exported — a plot still in progress is held back until you finish it. If you were out of signal for a few days, the home screen tells you how many older plots are still waiting; use <strong>Other export options → Send everything not yet sent</strong> to catch up.</p>
+  </section>
+
+  <section>
+    <h2>Protecting the data</h2>
+    <p class="sectionnote">Plots live <strong>only on this phone</strong> until you export them.</p>
+    <div class="callout warn">
+      <div class="title">These three things lose data permanently</div>
+      <p><strong>Clearing Chrome's browsing data or site data</strong> while plots are unexported — it deletes the saved plots. <strong>Uninstalling the app</strong>, or deleting the file, before exporting. <strong>Losing or breaking the phone</strong> before exporting.</p>
+    </div>
+    <p>All three have the same protection: <strong>export every day you record anything.</strong> Deleting a plot with the <strong>Delete</strong> button also cannot be undone.</p>
+  </section>
+
+  <section>
+    <h2>If something goes wrong</h2>
+    <div class="trouble">
+      <div>
+        <div class="symptom">GPS says "No GPS point"</div>
+        <p>Check Location is switched on in the phone's settings. Move out from under thick canopy to open sky and tap <strong>Retry GPS</strong>. If it says permission is blocked, tap the padlock or ⋮ in Chrome's address bar → Permissions → Location → Allow, then Retry. You can still record the rest of the plot without a point — it is flagged at Review so the office knows.</p>
+      </div>
+      <div>
+        <div class="symptom">The app opens but my plots are gone</div>
+        <p>Most often the app was opened a different way than usual — a different link, or a file that was moved. Open it exactly the way you did before. If you used the file method and the file was moved or renamed, move it back.</p>
+      </div>
+      <div>
+        <div class="symptom">A plot I finished still says "in progress"</div>
+        <p>Open it, tap through to <strong>Review</strong>, and tap <strong>Complete plot</strong>. Only completed plots export.</p>
+      </div>
+      <div>
+        <div class="symptom">Export did nothing, or only one file arrived</div>
+        <p>The two files download a moment apart — check Downloads for both. If a plot is still in progress it will not be in the export.</p>
+      </div>
+    </div>
+  </section>
+
+  <aside class="coda">
+    <h2>For the supervisor — getting the link</h2>
+    <p>The app is on the branch <code>claude/daily-data-upload-app-1aq36f</code>. <strong>The repository's default branch does not have it yet</strong>, so if GitHub Pages is already publishing the default branch, this app will not appear on the live site until one of these is done:</p>
+    <ul>
+      <li>merge <code>claude/daily-data-upload-app-1aq36f</code> into the default branch (<code>claude/new-session-aeipuc</code>), or</li>
+      <li>point Pages at <code>claude/daily-data-upload-app-1aq36f</code> instead — that branch is the default branch plus this app, so the hunting survey link keeps working unchanged.</li>
+    </ul>
+    <p>To switch Pages on, or change which branch it serves: repo → <strong>Settings</strong> → <strong>Pages</strong> → Source <strong>Deploy from a branch</strong> → pick the branch and folder <strong>/ (root)</strong> → <strong>Save</strong>. After about a minute the two apps are at:</p>
+    <div class="files">
+      <div class="file">
+        <div class="fname">…github.io/MCA_Hunt/</div>
+        <div class="fwhat">Hunting survey</div>
+      </div>
+      <div class="file">
+        <div class="fname">…github.io/MCA_Hunt/aristolochia/</div>
+        <div class="fwhat">Aristolochia survey — send Avril this one</div>
+      </div>
+    </div>
+    <p style="margin-top:.9rem">Pushing updated code redeploys within a minute. Plots already saved on the phone are never affected by an update.</p>
+  </aside>
+
+</div>

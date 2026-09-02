@@ -115,6 +115,13 @@
     if (field === 'zone') {
       state.current.plot_code = makePlotCode(value, state.current._seq);
     }
+    // Changing the garden/forest gate clears the other branch, so a plot can
+    // never export a forest type alongside a clearing year.
+    if (field === 'plot_type') {
+      const drop = value === 'forest' ? SCHEMA.BRANCH_FIELDS.garden
+        : value === 'garden' ? SCHEMA.BRANCH_FIELDS.forest : [];
+      drop.forEach((f) => { delete state.current.data[f]; });
+    }
     save();
   }
 
@@ -161,18 +168,25 @@
   }
 
   // --- showIf evaluation ---------------------------------------------------
-  function visible(field, data) {
-    const c = field.showIf;
-    if (!c) return true;
+  function condHolds(c, data) {
     const v = data[c.field];
     if (c.equals != null) return v === c.equals;
     if (c.notEquals != null) return v !== c.notEquals;
     return true;
   }
 
+  // showIf is either one condition or a list of conditions that must all hold
+  // (e.g. year_abandoned needs a garden plot AND an abandoned garden).
+  function visible(field, data) {
+    const c = field.showIf;
+    if (!c) return true;
+    return Array.isArray(c) ? c.every((one) => condHolds(one, data)) : condHolds(c, data);
+  }
+
   // --- Validation warnings -------------------------------------------------
   function yearWarnings(data) {
     const w = [];
+    if (data.plot_type === 'forest') return w; // no years are asked for forest
     const now = new Date().getFullYear();
     const check = (name, label) => {
       const raw = data[name];
@@ -220,6 +234,7 @@
     if (r.consent_given !== 'yes') w.push('consent not recorded');
     if (!r.plot_code) w.push('no plot code (Zone was blank)');
     if (r.gps_status !== 'ok') w.push('no GPS point');
+    if (!r.data.plot_type) w.push('garden or forest not recorded');
     if (!r.data.aristolochia_present) w.push('Aristolochia present/absent not recorded');
     return w;
   }
@@ -228,7 +243,10 @@
   // re-renders the section.
   function triggerFields(module) {
     const s = new Set();
-    module.fields.forEach((f) => { if (f.showIf) s.add(f.showIf.field); });
+    module.fields.forEach((f) => {
+      if (!f.showIf) return;
+      (Array.isArray(f.showIf) ? f.showIf : [f.showIf]).forEach((c) => s.add(c.field));
+    });
     return s;
   }
 
@@ -295,6 +313,11 @@
     const fallow = SCHEMA.DERIVED.fallowAge(data);
     const cult = SCHEMA.DERIVED.cultivationYears(data);
     const rows = [];
+    if (data.plot_type === 'forest') {
+      return `<div class="calc">
+        <div class="calcrow"><b>Fallow age</b><span class="calcval muted">— forest, age not determined</span></div>
+        <div class="help">Forest plots are not given an age. The plot type is recorded instead.</div></div>`;
+    }
     if (fallow !== '') {
       rows.push(`<div class="calcrow"><b>Fallow age</b><span class="calcval">${esc(fallow)} year${fallow === '1' ? '' : 's'}</span></div>`);
     } else if (data.garden_status === 'still_used') {
@@ -463,10 +486,11 @@
         <div class="daycard">
           <div class="dayhead">Today — ${esc(today)}</div>
           <div class="daystat">${todayDone.length} completed · ${pendingToday.length} not yet exported</div>
-          <button class="btn primary" data-action="export-today">Export today’s data</button>
+          <button class="btn primary" data-action="send-today">Send today’s data</button>
           <a class="drivelink" href="${esc(CONFIG.driveFolderUrl)}" target="_blank" rel="noopener">
             Open the ${esc(CONFIG.driveFolderName)} folder in Drive →</a>
-          <div class="help">Exports two files — plots and vines. Save both into the Drive folder.</div>
+          <div class="help">One tap. Choose <b>Drive</b> on the share sheet and save into
+            ${esc(CONFIG.driveFolderName)}. Both files — plots and vines — go together.</div>
         </div>
         ${backlog}
 
@@ -476,8 +500,9 @@
         <details class="moreexport">
           <summary>Other export options</summary>
           <div class="exportbar">
-            <button class="btn" data-action="export-pending">Export everything not yet sent</button>
-            <button class="btn" data-action="export-all">Export all data (re-export)</button>
+            <button class="btn" data-action="send-pending">Send everything not yet sent</button>
+            <button class="btn" data-action="export-today">Download today’s data</button>
+            <button class="btn" data-action="export-all">Download all data (re-export)</button>
             <button class="btn ghost" data-action="export-json">Download JSON (raw)</button>
             <button class="btn ghost" data-action="export-anon">Export without farmer names</button>
           </div>
@@ -776,6 +801,8 @@
         return;
       }
 
+      case 'send-today':     return doSend({ scope: 'today' });
+      case 'send-pending':   return doSend({ scope: 'pending' });
       case 'export-today':   return doExport({ scope: 'today' });
       case 'export-pending': return doExport({ scope: 'pending' });
       case 'export-all':     return doExport({ scope: 'all' });
@@ -801,30 +828,82 @@
     return done;
   }
 
+  // Build the day's files once, so Send and Download cannot diverge.
+  function buildFiles(records, includeName, stamp) {
+    const tag = includeName ? 'named' : 'anon';
+    return [
+      { name: `mca_aristolochia_plots_${tag}_${stamp}.csv`,
+        body: EXPORTER.plotsCSV(records, includeName) },
+      { name: `mca_aristolochia_vines_${stamp}.csv`,
+        body: EXPORTER.vinesCSV(records) },
+    ];
+  }
+
+  // One tap: hand both CSVs to the phone's share sheet so they can go straight
+  // into Drive. Falls back to downloading them where file sharing is not
+  // available (desktop browsers, or the app opened from disk), so the button
+  // always does something useful.
+  async function doSend(opts) {
+    const includeName = opts.includeName !== false;
+    const all = await DB.getAll();
+    const records = scopeRecords(all, opts.scope);
+    if (!records.length) { noRecordsAlert(opts.scope); return; }
+
+    const stamp = opts.scope === 'today' ? todayLocal() : EXPORTER.timestamp();
+    const built = buildFiles(records, includeName, stamp);
+
+    try {
+      const files = built.map((f) => new File([f.body], f.name, { type: 'text/csv' }));
+      if (navigator.canShare && navigator.canShare({ files })) {
+        await navigator.share({
+          files,
+          title: 'MCA Aristolochia Survey',
+          text: `${records.length} plot(s) from ${surveyorId() || 'this device'} — save both files into ${CONFIG.driveFolderName}.`,
+        });
+        await markExported(records);
+        if (state.view === 'home') renderHome();
+        return;
+      }
+    } catch (e) {
+      // Cancelled by the user → stop, and do not mark anything as exported.
+      if (e && e.name === 'AbortError') return;
+      // Anything else (unsupported mid-flight) → fall through to downloading.
+    }
+
+    await downloadFiles(built);
+    await markExported(records);
+    if (state.view === 'home') renderHome();
+    alert(`Sharing isn’t available on this phone, so ${built.length} files were downloaded instead.\n\nUpload them to ${CONFIG.driveFolderName} from your Downloads folder.`);
+  }
+
+  async function downloadFiles(built) {
+    for (let i = 0; i < built.length; i++) {
+      EXPORTER.download(built[i].name, built[i].body, 'text/csv;charset=utf-8');
+      // Browsers drop back-to-back downloads; give each one a beat.
+      if (i < built.length - 1) await new Promise((res) => setTimeout(res, 600));
+    }
+  }
+
+  function noRecordsAlert(scope) {
+    alert(scope === 'today'
+      ? 'No completed plots for today yet. A plot is exported once you tap “Complete plot”.'
+      : 'No completed plots to export yet.');
+  }
+
   async function doExport(opts) {
     const includeName = opts.includeName !== false;
     const all = await DB.getAll();
     const records = scopeRecords(all, opts.scope);
-    if (!records.length) {
-      alert(opts.scope === 'today'
-        ? 'No completed plots for today yet. A plot is exported once you tap “Complete plot”.'
-        : 'No completed plots to export yet.');
-      return;
-    }
+    if (!records.length) { noRecordsAlert(opts.scope); return; }
     // Daily files are named by survey day; anything wider carries a timestamp.
     const stamp = opts.scope === 'today' ? todayLocal() : EXPORTER.timestamp();
-    const tag = includeName ? 'named' : 'anon';
 
     if (opts.kind === 'json') {
+      const tag = includeName ? 'named' : 'anon';
       EXPORTER.download(`mca_aristolochia_${tag}_${stamp}.json`,
         EXPORTER.toJSON(records, includeName), 'application/json');
     } else {
-      EXPORTER.download(`mca_aristolochia_plots_${tag}_${stamp}.csv`,
-        EXPORTER.plotsCSV(records, includeName), 'text/csv;charset=utf-8');
-      // Second download fires after a beat — browsers drop back-to-back ones.
-      await new Promise((res) => setTimeout(res, 600));
-      EXPORTER.download(`mca_aristolochia_vines_${stamp}.csv`,
-        EXPORTER.vinesCSV(records), 'text/csv;charset=utf-8');
+      await downloadFiles(buildFiles(records, includeName, stamp));
     }
 
     await markExported(records);

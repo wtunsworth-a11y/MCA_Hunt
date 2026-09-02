@@ -38,13 +38,26 @@ Per plot:
 | GPS point | lat, lon, accuracy, fix time — captured when the plot is created, retryable |
 | Farmer's name | stored outside the data map, so it can be left out of an export |
 | Village, Zone, Ward | Zone and Ward from the shared reference lists |
-| Garden type + description | type from `CONFIG.gardenTypes`, plus free text |
-| Year cleared | |
-| Garden status | abandoned (in fallow) / still being gardened |
-| Year abandoned | asked only if abandoned |
-| Fallow age | **calculated**, not typed: current year − year abandoned |
-| Years gardened | **calculated**: year abandoned − year cleared |
+| Plot type | **garden** or **forest** — gates the rest of Section B |
+| Garden type + description | garden plots only; type from `CONFIG.gardenTypes`, plus free text |
+| Year cleared | garden plots only |
+| Garden status | garden plots only: abandoned (in fallow) / still being gardened |
+| Year abandoned | garden plots only, asked if abandoned |
+| Fallow age | **calculated**, not typed: current year − year abandoned. Blank for forest |
+| Years gardened | **calculated**: year abandoned − year cleared. Blank for forest |
+| Forest type + description | forest plots only; type from `CONFIG.forestTypes`, plus free text |
 | Aristolochia present | yes / no |
+
+### Garden or forest
+
+Section B opens with a **garden / forest** gate. A forest plot is not asked for
+a clearing year, an abandonment year or a status, and gets **no fallow age** —
+its age is not determined by this instrument. `plot_type` in the export says why
+those columns are blank.
+
+Switching the gate **clears the branch no longer in use**, so a row can never
+carry a forest type alongside a clearing year. Section C works the same either
+way: vines are recorded on forest plots exactly as on gardens.
 
 Per vine, when Aristolochia is present:
 
@@ -63,7 +76,10 @@ identified stays `unknown` rather than being forced to a species.
 
 ## Export and daily upload
 
-Uploading is manual. **Export today's data** writes two CSVs, linked by
+Uploading is manual, and one tap. **Send today's data** hands both CSVs to the
+phone's share sheet in a single share action, so they can go straight into the
+Drive folder; where file sharing is unavailable (desktop, or the app opened from
+disk) it downloads them instead and says so. The two files are linked by
 `plot_id`:
 
 - `mca_aristolochia_plots_named_<date>.csv` — one row per plot, including the
@@ -71,10 +87,10 @@ Uploading is manual. **Export today's data** writes two CSVs, linked by
 - `mca_aristolochia_vines_<date>.csv` — one row per vine, with the plot's
   identifiers denormalised onto it so the file stands alone in analysis.
 
-Save both into the Google Drive folder linked from the home screen
-(`CONFIG.driveFolderUrl`). The home screen shows how many of today's plots are
-still unexported, and warns when completed plots from earlier days have not been
-sent.
+The home screen links to the Google Drive folder (`CONFIG.driveFolderUrl`),
+shows how many of today's plots are still unexported, and warns when completed
+plots from earlier days have not been sent. Download-only variants stay under
+**Other export options**, off the daily path.
 
 Only plots marked **Complete** are exported; an in-progress plot is held back so
 a half-entered record is never filed as data.
@@ -88,7 +104,7 @@ filenames are covered by `.gitignore` at the repo root.
 `js/export.js` builds the CSV columns from the same lists, so the three stay in
 sync.
 
-- `gardenTypes` — edit freely. `code` is what lands in the CSV, so keep codes
+- `gardenTypes`, `forestTypes` — edit freely. `code` is what lands in the CSV, so keep codes
   stable once collection starts.
 - `hostTrees` — **empty by default**, which makes host tree species a free-text
   field. Once the common set is known from the field, fill it in

@@ -367,6 +367,20 @@ const CONFIG = {
     { code: 'other',        label: 'Other (specify)' },
   ],
 
+  // --- Forest types, for plots that are forest rather than garden. Editable
+  // on the same terms as gardenTypes: `code` lands in the CSV, so keep codes
+  // stable once collection starts. ---
+  forestTypes: [
+    { code: 'primary',        label: 'Primary forest (no record of gardening)' },
+    { code: 'old_secondary',  label: 'Old secondary forest (long regrowth)' },
+    { code: 'secondary',      label: 'Secondary forest / regrowth' },
+    { code: 'riverine',       label: 'Riverine / riparian forest' },
+    { code: 'swamp',          label: 'Swamp forest' },
+    { code: 'montane',        label: 'Montane forest' },
+    { code: 'disturbed',      label: 'Disturbed / logged forest' },
+    { code: 'other',          label: 'Other (specify)' },
+  ],
+
   // Reusable option sets referenced by the schema (js/schema.js).
   options: {
     yes_no: [
@@ -377,6 +391,12 @@ const CONFIG = {
       { code: 'yes',      label: 'Yes' },
       { code: 'no',       label: 'No' },
       { code: 'not_sure', label: 'Not sure' },
+    ],
+    // Decides which of Section B is asked. A forest plot has no clearing year,
+    // no abandonment and no fallow age — its age is not determined here.
+    plot_type: [
+      { code: 'garden', label: 'Garden (in use or in fallow)' },
+      { code: 'forest', label: 'Forest' },
     ],
     // Whether the garden has been abandoned yet. Drives the year-abandoned and
     // fallow-age fields: a garden still in use has no fallow age.
@@ -401,15 +421,16 @@ const CONFIG = {
     'My name is [surveyor name] and I am helping with a survey run by the ' +
     'Managalas and Oro Province Project, part of CIFOR-ICRAF, funded by the ' +
     'European Union.\n\n' +
-    'We are looking at gardens across the Managalas Conservation Area — gardens ' +
-    'being used now and old ones left to fallow — and at a vine called ' +
-    'Aristolochia that grows in them. It is the plant the large birdwing ' +
-    'butterflies lay their eggs on.\n\n' +
-    'I am asking your permission to walk over this garden and record what is ' +
-    'here. I would write down your name, the village, the type of garden, the ' +
-    'year it was cleared and the year it was left, and I would take a GPS point ' +
-    'of the garden. If I find any Aristolochia vines I would record the tree ' +
-    'each one is growing on and whether there are caterpillars or eggs on it.\n\n' +
+    'We are looking at gardens and forest across the Managalas Conservation ' +
+    'Area — gardens being used now, old ones left to fallow, and forest — and ' +
+    'at a vine called Aristolochia that grows in them. It is the plant the ' +
+    'large birdwing butterflies lay their eggs on.\n\n' +
+    'I am asking your permission to walk over this place — whether it is a ' +
+    'garden or forest — and record what is here. I would write down your name, ' +
+    'the village, what kind of place it is, and for a garden the year it was ' +
+    'cleared and the year it was left. I would take a GPS point. If I find any ' +
+    'Aristolochia vines I would record the tree each one is growing on and ' +
+    'whether there are caterpillars or eggs on it.\n\n' +
     'Taking part is voluntary. You do not have to answer any question you do not ' +
     'want to, and you can stop at any time. Your answers are grouped with ' +
     'everyone else\u2019s for analysis. This takes about 20 to 30 minutes.\n\n' +
@@ -417,8 +438,8 @@ const CONFIG = {
 
   // Read aloud at the end (shown on the Review screen).
   thankYouScript:
-    'Thank you for your time and for letting me record this garden. What is ' +
-    'written down here, together with the other gardens in the survey, will ' +
+    'Thank you for your time and for letting me record this place. What is ' +
+    'written down here, together with the other places in the survey, will ' +
     'inform conservation planning for the Managalas Conservation Area.',
 
   // The three occupancy observations made on every vine. `key` is the field
@@ -555,8 +576,10 @@ function emptyVine() {
 // --- Derived values. Computed on read, never stored, so they cannot go stale
 // as the year rolls over. Both are exported as their own columns. ---
 const DERIVED = {
-  // Years since the garden was abandoned, to today. Blank while still gardened.
+  // Years since the garden was abandoned, to today. Blank while still gardened,
+  // and blank for a forest plot — a forest's age is not determined here.
   fallowAge(data) {
+    if (data.plot_type === 'forest') return '';
     if (data.garden_status !== 'abandoned') return '';
     const y = parseInt(data.year_abandoned, 10);
     if (!y) return '';
@@ -566,6 +589,7 @@ const DERIVED = {
   },
   // Years the garden was under cultivation (cleared -> abandoned).
   cultivationYears(data) {
+    if (data.plot_type === 'forest') return '';
     const c = parseInt(data.year_cleared, 10);
     const a = parseInt(data.year_abandoned, 10);
     if (!c || !a) return '';
@@ -574,8 +598,18 @@ const DERIVED = {
   },
 };
 
+// Fields owned by each branch of the plot_type gate. When the gate changes, the
+// other branch's answers are cleared so a forest plot cannot export a clearing
+// year, nor a garden plot a forest type.
+const BRANCH_FIELDS = {
+  garden: ['garden_type', 'garden_type_other', 'garden_description',
+           'year_cleared', 'garden_status', 'year_abandoned'],
+  forest: ['forest_type', 'forest_type_other', 'forest_description'],
+};
+
 const SCHEMA = {
   VINE_FIELDS,
+  BRANCH_FIELDS,
   emptyVine,
   DERIVED,
 
@@ -587,6 +621,7 @@ const SCHEMA = {
       case 'zones':       return CONFIG.zones;
       case 'wards':       return CONFIG.wards;
       case 'gardenTypes': return CONFIG.gardenTypes;
+      case 'forestTypes': return CONFIG.forestTypes;
       case 'hostTrees':   return CONFIG.hostTrees;
       default:            return [];
     }
@@ -606,19 +641,38 @@ const SCHEMA = {
       ],
     },
     {
-      id: 'B', title: 'Section B — Garden history',
+      id: 'B', title: 'Section B — Garden or forest',
       fields: [
-        { kind: 'single', name: 'garden_type', label: 'Garden type', options: 'gardenTypes', dropdown: true },
+        { kind: 'single', name: 'plot_type', label: 'Is this plot a garden or forest?',
+          options: 'plot_type',
+          help: 'A forest plot is not asked for a clearing year — its age is not determined here.' },
+
+        // --- Garden branch ---
+        { kind: 'single', name: 'garden_type', label: 'Garden type', options: 'gardenTypes', dropdown: true,
+          showIf: { field: 'plot_type', equals: 'garden' } },
         { kind: 'text', name: 'garden_type_other', label: 'Other garden type (specify)',
-          showIf: { field: 'garden_type', equals: 'other' } },
+          showIf: [{ field: 'plot_type', equals: 'garden' }, { field: 'garden_type', equals: 'other' }] },
         { kind: 'text', name: 'garden_description', label: 'Garden description', multiline: true,
-          help: 'What was grown, how it looks now, regrowth stage.' },
+          help: 'What was grown, how it looks now, regrowth stage.',
+          showIf: { field: 'plot_type', equals: 'garden' } },
         { kind: 'year', name: 'year_cleared', label: 'Year cleared',
-          help: 'The year the forest or fallow was cut to make this garden.' },
+          help: 'The year the forest or fallow was cut to make this garden.',
+          showIf: { field: 'plot_type', equals: 'garden' } },
         { kind: 'single', name: 'garden_status', label: 'Is the garden still being gardened?',
-          options: 'garden_status' },
+          options: 'garden_status',
+          showIf: { field: 'plot_type', equals: 'garden' } },
         { kind: 'year', name: 'year_abandoned', label: 'Year abandoned',
-          showIf: { field: 'garden_status', equals: 'abandoned' } },
+          showIf: [{ field: 'plot_type', equals: 'garden' }, { field: 'garden_status', equals: 'abandoned' }] },
+
+        // --- Forest branch ---
+        { kind: 'single', name: 'forest_type', label: 'Forest type', options: 'forestTypes', dropdown: true,
+          showIf: { field: 'plot_type', equals: 'forest' } },
+        { kind: 'text', name: 'forest_type_other', label: 'Other forest type (specify)',
+          showIf: [{ field: 'plot_type', equals: 'forest' }, { field: 'forest_type', equals: 'other' }] },
+        { kind: 'text', name: 'forest_description', label: 'Forest description', multiline: true,
+          help: 'Canopy, understorey, any sign of past gardening. Note an age only if someone actually knows it.',
+          showIf: { field: 'plot_type', equals: 'forest' } },
+
         { kind: 'fallow_age' },
       ],
     },
@@ -674,8 +728,10 @@ const EXPORTER = (function () {
 
     add('village'); add('zone'); add('ward'); add('plot_notes');
 
+    add('plot_type');
     add('garden_type'); add('garden_type_other'); add('garden_description');
     add('year_cleared'); add('garden_status'); add('year_abandoned');
+    add('forest_type'); add('forest_type_other'); add('forest_description');
     add('fallow_age_years', 'derived');
     add('cultivation_years', 'derived');
 
@@ -968,6 +1024,13 @@ window.EXPORTER = EXPORTER;
     if (field === 'zone') {
       state.current.plot_code = makePlotCode(value, state.current._seq);
     }
+    // Changing the garden/forest gate clears the other branch, so a plot can
+    // never export a forest type alongside a clearing year.
+    if (field === 'plot_type') {
+      const drop = value === 'forest' ? SCHEMA.BRANCH_FIELDS.garden
+        : value === 'garden' ? SCHEMA.BRANCH_FIELDS.forest : [];
+      drop.forEach((f) => { delete state.current.data[f]; });
+    }
     save();
   }
 
@@ -1014,18 +1077,25 @@ window.EXPORTER = EXPORTER;
   }
 
   // --- showIf evaluation ---------------------------------------------------
-  function visible(field, data) {
-    const c = field.showIf;
-    if (!c) return true;
+  function condHolds(c, data) {
     const v = data[c.field];
     if (c.equals != null) return v === c.equals;
     if (c.notEquals != null) return v !== c.notEquals;
     return true;
   }
 
+  // showIf is either one condition or a list of conditions that must all hold
+  // (e.g. year_abandoned needs a garden plot AND an abandoned garden).
+  function visible(field, data) {
+    const c = field.showIf;
+    if (!c) return true;
+    return Array.isArray(c) ? c.every((one) => condHolds(one, data)) : condHolds(c, data);
+  }
+
   // --- Validation warnings -------------------------------------------------
   function yearWarnings(data) {
     const w = [];
+    if (data.plot_type === 'forest') return w; // no years are asked for forest
     const now = new Date().getFullYear();
     const check = (name, label) => {
       const raw = data[name];
@@ -1073,6 +1143,7 @@ window.EXPORTER = EXPORTER;
     if (r.consent_given !== 'yes') w.push('consent not recorded');
     if (!r.plot_code) w.push('no plot code (Zone was blank)');
     if (r.gps_status !== 'ok') w.push('no GPS point');
+    if (!r.data.plot_type) w.push('garden or forest not recorded');
     if (!r.data.aristolochia_present) w.push('Aristolochia present/absent not recorded');
     return w;
   }
@@ -1081,7 +1152,10 @@ window.EXPORTER = EXPORTER;
   // re-renders the section.
   function triggerFields(module) {
     const s = new Set();
-    module.fields.forEach((f) => { if (f.showIf) s.add(f.showIf.field); });
+    module.fields.forEach((f) => {
+      if (!f.showIf) return;
+      (Array.isArray(f.showIf) ? f.showIf : [f.showIf]).forEach((c) => s.add(c.field));
+    });
     return s;
   }
 
@@ -1148,6 +1222,11 @@ window.EXPORTER = EXPORTER;
     const fallow = SCHEMA.DERIVED.fallowAge(data);
     const cult = SCHEMA.DERIVED.cultivationYears(data);
     const rows = [];
+    if (data.plot_type === 'forest') {
+      return `<div class="calc">
+        <div class="calcrow"><b>Fallow age</b><span class="calcval muted">— forest, age not determined</span></div>
+        <div class="help">Forest plots are not given an age. The plot type is recorded instead.</div></div>`;
+    }
     if (fallow !== '') {
       rows.push(`<div class="calcrow"><b>Fallow age</b><span class="calcval">${esc(fallow)} year${fallow === '1' ? '' : 's'}</span></div>`);
     } else if (data.garden_status === 'still_used') {
@@ -1316,10 +1395,11 @@ window.EXPORTER = EXPORTER;
         <div class="daycard">
           <div class="dayhead">Today — ${esc(today)}</div>
           <div class="daystat">${todayDone.length} completed · ${pendingToday.length} not yet exported</div>
-          <button class="btn primary" data-action="export-today">Export today’s data</button>
+          <button class="btn primary" data-action="send-today">Send today’s data</button>
           <a class="drivelink" href="${esc(CONFIG.driveFolderUrl)}" target="_blank" rel="noopener">
             Open the ${esc(CONFIG.driveFolderName)} folder in Drive →</a>
-          <div class="help">Exports two files — plots and vines. Save both into the Drive folder.</div>
+          <div class="help">One tap. Choose <b>Drive</b> on the share sheet and save into
+            ${esc(CONFIG.driveFolderName)}. Both files — plots and vines — go together.</div>
         </div>
         ${backlog}
 
@@ -1329,8 +1409,9 @@ window.EXPORTER = EXPORTER;
         <details class="moreexport">
           <summary>Other export options</summary>
           <div class="exportbar">
-            <button class="btn" data-action="export-pending">Export everything not yet sent</button>
-            <button class="btn" data-action="export-all">Export all data (re-export)</button>
+            <button class="btn" data-action="send-pending">Send everything not yet sent</button>
+            <button class="btn" data-action="export-today">Download today’s data</button>
+            <button class="btn" data-action="export-all">Download all data (re-export)</button>
             <button class="btn ghost" data-action="export-json">Download JSON (raw)</button>
             <button class="btn ghost" data-action="export-anon">Export without farmer names</button>
           </div>
@@ -1629,6 +1710,8 @@ window.EXPORTER = EXPORTER;
         return;
       }
 
+      case 'send-today':     return doSend({ scope: 'today' });
+      case 'send-pending':   return doSend({ scope: 'pending' });
       case 'export-today':   return doExport({ scope: 'today' });
       case 'export-pending': return doExport({ scope: 'pending' });
       case 'export-all':     return doExport({ scope: 'all' });
@@ -1654,30 +1737,82 @@ window.EXPORTER = EXPORTER;
     return done;
   }
 
+  // Build the day's files once, so Send and Download cannot diverge.
+  function buildFiles(records, includeName, stamp) {
+    const tag = includeName ? 'named' : 'anon';
+    return [
+      { name: `mca_aristolochia_plots_${tag}_${stamp}.csv`,
+        body: EXPORTER.plotsCSV(records, includeName) },
+      { name: `mca_aristolochia_vines_${stamp}.csv`,
+        body: EXPORTER.vinesCSV(records) },
+    ];
+  }
+
+  // One tap: hand both CSVs to the phone's share sheet so they can go straight
+  // into Drive. Falls back to downloading them where file sharing is not
+  // available (desktop browsers, or the app opened from disk), so the button
+  // always does something useful.
+  async function doSend(opts) {
+    const includeName = opts.includeName !== false;
+    const all = await DB.getAll();
+    const records = scopeRecords(all, opts.scope);
+    if (!records.length) { noRecordsAlert(opts.scope); return; }
+
+    const stamp = opts.scope === 'today' ? todayLocal() : EXPORTER.timestamp();
+    const built = buildFiles(records, includeName, stamp);
+
+    try {
+      const files = built.map((f) => new File([f.body], f.name, { type: 'text/csv' }));
+      if (navigator.canShare && navigator.canShare({ files })) {
+        await navigator.share({
+          files,
+          title: 'MCA Aristolochia Survey',
+          text: `${records.length} plot(s) from ${surveyorId() || 'this device'} — save both files into ${CONFIG.driveFolderName}.`,
+        });
+        await markExported(records);
+        if (state.view === 'home') renderHome();
+        return;
+      }
+    } catch (e) {
+      // Cancelled by the user → stop, and do not mark anything as exported.
+      if (e && e.name === 'AbortError') return;
+      // Anything else (unsupported mid-flight) → fall through to downloading.
+    }
+
+    await downloadFiles(built);
+    await markExported(records);
+    if (state.view === 'home') renderHome();
+    alert(`Sharing isn’t available on this phone, so ${built.length} files were downloaded instead.\n\nUpload them to ${CONFIG.driveFolderName} from your Downloads folder.`);
+  }
+
+  async function downloadFiles(built) {
+    for (let i = 0; i < built.length; i++) {
+      EXPORTER.download(built[i].name, built[i].body, 'text/csv;charset=utf-8');
+      // Browsers drop back-to-back downloads; give each one a beat.
+      if (i < built.length - 1) await new Promise((res) => setTimeout(res, 600));
+    }
+  }
+
+  function noRecordsAlert(scope) {
+    alert(scope === 'today'
+      ? 'No completed plots for today yet. A plot is exported once you tap “Complete plot”.'
+      : 'No completed plots to export yet.');
+  }
+
   async function doExport(opts) {
     const includeName = opts.includeName !== false;
     const all = await DB.getAll();
     const records = scopeRecords(all, opts.scope);
-    if (!records.length) {
-      alert(opts.scope === 'today'
-        ? 'No completed plots for today yet. A plot is exported once you tap “Complete plot”.'
-        : 'No completed plots to export yet.');
-      return;
-    }
+    if (!records.length) { noRecordsAlert(opts.scope); return; }
     // Daily files are named by survey day; anything wider carries a timestamp.
     const stamp = opts.scope === 'today' ? todayLocal() : EXPORTER.timestamp();
-    const tag = includeName ? 'named' : 'anon';
 
     if (opts.kind === 'json') {
+      const tag = includeName ? 'named' : 'anon';
       EXPORTER.download(`mca_aristolochia_${tag}_${stamp}.json`,
         EXPORTER.toJSON(records, includeName), 'application/json');
     } else {
-      EXPORTER.download(`mca_aristolochia_plots_${tag}_${stamp}.csv`,
-        EXPORTER.plotsCSV(records, includeName), 'text/csv;charset=utf-8');
-      // Second download fires after a beat — browsers drop back-to-back ones.
-      await new Promise((res) => setTimeout(res, 600));
-      EXPORTER.download(`mca_aristolochia_vines_${stamp}.csv`,
-        EXPORTER.vinesCSV(records), 'text/csv;charset=utf-8');
+      await downloadFiles(buildFiles(records, includeName, stamp));
     }
 
     await markExported(records);
