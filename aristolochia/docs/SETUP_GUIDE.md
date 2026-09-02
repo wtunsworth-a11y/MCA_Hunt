@@ -47,11 +47,15 @@ This is the better method. Ask your supervisor for the link before you go to the
 field.
 
 1. **While you have internet**, tap the link. The app opens in Chrome.
-2. Tap the **⋮ menu** (three dots, top right) → **"Add to Home screen"** (some
-   phones say **"Install app"**).
+2. Tap the **⋮ menu** (three dots, top right) → **Install**. Some phones say
+   **"Install app"** or **"Add to Home screen"** — all the same thing.
+   - **Do NOT tap "Create shortcut."** That only makes a bookmark, not the app.
 3. Confirm. You now have a blue **MCA Aristolochia** icon on your home screen.
 4. Open it from that icon from now on. **You do not need internet again** until
    you send the data in.
+
+> Seeing **Install** in the menu is a good sign — it means the app is installing
+> properly and the one-tap **Send** will work.
 
 ### Method 2 — a file (`MCA_Aristolochia_Survey.html`)
 
