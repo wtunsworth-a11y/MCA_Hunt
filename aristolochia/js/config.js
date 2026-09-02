@@ -18,7 +18,7 @@ const CONFIG = {
   // Google Drive folder the day's exports are filed into. Shown on the export
   // screen as a tappable link; the app does not upload by itself.
   driveFolderUrl: 'https://drive.google.com/drive/folders/1u-N563F8bNM2p3xLxdjB2oj42teoY-WC',
-  driveFolderName: 'Aristolochia Survey Data',
+  driveFolderName: 'MCA_QABB_Avril',
 
   // Earliest year accepted in the cleared/abandoned year fields. Anything
   // outside [minYear, current year] is flagged on the plot and at review.

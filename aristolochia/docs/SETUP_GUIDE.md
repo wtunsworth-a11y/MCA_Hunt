@@ -25,7 +25,7 @@ Read this once before your first garden. Setting up takes about 5 minutes.
   a GPS point of every plot**. That is deliberate, and the consent script tells
   the farmer so.
 - Have the **Google Drive app** installed and signed in to the account that can
-  write to the **Aristolochia Survey Data** folder.
+  write to the **MCA_QABB_Avril** folder.
 
 ### Two apps, don't mix them up
 
@@ -144,7 +144,7 @@ You need internet for this step.
    completed and how many are **not yet exported**.
 2. Tap **Send today's data**. That is the only button you need.
 3. The phone's share sheet opens. Choose **Drive**, pick the
-   **Aristolochia Survey Data** folder, and save.
+   **MCA_QABB_Avril** folder, and save.
 4. Check the home screen now says **0 not yet exported**.
 
 Two files are sent together in that one tap:
