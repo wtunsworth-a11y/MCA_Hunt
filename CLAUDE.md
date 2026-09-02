@@ -65,8 +65,26 @@ If a draft slips into any of the above, cut it without being asked.
     (*Zaglossus*; likely *Z. bartoni* for mainland Oro — confirm species with a
     specialist before publishing a name).**
 
+## Aristolochia survey (`aristolochia/`)
+A separate app and a separate dataset — the rules above are the hunting
+survey's and do not carry over. Sole surveyor: Avril Matawan. Exports go to the
+Drive folder **MCA_QABB_Avril** as two CSVs per day (`..._plots_*.csv`,
+`..._vines_*.csv`) linked by `plot_id`; dedupe on `plot_id`.
+
+- **Practice data — exclude from analysis.** Records collected by Avril **in
+  Popondetta town** (GPS around −8.76, 148.24) are practice on the app, not
+  survey data. Real plots are on the Managalas plateau, so the GPS point
+  separates them. Keep them for provenance; never pool them with results.
+  - This applies to **this app only** — it says nothing about the hunting
+    survey's phases.
+  - The GPS point is the only marker. A practice record with no fix, or one
+    recorded in a survey village, cannot be caught this way — check the plot
+    against its recorded village and zone if anything looks off.
+
 ## App
 - Config-driven: `js/config.js` (species, methods, options, appVersion) is the
   single source of truth; `js/schema.js` renders the form; `js/export.js` builds
   the CSV columns. Keep the three in sync. Rebuild the single file with
   `node build.js`. Docs are generated from `docs/generators/*.js`.
+- The Aristolochia app has its own `aristolochia/js/config.js`, `schema.js` and
+  `export.js` on the same contract, and its own `aristolochia/build.js`.
