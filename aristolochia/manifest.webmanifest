@@ -1,0 +1,14 @@
+{
+  "name": "MCA Aristolochia Survey",
+  "short_name": "MCA Aristolochia",
+  "description": "Offline field survey of garden plots and Aristolochia host vines in the Managalas Conservation Area.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f6f4",
+  "theme_color": "#0e7c66",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

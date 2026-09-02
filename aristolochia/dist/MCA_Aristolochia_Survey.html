@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0e7c66">
+  <title>MCA Aristolochia Survey</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSI5NiIgZmlsbD0iIzBlN2M2NiIvPgogIDwhLS0gU3R5bGlzZWQgYmlyZHdpbmc6IHR3byBmb3Jld2luZ3MsIHR3byBoaW5kd2luZ3MsIGJvZHkgYW5kIGFudGVubmFlLiAtLT4KICA8ZyBmaWxsPSIjZmZmZmZmIj4KICAgIDxwYXRoIGQ9Ik0yNTYgMTc2Yy0yOC00Ni03OC03OC0xMjQtNzAtMjIgNC0zMCAyNC0yMiA0NiAxNiA0NCA2MiA4MiAxMTIgOTYgMTIgMyAyMi0yIDI3LTEzIDYtMTQgMTAtMzMgNy01OXoiLz4KICAgIDxwYXRoIGQ9Ik0yNTYgMTc2YzI4LTQ2IDc4LTc4IDEyNC03MCAyMiA0IDMwIDI0IDIyIDQ2LTE2IDQ0LTYyIDgyLTExMiA5Ni0xMiAzLTIyLTItMjctMTMtNi0xNC0xMC0zMy03LTU5eiIvPgogICAgPHBhdGggZD0iTTI0NCAzMDBjLTI0LTgtNTItNC03MCAxNC0xOCAxOC0yMCA0Ni02IDY4IDggMTIgMjIgMTQgMzQgNiAyNi0xNyA0NC00NCA0OC03MCAyLTEwLTEtMTUtNi0xOHoiLz4KICAgIDxwYXRoIGQ9Ik0yNjggMzAwYzI0LTggNTItNCA3MCAxNCAxOCAxOCAyMCA0NiA2IDY4LTggMTItMjIgMTQtMzQgNi0yNi0xNy00NC00NC00OC03MC0yLTEwIDEtMTUgNi0xOHoiLz4KICAgIDxyZWN0IHg9IjI0NiIgeT0iMTUwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjMwIiByeD0iMTAiLz4KICAgIDxwYXRoIGQ9Ik0yNTYgMTU2Yy02LTIyLTIyLTM4LTQ0LTQ2IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMTQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPHBhdGggZD0iTTI1NiAxNTZjNi0yMiAyMi0zOCA0NC00NiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjE0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8L2c+Cjwvc3ZnPgo=" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSI5NiIgZmlsbD0iIzBlN2M2NiIvPgogIDwhLS0gU3R5bGlzZWQgYmlyZHdpbmc6IHR3byBmb3Jld2luZ3MsIHR3byBoaW5kd2luZ3MsIGJvZHkgYW5kIGFudGVubmFlLiAtLT4KICA8ZyBmaWxsPSIjZmZmZmZmIj4KICAgIDxwYXRoIGQ9Ik0yNTYgMTc2Yy0yOC00Ni03OC03OC0xMjQtNzAtMjIgNC0zMCAyNC0yMiA0NiAxNiA0NCA2MiA4MiAxMTIgOTYgMTIgMyAyMi0yIDI3LTEzIDYtMTQgMTAtMzMgNy01OXoiLz4KICAgIDxwYXRoIGQ9Ik0yNTYgMTc2YzI4LTQ2IDc4LTc4IDEyNC03MCAyMiA0IDMwIDI0IDIyIDQ2LTE2IDQ0LTYyIDgyLTExMiA5Ni0xMiAzLTIyLTItMjctMTMtNi0xNC0xMC0zMy03LTU5eiIvPgogICAgPHBhdGggZD0iTTI0NCAzMDBjLTI0LTgtNTItNC03MCAxNC0xOCAxOC0yMCA0Ni02IDY4IDggMTIgMjIgMTQgMzQgNiAyNi0xNyA0NC00NCA0OC03MCAyLTEwLTEtMTUtNi0xOHoiLz4KICAgIDxwYXRoIGQ9Ik0yNjggMzAwYzI0LTggNTItNCA3MCAxNCAxOCAxOCAyMCA0NiA2IDY4LTggMTItMjIgMTQtMzQgNi0yNi0xNy00NC00NC00OC03MC0yLTEwIDEtMTUgNi0xOHoiLz4KICAgIDxyZWN0IHg9IjI0NiIgeT0iMTUwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjMwIiByeD0iMTAiLz4KICAgIDxwYXRoIGQ9Ik0yNTYgMTU2Yy02LTIyLTIyLTM4LTQ0LTQ2IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMTQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPHBhdGggZD0iTTI1NiAxNTZjNi0yMiAyMi0zOCA0NC00NiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjE0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8L2c+Cjwvc3ZnPgo=">
+  <style>
+/* MCA Aristolochia Survey PWA — mobile-first, large touch targets, offline field UI */
+:root {
+  --bg: #f4f6f4;
+  --card: #ffffff;
+  --ink: #16261c;
+  --muted: #5c6b60;
+  --line: #d6ddd6;
+  --green: #0e7c66;
+  --green-d: #0a5c4c;
+  --amber: #b26a00;
+  --red: #b3261e;
+  --sel: #dcefe9;
+  --sel-line: #0e7c66;
+  --radius: 12px;
+  --tap: 48px;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body {
+  margin: 0; padding: 0; background: var(--bg); color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px; line-height: 1.4;
+}
+h1 { font-size: 1.5rem; margin: .2rem 0 .6rem; }
+h2 { font-size: 1.2rem; margin: .8rem 0 .4rem; color: var(--green-d); }
+button { font-family: inherit; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 20; display: flex; justify-content: space-between;
+  align-items: center; gap: .5rem; padding: .6rem .9rem; background: var(--green);
+  color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.15);
+}
+.topbar .brand { font-weight: 700; }
+.topbar .who { font-size: .85rem; opacity: .95; display: flex; align-items: center; gap: .4rem; }
+
+.screen { max-width: 720px; margin: 0 auto; padding: .8rem .9rem 4rem; }
+.setup { text-align: center; padding-top: 2rem; }
+.setup p { color: var(--muted); }
+
+/* Buttons */
+.btn {
+  min-height: var(--tap); padding: .6rem 1rem; border: 1px solid var(--line);
+  background: var(--card); color: var(--ink); border-radius: var(--radius);
+  font-size: 1rem; cursor: pointer;
+}
+.btn.primary { background: var(--green); color: #fff; border-color: var(--green-d); font-weight: 600; }
+.btn.danger { color: var(--red); border-color: #e6c3c1; }
+.btn.ghost { background: transparent; }
+.btn.big { width: 100%; font-size: 1.1rem; margin: .4rem 0 1rem; }
+.btn.small { min-height: 40px; padding: .4rem .8rem; font-size: .95rem; }
+.btn.tiny { min-height: 34px; padding: .2rem .6rem; font-size: .85rem; border-radius: 8px; }
+.btn.tiny.ghost { color: #fff; border-color: rgba(255,255,255,.5); }
+
+/* Interview list */
+.ivlist { list-style: none; padding: 0; margin: .4rem 0; }
+.ivrow {
+  display: flex; align-items: center; gap: .5rem; background: var(--card);
+  border: 1px solid var(--line); border-radius: var(--radius); padding: .6rem .7rem; margin-bottom: .5rem;
+}
+.ivmain { flex: 1; cursor: pointer; }
+.ivcode { font-weight: 700; }
+.ivmeta { font-size: .8rem; color: var(--muted); display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; margin-top: .2rem; }
+.empty { color: var(--muted); padding: .6rem; }
+.exportbar { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.moreexport { margin-top: .6rem; }
+.moreexport summary { color: var(--muted); font-size: .85rem; cursor: pointer; padding: .3rem 0; }
+.foot { color: var(--muted); font-size: .8rem; margin-top: 1.4rem; }
+
+/* Badges */
+.badge { display: inline-block; padding: .1rem .5rem; border-radius: 999px; font-size: .75rem; font-weight: 600; }
+.badge.ok { background: #d9f0e1; color: var(--green-d); }
+.badge.done { background: #e5ecff; color: #234; }
+.badge.warn { background: #ffe9c9; color: var(--amber); }
+.badge.miss { background: #fbdedb; color: var(--red); }
+
+/* Stepper */
+.stepper { display: flex; flex-wrap: wrap; gap: .35rem; margin: .2rem 0 .6rem; }
+.stepdot {
+  width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line);
+  background: var(--card); color: var(--muted); font-weight: 700; cursor: pointer;
+}
+.stepdot.active { background: var(--green); color: #fff; border-color: var(--green-d); }
+
+/* Fields */
+.field { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: .7rem .8rem; margin-bottom: .7rem; }
+.q { font-weight: 600; margin-bottom: .35rem; }
+.q.small { font-size: .95rem; }
+.help { color: var(--muted); font-size: .82rem; margin-bottom: .4rem; }
+.note { background: #eef4ef; border-left: 4px solid var(--green); padding: .5rem .7rem; border-radius: 8px; color: var(--muted); margin-bottom: .7rem; font-size: .9rem; }
+.subq { margin-top: .5rem; }
+
+/* Option buttons (radio / checkbox as big tap targets) */
+.options { display: flex; flex-direction: column; gap: .4rem; }
+.opt {
+  display: flex; align-items: center; gap: .6rem; min-height: var(--tap);
+  padding: .5rem .7rem; border: 1.5px solid var(--line); border-radius: 10px; cursor: pointer; background: #fff;
+}
+.opt.inline { display: inline-flex; margin: .2rem .4rem .2rem 0; }
+/* Instant selected-highlight without needing a re-render (modern browsers).
+   The .sel class (applied at render time) remains as a fallback. */
+.opt.sel, .opt:has(input:checked) { border-color: var(--sel-line); background: var(--sel); }
+.opt input { width: 22px; height: 22px; accent-color: var(--green); flex: 0 0 auto; }
+.opt span { flex: 1; }
+
+/* Text / select */
+.txt, .drop { width: 100%; min-height: var(--tap); padding: .5rem .6rem; border: 1.5px solid var(--line); border-radius: 10px; font-size: 1rem; background: #fff; color: var(--ink); }
+textarea.txt { min-height: 84px; resize: vertical; }
+.txt.tiny { min-height: 38px; font-size: .9rem; }
+.txt.num { max-width: 110px; }
+.mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+.mono.big { font-size: 1.2rem; font-weight: 700; letter-spacing: .5px; }
+.small { font-size: .82rem; }
+
+/* Profile meta box */
+.metabox .gpsrow { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.gpserr { color: var(--amber); background: #fff5e6; border-radius: 8px; padding: .4rem .5rem; margin: .3rem 0; }
+
+/* Category block (Module B) */
+.catblock { border: 1px solid var(--line); border-radius: var(--radius); padding: .5rem .6rem; margin-bottom: .8rem; background: #fbfdfb; }
+.cathead { font-weight: 700; color: var(--green-d); border-bottom: 1px solid var(--line); padding-bottom: .3rem; margin-bottom: .5rem; }
+.catblock .field { border: none; padding: .3rem 0; margin: 0; background: transparent; }
+
+/* Trip block (Module F) */
+.tripblock { border: 2px solid var(--sel-line); border-radius: var(--radius); padding: .5rem .7rem; margin-bottom: .9rem; }
+.triphead { font-weight: 700; color: var(--green-d); margin-bottom: .5rem; }
+.tripblock .field { background: #fbfdfb; }
+
+/* Catch list */
+.catchrow { display: flex; gap: .4rem; align-items: center; margin-bottom: .4rem; }
+.catchrow .drop { flex: 1; }
+
+/* Grids (Modules C, E, G, H) */
+.legend { margin-bottom: .5rem; font-size: .85rem; }
+.legend ul { columns: 2; padding-left: 1.1rem; margin: .4rem 0; }
+.gridwrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--line); border-radius: 10px; }
+table.grid { border-collapse: collapse; min-width: max-content; }
+table.grid th, table.grid td { border: 1px solid var(--line); text-align: center; }
+table.grid thead th { position: sticky; top: 0; background: #eef4ef; font-size: .8rem; padding: .3rem .35rem; z-index: 2; }
+table.grid th.rowhead {
+  position: sticky; left: 0; background: #eef4ef; text-align: left; padding: .4rem .5rem;
+  font-size: .85rem; white-space: nowrap; z-index: 1;
+}
+table.grid thead th.rowhead { z-index: 3; }
+table.grid th.disabled { color: #b7c2ba; }
+.cell { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; cursor: pointer; }
+.cell input { width: 22px; height: 22px; accent-color: var(--green); }
+.cell.sel, .cell:has(input:checked) { background: var(--sel); }
+.cellsel { min-height: 40px; border: 1px solid var(--line); border-radius: 8px; background: #fff; font-size: .95rem; padding: .1rem .2rem; }
+.na { color: #c2ccc4; }
+
+/* Rotated tool-name headers (Module C) — full names, no numeric legend */
+table.grid.rothead thead th { vertical-align: bottom; padding: 6px 2px; }
+table.grid th.rot { height: 150px; }
+table.grid th.rot .lbl {
+  writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap;
+  display: inline-block; text-align: left; font-weight: 600; line-height: 1.1;
+}
+
+/* Module A per-age season sub-question */
+.seasonq { margin: .4rem 0 .2rem .4rem; padding-left: .5rem; border-left: 3px solid var(--sel); }
+
+/* Module F share allocation (divide into 10 parts) */
+.sharebar { display: flex; height: 18px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); margin: .3rem 0; background: #fff; }
+.sharebar .seg { display: block; }
+.sharebar .seg.empty { background: repeating-linear-gradient(45deg,#f2f5f2,#f2f5f2 6px,#e8ede8 6px,#e8ede8 12px); }
+.seg-eaten { background: #256d40; }
+.seg-given { background: #4f9e6a; }
+.seg-bilas { background: #b26a00; }
+.seg-sold  { background: #3b6ea5; }
+.sharetotal { font-weight: 700; font-size: .9rem; margin-bottom: .4rem; }
+.sharetotal.ok { color: var(--green-d); }
+.sharetotal.warn { color: var(--amber); }
+.sharerow { display: flex; align-items: center; gap: .6rem; padding: .35rem 0; border-top: 1px solid var(--line); }
+.sharelabel { flex: 1; }
+.sharerow .btn.tiny { min-width: 44px; font-size: 1.2rem; line-height: 1; }
+.shareval { min-width: 1.6rem; text-align: center; font-weight: 700; font-size: 1.1rem; }
+
+/* Navigation */
+.navbtns { display: flex; gap: .6rem; margin-top: 1rem; }
+.navbtns .btn { flex: 1; }
+
+/* Consent */
+.consent { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: .9rem; line-height: 1.55; }
+.consentcheck { margin-top: .8rem; border-color: var(--sel-line); }
+.review-consent { padding: .5rem .7rem; border-radius: 8px; margin: .4rem 0 .6rem; font-weight: 600; }
+.review-consent.ok { background: #d9f0e1; color: var(--green-d); }
+.review-consent.miss { background: #fbdedb; color: var(--red); }
+
+/* Review */
+.thanks { background: #eef4ef; border-left: 4px solid var(--green); border-radius: 8px; padding: .6rem .7rem; margin: .2rem 0 .6rem; line-height: 1.5; }
+table.review { width: 100%; border-collapse: collapse; margin-top: .5rem; }
+table.review td { border-bottom: 1px solid var(--line); padding: .35rem .4rem; vertical-align: top; }
+table.review td:first-child { color: var(--muted); width: 42%; word-break: break-all; }
+
+@media (min-width: 560px) {
+  .options.cols2 { display: grid; grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------------------------------------------------------------------------
+   Aristolochia survey additions: plot meta, derived fallow age, the vine list
+   and the daily-export card.
+   --------------------------------------------------------------------------- */
+
+/* Plot header block (code, date, GPS point) */
+.meta {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: .6rem .7rem; margin-bottom: .8rem;
+}
+.metarow { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; margin: .2rem 0; }
+.metarow b { min-width: 3.4rem; color: var(--muted); font-weight: 600; font-size: .85rem; }
+
+/* Derived values — shown, never typed */
+.calc {
+  background: var(--sel); border: 1px solid var(--sel-line); border-radius: var(--radius);
+  padding: .6rem .7rem; margin: .8rem 0;
+}
+.calcrow { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; margin: .15rem 0; }
+.calcrow b { font-size: .9rem; }
+.calcval { font-weight: 700; font-size: 1.1rem; }
+.calcval.muted { font-weight: 400; font-size: .9rem; color: var(--muted); }
+.calc .help { margin-top: .4rem; }
+
+/* Vine list */
+.vines { margin: .4rem 0 1rem; }
+.vinecount { color: var(--muted); font-size: .9rem; margin-bottom: .5rem; }
+.vine {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--green);
+  border-radius: var(--radius); padding: .6rem .7rem; margin-bottom: .7rem;
+}
+.vinehead { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem; }
+.signrow { padding: .45rem 0; border-top: 1px solid var(--line); }
+.signrow .q { margin-bottom: .3rem; }
+.options.inline { display: flex; flex-direction: row; gap: .4rem; flex-wrap: wrap; }
+.opt.tight { flex: 0 0 auto; min-width: 5.5rem; padding: .35rem .7rem; }
+.vine .txt.num { max-width: 9rem; }
+.countrow { display: flex; align-items: center; gap: .5rem; margin-top: .45rem; }
+.countrow label { font-size: .9rem; color: var(--muted); }
+.vtag {
+  font-weight: 400; font-size: .8rem; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 999px; padding: 0 .45rem; margin-left: .35rem;
+}
+
+/* Daily export card */
+.daycard {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: .75rem .8rem; margin-bottom: .8rem;
+}
+.dayhead { font-weight: 700; color: var(--green-d); }
+.daystat { color: var(--muted); font-size: .9rem; margin: .2rem 0 .6rem; }
+.daycard .btn { width: 100%; }
+.drivelink {
+  display: block; margin-top: .55rem; color: var(--green-d); font-size: .95rem;
+  text-decoration: none; font-weight: 600;
+}
+.drivelink:hover { text-decoration: underline; }
+.backlog {
+  background: #fff6e5; border: 1px solid #e8cf9a; color: #6d4b00;
+  border-radius: var(--radius); padding: .6rem .7rem; margin-bottom: .8rem; font-size: .95rem;
+}
+
+/* Inline validation notes on a section */
+.warnbox {
+  background: #fff6e5; border: 1px solid #e8cf9a; color: #6d4b00;
+  border-radius: var(--radius); padding: .6rem .7rem; margin: .6rem 0; font-size: .95rem;
+}
+.warnbox div + div { margin-top: .3rem; }
+
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+  // Reference lists (Zone/Ward) inlined so the single file works offline.
+  window.__MCA_REFERENCE__ = {
+  "_comment": "Zone and Ward pick-lists for Module A. `code` is written into exports and used as the zone prefix in the respondent ID; keep it short and stable. Wards are a flat list (shown for every zone); to scope a ward to a zone later, add a `zone` property (e.g. { code, label, zone: 'z7a' }).",
+  "zones": [
+    { "code": "z1",  "label": "Zone 1" },
+    { "code": "z2",  "label": "Zone 2" },
+    { "code": "z3",  "label": "Zone 3" },
+    { "code": "z4",  "label": "Zone 4" },
+    { "code": "z5",  "label": "Zone 5" },
+    { "code": "z6",  "label": "Zone 6" },
+    { "code": "z7a", "label": "Zone 7A" },
+    { "code": "z7b", "label": "Zone 7B" },
+    { "code": "z8",  "label": "Zone 8" },
+    { "code": "z9",  "label": "Zone 9" },
+    { "code": "z10", "label": "Zone 10" }
+  ],
+  "wards": [
+    { "code": "w1",  "label": "Ward 1" },
+    { "code": "w2",  "label": "Ward 2" },
+    { "code": "w3",  "label": "Ward 3" },
+    { "code": "w4",  "label": "Ward 4" },
+    { "code": "w5",  "label": "Ward 5" },
+    { "code": "w6",  "label": "Ward 6" },
+    { "code": "w7",  "label": "Ward 7" },
+    { "code": "w8",  "label": "Ward 8" },
+    { "code": "w9",  "label": "Ward 9" },
+    { "code": "w10", "label": "Ward 10" },
+    { "code": "w11", "label": "Ward 11" },
+    { "code": "w12", "label": "Ward 12" },
+    { "code": "w13", "label": "Ward 13" },
+    { "code": "w14", "label": "Ward 14" },
+    { "code": "w15", "label": "Ward 15" },
+    { "code": "w16", "label": "Ward 16" },
+    { "code": "w17", "label": "Ward 17" },
+    { "code": "w18", "label": "Ward 18" }
+  ]
+}
+;
+  </script>
+  <script>
+/*
+ * config.js — single source of truth for the option sets used throughout the
+ * MCA Aristolochia Survey PWA.
+ *
+ * Scope: garden plots (cleared/abandoned history) and the Aristolochia vines
+ * found on them, with birdwing (Ornithoptera) occupancy recorded per vine.
+ *
+ * Zone and Ward lists are NOT here — they load at runtime from the shared
+ * ../data/reference.json used by the hunting app, so both instruments stay on
+ * one set of codes.
+ */
+
+const CONFIG = {
+  // Bumped when the instrument/schema changes, written into every record as
+  // `app_version` so exports can be traced to the build that produced them.
+  appVersion: '1.0.0',
+
+  // Google Drive folder the day's exports are filed into. Shown on the export
+  // screen as a tappable link; the app does not upload by itself.
+  driveFolderUrl: 'https://drive.google.com/drive/folders/1u-N563F8bNM2p3xLxdjB2oj42teoY-WC',
+  driveFolderName: 'Aristolochia Survey Data',
+
+  // Earliest year accepted in the cleared/abandoned year fields. Anything
+  // outside [minYear, current year] is flagged on the plot and at review.
+  minYear: 1940,
+
+  // --- Host tree pick-list. LEAVE EMPTY to record host tree species as free
+  // text (the default until the common set is known from the field). Populate
+  // it — e.g. { code: 'ficus', label: 'Ficus sp.' } — and the field becomes a
+  // dropdown with an "Other (specify)" escape, with no other code change. ---
+  hostTrees: [],
+
+  // --- Garden types. Editable: add, rename or remove freely. `code` is what
+  // lands in the CSV, so keep codes stable once collection starts. ---
+  gardenTypes: [
+    { code: 'mixed_food',   label: 'Mixed food garden' },
+    { code: 'kaukau',       label: 'Kaukau / sweet potato' },
+    { code: 'taro',         label: 'Taro' },
+    { code: 'yam',          label: 'Yam' },
+    { code: 'banana',       label: 'Banana' },
+    { code: 'sugarcane',    label: 'Sugarcane' },
+    { code: 'coffee',       label: 'Coffee' },
+    { code: 'cocoa',        label: 'Cocoa' },
+    { code: 'betel_nut',    label: 'Betel nut' },
+    { code: 'mixed_cash',   label: 'Mixed food and cash crop' },
+    { code: 'other',        label: 'Other (specify)' },
+  ],
+
+  // Reusable option sets referenced by the schema (js/schema.js).
+  options: {
+    yes_no: [
+      { code: 'yes', label: 'Yes' },
+      { code: 'no',  label: 'No' },
+    ],
+    yes_no_notsure: [
+      { code: 'yes',      label: 'Yes' },
+      { code: 'no',       label: 'No' },
+      { code: 'not_sure', label: 'Not sure' },
+    ],
+    // Whether the garden has been abandoned yet. Drives the year-abandoned and
+    // fallow-age fields: a garden still in use has no fallow age.
+    garden_status: [
+      { code: 'abandoned',  label: 'Abandoned (in fallow)' },
+      { code: 'still_used', label: 'Still being gardened' },
+    ],
+    // Recorded per vine, "where possible" — an unidentified caterpillar or egg
+    // stays `unknown` rather than being forced to a species.
+    birdwing_species: [
+      { code: 'priamus',    label: 'O. priamus' },
+      { code: 'alexandrae', label: 'O. alexandrae' },
+      { code: 'other',      label: 'Other / another butterfly' },
+      { code: 'unknown',    label: 'Not identified' },
+    ],
+  },
+
+  // The three occupancy observations made on every vine. `key` is the field
+  // suffix; the exporter and the renderer both walk this list.
+  vineSigns: [
+    { key: 'caterpillar', label: 'Caterpillar seen', counted: true },
+    { key: 'egg',         label: 'Egg seen',         counted: true },
+    { key: 'feeding',     label: 'Signs of leaves eaten', counted: false },
+  ],
+};
+
+// Loaded from ../data/reference.json at startup (zones + wards), shared with
+// the hunting survey so both instruments use one set of codes.
+CONFIG.zones = [];
+CONFIG.wards = [];
+
+window.CONFIG = CONFIG;
+
+
+/*
+ * db.js — local-first storage for garden plots using IndexedDB.
+ *
+ * One object store, `plots`, keyed by plot_id. Each record is the full plot
+ * object (metadata + flat `data` map of field -> value, plus `data.vines`, the
+ * ordered list of vine observations). The farmer's name is kept in its own
+ * top-level `farmer_name` field, deliberately separate from `data`, so a
+ * name-excluded export is trivial.
+ *
+ * Everything is client-side; there is no network dependency. All writes go
+ * through put(), which the app calls on every field change for autosave.
+ */
+
+const DB = (function () {
+  const DB_NAME = 'mca_aristolochia';
+  const DB_VERSION = 1;
+  const STORE = 'plots';
+  let _db = null;
+
+  function open() {
+    if (_db) return Promise.resolve(_db);
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(STORE)) {
+          const store = db.createObjectStore(STORE, { keyPath: 'plot_id' });
+          store.createIndex('by_status', 'plot_status', { unique: false });
+          store.createIndex('by_updated', 'updated_at', { unique: false });
+          store.createIndex('by_survey_date', 'survey_date', { unique: false });
+        }
+      };
+      req.onsuccess = (e) => { _db = e.target.result; resolve(_db); };
+      req.onerror = (e) => reject(e.target.error);
+    });
+  }
+
+  function tx(mode) {
+    return open().then((db) => db.transaction(STORE, mode).objectStore(STORE));
+  }
+
+  function put(record) {
+    record.updated_at = new Date().toISOString();
+    return tx('readwrite').then((store) => new Promise((resolve, reject) => {
+      const req = store.put(record);
+      req.onsuccess = () => resolve(record);
+      req.onerror = (e) => reject(e.target.error);
+    }));
+  }
+
+  function get(id) {
+    return tx('readonly').then((store) => new Promise((resolve, reject) => {
+      const req = store.get(id);
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = (e) => reject(e.target.error);
+    }));
+  }
+
+  function getAll() {
+    return tx('readonly').then((store) => new Promise((resolve, reject) => {
+      const req = store.getAll();
+      req.onsuccess = () => {
+        const list = (req.result || []).sort((a, b) =>
+          (b.updated_at || '').localeCompare(a.updated_at || ''));
+        resolve(list);
+      };
+      req.onerror = (e) => reject(e.target.error);
+    }));
+  }
+
+  function remove(id) {
+    return tx('readwrite').then((store) => new Promise((resolve, reject) => {
+      const req = store.delete(id);
+      req.onsuccess = () => resolve();
+      req.onerror = (e) => reject(e.target.error);
+    }));
+  }
+
+  return { open, put, get, getAll, remove };
+})();
+
+window.DB = DB;
+
+
+/*
+ * schema.js — declarative definition of the plot form, Sections A–C.
+ *
+ * The renderer in app.js walks SCHEMA to build each screen; export.js generates
+ * the CSV column order from the same field names, so the form and the export
+ * cannot drift apart.
+ *
+ * Structure: a plot record carries the flat fields below plus `data.vines`, an
+ * ordered list of vine observations (one object per vine) whose keys are listed
+ * in VINE_FIELDS. Vines export to their own CSV, one row per vine.
+ */
+
+// --- Vine sub-record: the ordered key list shared by renderer and exporter.
+// `count` keys only apply where CONFIG.vineSigns marks the sign as counted.
+const VINE_FIELDS = (function () {
+  const f = ['host_tree', 'host_tree_other', 'dbh_cm'];
+  CONFIG.vineSigns.forEach((s) => {
+    f.push(s.key);
+    if (s.counted) f.push(s.key + '_count');
+  });
+  f.push('species', 'notes');
+  return f;
+})();
+
+function emptyVine() {
+  const v = {};
+  VINE_FIELDS.forEach((k) => { v[k] = ''; });
+  return v;
+}
+
+// --- Derived values. Computed on read, never stored, so they cannot go stale
+// as the year rolls over. Both are exported as their own columns. ---
+const DERIVED = {
+  // Years since the garden was abandoned, to today. Blank while still gardened.
+  fallowAge(data) {
+    if (data.garden_status !== 'abandoned') return '';
+    const y = parseInt(data.year_abandoned, 10);
+    if (!y) return '';
+    const now = new Date().getFullYear();
+    const age = now - y;
+    return age < 0 ? '' : String(age);
+  },
+  // Years the garden was under cultivation (cleared -> abandoned).
+  cultivationYears(data) {
+    const c = parseInt(data.year_cleared, 10);
+    const a = parseInt(data.year_abandoned, 10);
+    if (!c || !a) return '';
+    const n = a - c;
+    return n < 0 ? '' : String(n);
+  },
+};
+
+const SCHEMA = {
+  VINE_FIELDS,
+  emptyVine,
+  DERIVED,
+
+  resolveOptions(ref) {
+    if (Array.isArray(ref)) return ref;
+    const o = CONFIG.options[ref];
+    if (o) return o;
+    switch (ref) {
+      case 'zones':       return CONFIG.zones;
+      case 'wards':       return CONFIG.wards;
+      case 'gardenTypes': return CONFIG.gardenTypes;
+      case 'hostTrees':   return CONFIG.hostTrees;
+      default:            return [];
+    }
+  },
+
+  modules: [
+    {
+      id: 'A', title: 'Section A — Plot and farmer',
+      fields: [
+        { kind: 'plot_meta' },
+        { kind: 'text', name: 'farmer_name', label: 'Farmer’s name',
+          help: 'Stored separately from the rest of the record and can be left out of an export.' },
+        { kind: 'text', name: 'village', label: 'Village' },
+        { kind: 'single', name: 'zone', label: 'Zone', options: 'zones', dropdown: true },
+        { kind: 'single', name: 'ward', label: 'Ward', options: 'wards', dropdown: true, scopeByZone: true },
+        { kind: 'text', name: 'plot_notes', label: 'Notes on the plot (optional)', multiline: true },
+      ],
+    },
+    {
+      id: 'B', title: 'Section B — Garden history',
+      fields: [
+        { kind: 'single', name: 'garden_type', label: 'Garden type', options: 'gardenTypes', dropdown: true },
+        { kind: 'text', name: 'garden_type_other', label: 'Other garden type (specify)',
+          showIf: { field: 'garden_type', equals: 'other' } },
+        { kind: 'text', name: 'garden_description', label: 'Garden description', multiline: true,
+          help: 'What was grown, how it looks now, regrowth stage.' },
+        { kind: 'year', name: 'year_cleared', label: 'Year cleared',
+          help: 'The year the forest or fallow was cut to make this garden.' },
+        { kind: 'single', name: 'garden_status', label: 'Is the garden still being gardened?',
+          options: 'garden_status' },
+        { kind: 'year', name: 'year_abandoned', label: 'Year abandoned',
+          showIf: { field: 'garden_status', equals: 'abandoned' } },
+        { kind: 'fallow_age' },
+      ],
+    },
+    {
+      id: 'C', title: 'Section C — Aristolochia',
+      fields: [
+        { kind: 'single', name: 'aristolochia_present', label: 'Aristolochia present on this plot?',
+          options: 'yes_no' },
+        { kind: 'note', text: 'Record every vine found. For each one: the tree it is climbing, that tree’s DBH, and whether there is a caterpillar, an egg, or signs of leaves being eaten. Identify the butterfly only where you can — leave it as “Not identified” otherwise.',
+          showIf: { field: 'aristolochia_present', equals: 'yes' } },
+        { kind: 'vine_list', showIf: { field: 'aristolochia_present', equals: 'yes' } },
+      ],
+    },
+  ],
+};
+
+window.SCHEMA = SCHEMA;
+window.VINE_FIELDS = VINE_FIELDS;
+
+
+/*
+ * export.js — flatten stored plots to two flat CSVs and emit them.
+ *
+ * Two tables, linked by plot_id:
+ *   plots — one row per garden plot, including the derived fallow age and
+ *           per-plot vine summary counts.
+ *   vines — one row per Aristolochia vine, with the plot's identifiers
+ *           denormalised onto it so the file stands alone in analysis.
+ *
+ * The column lists here are the authoritative export contract. Vine columns are
+ * generated from SCHEMA.VINE_FIELDS, and the sign/count columns from
+ * CONFIG.vineSigns, so a change in config flows through to the export.
+ *
+ * Design rules honoured:
+ *  - farmer_name lives outside `data` and can be excluded from an export.
+ *  - Booleans export as 1/0; blanks stay blank rather than becoming 0.
+ */
+
+const EXPORTER = (function () {
+
+  // --- Plot columns --------------------------------------------------------
+  function buildPlotColumns() {
+    const cols = [];
+    const add = (name, source) => cols.push({ name, source: source || 'data' });
+
+    add('plot_id', 'record');
+    add('plot_code', 'record');
+    add('surveyor', 'record');
+    add('survey_date', 'record');
+    add('farmer_name', 'name');
+    add('gps_lat', 'gps'); add('gps_lon', 'gps');
+    add('gps_accuracy', 'gps'); add('gps_time', 'gps');
+
+    add('village'); add('zone'); add('ward'); add('plot_notes');
+
+    add('garden_type'); add('garden_type_other'); add('garden_description');
+    add('year_cleared'); add('garden_status'); add('year_abandoned');
+    add('fallow_age_years', 'derived');
+    add('cultivation_years', 'derived');
+
+    add('aristolochia_present');
+    add('vine_count', 'summary');
+    CONFIG.vineSigns.forEach((s) => {
+      add('vines_with_' + s.key, 'summary');
+      if (s.counted) add(s.key + '_total', 'summary');
+    });
+    CONFIG.options.birdwing_species.forEach((sp) => {
+      if (sp.code === 'unknown') return;
+      add('vines_species_' + sp.code, 'summary');
+    });
+
+    add('plot_status', 'record');
+    add('created_at', 'record');
+    add('updated_at', 'record');
+    add('app_version', 'record');
+    return cols;
+  }
+
+  // --- Vine columns --------------------------------------------------------
+  function buildVineColumns() {
+    // Plot identifiers denormalised onto each vine row, then the vine's own
+    // fields in SCHEMA.VINE_FIELDS order.
+    return ['plot_id', 'plot_code', 'survey_date', 'village', 'zone', 'ward', 'vine_no']
+      .concat(SCHEMA.VINE_FIELDS);
+  }
+
+  function vinesOf(record) {
+    const v = (record.data || {}).vines;
+    return Array.isArray(v) ? v : [];
+  }
+
+  // A vine counts as recorded once anything has been entered on it, so an
+  // untouched blank row added by mistake does not inflate the counts.
+  function vineHasContent(v) {
+    return SCHEMA.VINE_FIELDS.some((k) => v && v[k] !== '' && v[k] != null);
+  }
+
+  function realVines(record) {
+    return vinesOf(record).filter(vineHasContent);
+  }
+
+  function summaryValue(record, name) {
+    const vines = realVines(record);
+    if (name === 'vine_count') return String(vines.length);
+
+    let m = name.match(/^vines_with_(.+)$/);
+    if (m) return String(vines.filter((v) => v[m[1]] === 'yes').length);
+
+    m = name.match(/^(.+)_total$/);
+    if (m) {
+      const key = m[1] + '_count';
+      const total = vines.reduce((sum, v) => sum + (parseInt(v[key], 10) || 0), 0);
+      // Blank rather than 0 when nothing was counted at all, so "not counted"
+      // and "counted zero" stay distinguishable.
+      const anyCounted = vines.some((v) => v[key] !== '' && v[key] != null);
+      return anyCounted ? String(total) : '';
+    }
+
+    m = name.match(/^vines_species_(.+)$/);
+    if (m) return String(vines.filter((v) => v.species === m[1]).length);
+
+    return '';
+  }
+
+  function plotValue(record, col, includeName) {
+    const data = record.data || {};
+    switch (col.source) {
+      case 'record':
+        return record[col.name] == null ? '' : String(record[col.name]);
+      case 'name':
+        return includeName && record.farmer_name ? String(record.farmer_name) : '';
+      case 'gps': {
+        const g = record.gps || {};
+        const map = { gps_lat: 'lat', gps_lon: 'lon', gps_accuracy: 'accuracy', gps_time: 'time' };
+        const v = g[map[col.name]];
+        return v == null ? '' : String(v);
+      }
+      case 'derived':
+        return col.name === 'fallow_age_years'
+          ? SCHEMA.DERIVED.fallowAge(data)
+          : SCHEMA.DERIVED.cultivationYears(data);
+      case 'summary':
+        return summaryValue(record, col.name);
+      default: {
+        const v = data[col.name];
+        if (v === true) return '1';
+        if (v === false) return '0';
+        return v == null ? '' : String(v);
+      }
+    }
+  }
+
+  function vineValue(record, vine, idx, name) {
+    switch (name) {
+      case 'plot_id':     return String(record.plot_id || '');
+      case 'plot_code':   return String(record.plot_code || '');
+      case 'survey_date': return String(record.survey_date || '');
+      case 'village':     return String((record.data || {}).village || '');
+      case 'zone':        return String((record.data || {}).zone || '');
+      case 'ward':        return String((record.data || {}).ward || '');
+      case 'vine_no':     return String(idx + 1);
+      default: {
+        const v = vine[name];
+        return v == null ? '' : String(v);
+      }
+    }
+  }
+
+  function csvCell(s) {
+    if (s == null) s = '';
+    s = String(s);
+    if (/[",\n\r]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+    return s;
+  }
+
+  function plotsCSV(records, includeName) {
+    const cols = buildPlotColumns();
+    const lines = [cols.map((c) => csvCell(c.name)).join(',')];
+    records.forEach((r) => {
+      lines.push(cols.map((c) => csvCell(plotValue(r, c, includeName))).join(','));
+    });
+    return lines.join('\r\n');
+  }
+
+  function vinesCSV(records) {
+    const cols = buildVineColumns();
+    const lines = [cols.map(csvCell).join(',')];
+    records.forEach((r) => {
+      realVines(r).forEach((v, i) => {
+        lines.push(cols.map((c) => csvCell(vineValue(r, v, i, c))).join(','));
+      });
+    });
+    return lines.join('\r\n');
+  }
+
+  function toJSON(records, includeName) {
+    const clean = records.map((r) => {
+      const copy = JSON.parse(JSON.stringify(r));
+      if (!includeName) delete copy.farmer_name;
+      return copy;
+    });
+    return JSON.stringify(clean, null, 2);
+  }
+
+  function timestamp() {
+    return new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+  }
+
+  // Trigger a client-side file download (works offline; no backend).
+  function download(filename, text, mime) {
+    const blob = new Blob([text], { type: mime || 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 1000);
+  }
+
+  return {
+    buildPlotColumns, buildVineColumns, plotValue, summaryValue,
+    realVines, vineHasContent,
+    plotsCSV, vinesCSV, toJSON, download, timestamp,
+  };
+})();
+
+window.EXPORTER = EXPORTER;
+
+
+/*
+ * app.js — controller, router and renderer for the MCA Aristolochia Survey PWA.
+ *
+ * Fully client-side and offline-first: reference lists load from a bundled JSON
+ * file, all state lives in IndexedDB (js/db.js), and every field change
+ * autosaves. No network call is made at the point of data entry.
+ *
+ * Uploading is manual by design: the day's records are exported as two CSVs
+ * (plots and vines) and filed into the Drive folder named in js/config.js.
+ */
+(function () {
+  'use strict';
+
+  const $app = () => document.getElementById('app');
+  const esc = (s) => String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+  // --- Local device / surveyor identity (localStorage) ---------------------
+  const LS = {
+    surveyor: 'mca_aris_surveyor',
+    device: 'mca_aris_device_prefix',
+    seq: 'mca_aris_seq',
+  };
+
+  function devicePrefix() {
+    let p = localStorage.getItem(LS.device);
+    if (!p) {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      p = Array.from({ length: 3 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+      localStorage.setItem(LS.device, p);
+    }
+    return p;
+  }
+  function nextSeq() {
+    const n = (parseInt(localStorage.getItem(LS.seq), 10) || 0) + 1;
+    localStorage.setItem(LS.seq, String(n));
+    return n;
+  }
+  function surveyorId() { return localStorage.getItem(LS.surveyor) || ''; }
+
+  // Plot code: <ZONE>-<DEVICE>-<SEQ>. Generated locally, collision-safe via the
+  // per-device prefix, never typed by hand.
+  function makePlotCode(zoneCode, seq) {
+    const zone = (zoneCode || 'ZZ').toUpperCase();
+    return `${zone}-${devicePrefix()}-${String(seq).padStart(3, '0')}`;
+  }
+
+  // Local calendar date (not UTC) — the survey day the record belongs to.
+  function todayLocal(d) {
+    const t = d || new Date();
+    const p = (n) => String(n).padStart(2, '0');
+    return `${t.getFullYear()}-${p(t.getMonth() + 1)}-${p(t.getDate())}`;
+  }
+
+  // --- App state -----------------------------------------------------------
+  const state = { view: 'home', current: null, step: 0 };
+
+  // --- Reference list loading (zones/wards), shared with the hunting survey -
+  async function loadReference() {
+    // Single-file build inlines the reference data on window.__MCA_REFERENCE__,
+    // so it works when opened directly from disk (file://) with no fetch.
+    if (window.__MCA_REFERENCE__) {
+      const ref = window.__MCA_REFERENCE__;
+      CONFIG.zones = Array.isArray(ref.zones) ? ref.zones : [];
+      CONFIG.wards = Array.isArray(ref.wards) ? ref.wards : [];
+      return;
+    }
+    try {
+      const res = await fetch('../data/reference.json', { cache: 'no-cache' });
+      const ref = await res.json();
+      CONFIG.zones = Array.isArray(ref.zones) ? ref.zones : [];
+      CONFIG.wards = Array.isArray(ref.wards) ? ref.wards : [];
+    } catch (e) {
+      CONFIG.zones = []; CONFIG.wards = [];
+    }
+  }
+
+  // --- Plot model ----------------------------------------------------------
+  function newPlot() {
+    const seq = nextSeq();
+    return {
+      plot_id: (crypto.randomUUID ? crypto.randomUUID()
+        : String(Date.now()) + '-' + Math.random().toString(16).slice(2)),
+      plot_code: '',
+      _seq: seq,
+      surveyor: surveyorId(),
+      survey_date: todayLocal(),
+      farmer_name: '',
+      gps: null,
+      gps_status: 'pending',
+      gps_error: '',
+      plot_status: 'in_progress',
+      sync_status: 'not_exported',
+      exported_at: '',
+      app_version: CONFIG.appVersion,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      data: { vines: [] },
+    };
+  }
+
+  function save() { if (state.current) DB.put(state.current); }
+  let saveTimer = null;
+  function saveDebounced() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(save, 400);
+  }
+
+  function setData(field, value) {
+    state.current.data[field] = value;
+    // The plot code carries the zone prefix, so it is (re)built when zone is set.
+    if (field === 'zone') {
+      state.current.plot_code = makePlotCode(value, state.current._seq);
+    }
+    save();
+  }
+
+  // --- GPS capture ---------------------------------------------------------
+  function captureGPS() {
+    if (!state.current) return;
+    state.current.gps_status = 'pending';
+    state.current.gps_error = '';
+    if (state.view === 'module') renderModule(true);
+    if (!navigator.geolocation) {
+      state.current.gps_status = 'missing';
+      state.current.gps_error = 'This browser can’t get location. Try opening the app from the web link.';
+      save(); if (state.view === 'module') renderModule(true);
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        state.current.gps = {
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+          accuracy: pos.coords.accuracy,
+          time: new Date(pos.timestamp).toISOString(),
+        };
+        state.current.gps_status = 'ok';
+        state.current.gps_error = '';
+        save();
+        if (state.view === 'module') renderModule(true);
+      },
+      (err) => {
+        state.current.gps_status = 'missing';
+        // err.code: 1 PERMISSION_DENIED, 2 POSITION_UNAVAILABLE, 3 TIMEOUT.
+        if (err && err.code === 1) {
+          state.current.gps_error = 'Location permission is blocked. Turn on Location, then allow it for this app in the browser’s site settings (tap the padlock/⋮ in the address bar → Permissions → Location → Allow), then Retry.';
+        } else if (err && err.code === 3) {
+          state.current.gps_error = 'Timed out getting a fix. Move to open sky (away from thick canopy) and Retry.';
+        } else {
+          state.current.gps_error = 'Could not get a location fix. Check Location is turned on, then Retry.';
+        }
+        save();
+        if (state.view === 'module') renderModule(true);
+      },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 }
+    );
+  }
+
+  // --- showIf evaluation ---------------------------------------------------
+  function visible(field, data) {
+    const c = field.showIf;
+    if (!c) return true;
+    const v = data[c.field];
+    if (c.equals != null) return v === c.equals;
+    if (c.notEquals != null) return v !== c.notEquals;
+    return true;
+  }
+
+  // --- Validation warnings -------------------------------------------------
+  function yearWarnings(data) {
+    const w = [];
+    const now = new Date().getFullYear();
+    const check = (name, label) => {
+      const raw = data[name];
+      if (raw === '' || raw == null) return;
+      const y = parseInt(raw, 10);
+      if (!y || y < CONFIG.minYear || y > now) {
+        w.push(`${label} “${raw}” is outside ${CONFIG.minYear}–${now}.`);
+      }
+    };
+    check('year_cleared', 'Year cleared');
+    check('year_abandoned', 'Year abandoned');
+    const c = parseInt(data.year_cleared, 10);
+    const a = parseInt(data.year_abandoned, 10);
+    if (c && a && a < c) w.push(`Year abandoned (${a}) is before year cleared (${c}).`);
+    return w;
+  }
+
+  function moduleWarnings(mod) {
+    const data = state.current.data;
+    if (mod.id === 'B') return yearWarnings(data);
+    if (mod.id === 'C') {
+      const w = [];
+      const vines = Array.isArray(data.vines) ? data.vines : [];
+      if (data.aristolochia_present === 'yes' && EXPORTER.realVines(state.current).length === 0) {
+        w.push('Aristolochia recorded as present, but no vine has been entered yet.');
+      }
+      vines.forEach((v, i) => {
+        if (!EXPORTER.vineHasContent(v)) return;
+        CONFIG.vineSigns.forEach((s) => {
+          if (!s.counted) return;
+          const n = v[s.key + '_count'];
+          if (v[s.key] === 'no' && n !== '' && n != null && parseInt(n, 10) > 0) {
+            w.push(`Vine ${i + 1}: ${s.label.toLowerCase()} is “No” but a count of ${n} is entered.`);
+          }
+        });
+      });
+      return w;
+    }
+    return [];
+  }
+
+  function completeWarnings() {
+    const r = state.current;
+    const w = yearWarnings(r.data);
+    if (!r.plot_code) w.push('no plot code (Zone was blank)');
+    if (r.gps_status !== 'ok') w.push('no GPS point');
+    if (!r.data.aristolochia_present) w.push('Aristolochia present/absent not recorded');
+    return w;
+  }
+
+  // Fields whose value changes what else is shown — a change on one of these
+  // re-renders the section.
+  function triggerFields(module) {
+    const s = new Set();
+    module.fields.forEach((f) => { if (f.showIf) s.add(f.showIf.field); });
+    return s;
+  }
+
+  // --- Field renderers (return HTML strings) -------------------------------
+  function radioGroup(field, options, current) {
+    return `<div class="options">` + options.map((o) => `
+      <label class="opt ${current === o.code ? 'sel' : ''}">
+        <input type="radio" name="${esc(field)}" value="${esc(o.code)}"
+          data-field="${esc(field)}" ${current === o.code ? 'checked' : ''}>
+        <span>${esc(o.label)}</span></label>`).join('') + `</div>`;
+  }
+
+  // `attrs` is the raw attribute string identifying the target of the edit —
+  // data-field=... for a plot field, data-vine/data-idx for a vine sub-field.
+  function selectWith(attrs, options, current, placeholder) {
+    return `<select class="sel" ${attrs}>
+      <option value="">${esc(placeholder || '— choose —')}</option>` +
+      options.map((o) => `<option value="${esc(o.code)}" ${current === o.code ? 'selected' : ''}>${esc(o.label)}</option>`).join('') +
+      `</select>`;
+  }
+  function selectEl(field, options, current, placeholder) {
+    return selectWith(`data-field="${esc(field)}"`, options, current, placeholder);
+  }
+  function selectVine(idx, key, options, current, placeholder) {
+    return selectWith(`data-vine="${esc(key)}" data-idx="${idx}"`, options, current, placeholder);
+  }
+
+  function textEl(field, value, multiline) {
+    return multiline
+      ? `<textarea class="txt" rows="3" data-field="${esc(field)}">${esc(value || '')}</textarea>`
+      : `<input class="txt" type="text" data-field="${esc(field)}" value="${esc(value || '')}">`;
+  }
+
+  function labelBlock(label, help, inner) {
+    return `<div class="field">
+      ${label ? `<div class="q">${esc(label)}</div>` : ''}
+      ${help ? `<div class="help">${esc(help)}</div>` : ''}
+      ${inner}</div>`;
+  }
+
+  function renderPlotMeta() {
+    const r = state.current;
+    let gpsLine;
+    if (r.gps_status === 'ok' && r.gps) {
+      gpsLine = `<span class="badge ok">GPS ${r.gps.lat.toFixed(5)}, ${r.gps.lon.toFixed(5)}</span>
+        <span class="mono small">±${Math.round(r.gps.accuracy)} m</span>`;
+    } else if (r.gps_status === 'pending') {
+      gpsLine = '<span class="badge warn">Getting GPS…</span>';
+    } else {
+      gpsLine = '<span class="badge miss">No GPS point</span>';
+    }
+    const errMsg = (r.gps_status === 'missing' && r.gps_error)
+      ? `<div class="help gpserr">${esc(r.gps_error)}</div>` : '';
+    return `<div class="meta">
+      <div class="metarow"><b>Plot</b> <span class="mono">${esc(r.plot_code || '(set Zone to generate)')}</span></div>
+      <div class="metarow"><b>Date</b> <span class="mono">${esc(r.survey_date)}</span></div>
+      <div class="metarow"><b>Point</b> ${gpsLine}
+        <button class="btn tiny" data-action="gps-retry" type="button" ${r.gps_status === 'pending' ? 'disabled' : ''}>Retry GPS</button></div>
+      ${errMsg}</div>`;
+  }
+
+  function renderFallowAge() {
+    const data = state.current.data;
+    const fallow = SCHEMA.DERIVED.fallowAge(data);
+    const cult = SCHEMA.DERIVED.cultivationYears(data);
+    const rows = [];
+    if (fallow !== '') {
+      rows.push(`<div class="calcrow"><b>Fallow age</b><span class="calcval">${esc(fallow)} year${fallow === '1' ? '' : 's'}</span></div>`);
+    } else if (data.garden_status === 'still_used') {
+      rows.push('<div class="calcrow"><b>Fallow age</b><span class="calcval muted">— still gardened</span></div>');
+    } else if (data.garden_status === 'abandoned') {
+      rows.push('<div class="calcrow"><b>Fallow age</b><span class="calcval muted">— enter the year abandoned</span></div>');
+    } else {
+      rows.push('<div class="calcrow"><b>Fallow age</b><span class="calcval muted">— answer the questions above</span></div>');
+    }
+    if (cult !== '') {
+      rows.push(`<div class="calcrow"><b>Years gardened</b><span class="calcval">${esc(cult)} year${cult === '1' ? '' : 's'}</span></div>`);
+    }
+    return `<div class="calc">${rows.join('')}
+      <div class="help">Calculated from the years above against today’s date. Not typed in, and recalculated every time the record is opened.</div></div>`;
+  }
+
+  // --- Vine list -----------------------------------------------------------
+  function vineList() {
+    const list = state.current.data.vines;
+    return Array.isArray(list) ? list : (state.current.data.vines = []);
+  }
+
+  function renderVine(v, i) {
+    const treeField = CONFIG.hostTrees.length
+      ? selectVine(i, 'host_tree', CONFIG.hostTrees, v.host_tree, '— choose tree —')
+      : `<input class="txt" type="text" data-vine="host_tree" data-idx="${i}"
+           value="${esc(v.host_tree)}" placeholder="Tree species (local or scientific name)">`;
+    const treeOther = (CONFIG.hostTrees.length && v.host_tree === 'other')
+      ? `<input class="txt" type="text" data-vine="host_tree_other" data-idx="${i}"
+           value="${esc(v.host_tree_other)}" placeholder="Other tree species (specify)">`
+      : '';
+
+    const signs = CONFIG.vineSigns.map((s) => {
+      const cur = v[s.key];
+      const yesNo = CONFIG.options.yes_no.map((o) => `
+        <label class="opt tight ${cur === o.code ? 'sel' : ''}">
+          <input type="radio" name="vine_${i}_${esc(s.key)}" value="${esc(o.code)}"
+            data-vine="${esc(s.key)}" data-idx="${i}" ${cur === o.code ? 'checked' : ''}>
+          <span>${esc(o.label)}</span></label>`).join('');
+      const countId = `vc_${i}_${s.key}`;
+      const count = (s.counted && cur === 'yes')
+        ? `<div class="countrow"><label for="${countId}">How many? (optional)</label>
+             <input class="txt num" id="${countId}" type="number" inputmode="numeric" min="0" step="1"
+               data-vine="${esc(s.key)}_count" data-idx="${i}"
+               value="${esc(v[s.key + '_count'])}"></div>`
+        : '';
+      return `<div class="signrow"><div class="q small">${esc(s.label)}</div>
+        <div class="options inline">${yesNo}</div>${count}</div>`;
+    }).join('');
+
+    // Species identification is only asked where there is something to identify.
+    const anySign = CONFIG.vineSigns.some((s) => v[s.key] === 'yes');
+    const species = anySign ? `
+      <div class="signrow"><div class="q small">Butterfly species, where you can tell</div>
+      ${selectVine(i, 'species', CONFIG.options.birdwing_species, v.species, '— not identified —')}</div>` : '';
+
+    return `<div class="vine">
+      <div class="vinehead"><b>Vine ${i + 1}</b>
+        <button class="btn tiny danger" type="button" data-action="vine-remove" data-idx="${i}">Remove</button></div>
+      <div class="field"><div class="q small">Tree the vine is climbing</div>${treeField}${treeOther}</div>
+      <div class="field"><div class="q small">Tree DBH (cm)</div>
+        <input class="txt num" type="number" inputmode="decimal" min="0" step="0.1"
+          data-vine="dbh_cm" data-idx="${i}" value="${esc(v.dbh_cm)}" placeholder="diameter at breast height"></div>
+      ${signs}
+      ${species}
+      <div class="field"><div class="q small">Notes on this vine (optional)</div>
+        <textarea class="txt" rows="2" data-vine="notes" data-idx="${i}">${esc(v.notes || '')}</textarea></div>
+    </div>`;
+  }
+
+  function renderVineList() {
+    const list = vineList();
+    const body = list.length
+      ? list.map(renderVine).join('')
+      : '<div class="empty">No vines recorded yet.</div>';
+    return `<div class="vines">
+      <div class="vinecount">${list.length} vine${list.length === 1 ? '' : 's'} on this plot</div>
+      ${body}
+      <button class="btn primary" type="button" data-action="vine-add">+ Add vine</button></div>`;
+  }
+
+  function renderField(field) {
+    const data = state.current.data;
+    if (!visible(field, data)) return '';
+    switch (field.kind) {
+      case 'plot_meta':   return renderPlotMeta();
+      case 'fallow_age':  return renderFallowAge();
+      case 'vine_list':   return renderVineList();
+      case 'note':        return `<div class="note">${esc(field.text)}</div>`;
+      case 'single': {
+        let opts = SCHEMA.resolveOptions(field.options);
+        if (field.scopeByZone && data.zone) {
+          const scoped = opts.filter((o) => !o.zone || o.zone === data.zone);
+          if (scoped.length) opts = scoped;
+        }
+        const inner = field.dropdown
+          ? selectEl(field.name, opts, data[field.name])
+          : radioGroup(field.name, opts, data[field.name]);
+        return labelBlock(field.label, field.help, inner);
+      }
+      case 'year':
+        return labelBlock(field.label, field.help,
+          `<input class="txt num" type="number" inputmode="numeric" min="${CONFIG.minYear}"
+             max="${new Date().getFullYear()}" step="1" data-field="${esc(field.name)}"
+             value="${esc(data[field.name] || '')}" placeholder="YYYY">`);
+      case 'text':
+      default:
+        return labelBlock(field.label, field.help,
+          textEl(field.name, data[field.name], field.multiline));
+    }
+  }
+
+  // --- Screens -------------------------------------------------------------
+  function header() {
+    return `<div class="topbar">
+      <div class="brand">MCA Aristolochia Survey</div>
+      <div class="who">${esc(surveyorId() || '')} <button class="btn tiny ghost" data-action="change-surveyor">change</button></div>
+    </div>`;
+  }
+
+  function statusBadge(r) {
+    if (r.plot_status === 'complete') {
+      return r.sync_status === 'exported'
+        ? '<span class="badge ok">complete · exported</span>'
+        : '<span class="badge done">complete · not exported</span>';
+    }
+    return '<span class="badge warn">in progress</span>';
+  }
+
+  // Records eligible for export: completed plots. In-progress ones are held
+  // back so a half-entered plot is not filed as data.
+  function exportable(all) {
+    return all.filter((r) => r.plot_status === 'complete');
+  }
+
+  async function renderHome() {
+    state.view = 'home';
+    const list = await DB.getAll();
+    const today = todayLocal();
+    const done = exportable(list);
+    const todayDone = done.filter((r) => r.survey_date === today);
+    const pendingToday = todayDone.filter((r) => r.sync_status !== 'exported');
+    const pendingOlder = done.filter((r) => r.survey_date !== today && r.sync_status !== 'exported');
+
+    const backlog = pendingOlder.length
+      ? `<div class="backlog">${pendingOlder.length} completed plot${pendingOlder.length === 1 ? '' : 's'} from earlier day${pendingOlder.length === 1 ? '' : 's'} not exported yet. Use “Export everything not yet sent”.</div>`
+      : '';
+
+    const rowsHtml = list.length ? list.map((r) => {
+      const vines = EXPORTER.realVines(r).length;
+      return `
+      <li class="ivrow" data-id="${esc(r.plot_id)}">
+        <div class="ivmain" data-action="open" data-id="${esc(r.plot_id)}">
+          <div class="ivcode">${esc(r.plot_code || '(no code yet)')}
+            <span class="vtag">${vines} vine${vines === 1 ? '' : 's'}</span></div>
+          <div class="ivmeta">${statusBadge(r)} <span class="mono">${esc(r.survey_date || '')}</span>
+            ${r.gps_status === 'missing' ? '<span class="badge miss">no GPS</span>' : ''}</div>
+        </div>
+        <button class="btn tiny danger" data-action="delete" data-id="${esc(r.plot_id)}">Delete</button>
+      </li>`; }).join('') : '<li class="empty">No plots on this device yet.</li>';
+
+    $app().innerHTML = header() + `
+      <div class="screen">
+        <button class="btn primary big" data-action="new">+ New plot</button>
+
+        <div class="daycard">
+          <div class="dayhead">Today — ${esc(today)}</div>
+          <div class="daystat">${todayDone.length} completed · ${pendingToday.length} not yet exported</div>
+          <button class="btn primary" data-action="export-today">Export today’s data</button>
+          <a class="drivelink" href="${esc(CONFIG.driveFolderUrl)}" target="_blank" rel="noopener">
+            Open the ${esc(CONFIG.driveFolderName)} folder in Drive →</a>
+          <div class="help">Exports two files — plots and vines. Save both into the Drive folder.</div>
+        </div>
+        ${backlog}
+
+        <h2>Plots on this device (${list.length})</h2>
+        <ul class="ivlist">${rowsHtml}</ul>
+
+        <details class="moreexport">
+          <summary>Other export options</summary>
+          <div class="exportbar">
+            <button class="btn" data-action="export-pending">Export everything not yet sent</button>
+            <button class="btn" data-action="export-all">Export all data (re-export)</button>
+            <button class="btn ghost" data-action="export-json">Download JSON (raw)</button>
+            <button class="btn ghost" data-action="export-anon">Export without farmer names</button>
+          </div>
+        </details>
+        <div class="foot">Offline-first · data stays on this device until you export. App v${esc(CONFIG.appVersion)}</div>
+      </div>`;
+  }
+
+  function stepper() {
+    return `<div class="stepper">` + SCHEMA.modules.map((m, i) => `
+      <button class="stepdot ${i === state.step ? 'active' : ''}" data-action="goto-step" data-step="${i}">${esc(m.id)}</button>`).join('') + `</div>`;
+  }
+
+  // Partial refreshes. A text field's `change` fires on blur — which happens as
+  // the user's finger is going down on the next control. Rebuilding the whole
+  // section there removes that control before the tap completes and the tap is
+  // lost, so text edits update only the blocks that can actually have changed.
+  function refreshWarnings() {
+    const warns = moduleWarnings(SCHEMA.modules[state.step]);
+    let box = document.querySelector('.warnbox');
+    if (!warns.length) { if (box) box.remove(); return; }
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'warnbox';
+      const body = document.querySelector('.modbody');
+      if (!body || !body.parentNode) return;
+      body.parentNode.insertBefore(box, body.nextSibling);
+    }
+    box.innerHTML = warns.map((w) => `<div>${esc(w)}</div>`).join('');
+  }
+
+  function refreshDerived() {
+    const calc = document.querySelector('.calc');
+    if (calc) calc.outerHTML = renderFallowAge();
+    const count = document.querySelector('.vinecount');
+    if (count) {
+      const n = EXPORTER.realVines(state.current).length;
+      count.textContent = `${n} vine${n === 1 ? '' : 's'} on this plot`;
+    }
+    refreshWarnings();
+  }
+
+  function renderModule(preserveScroll) {
+    state.view = 'module';
+    const y = preserveScroll ? window.scrollY : 0;
+    const mods = SCHEMA.modules;
+    if (state.step >= mods.length) state.step = mods.length - 1;
+    const mod = mods[state.step];
+    const body = mod.fields.map(renderField).join('');
+    const warns = moduleWarnings(mod);
+    const warnHtml = warns.length
+      ? `<div class="warnbox">${warns.map((w) => `<div>${esc(w)}</div>`).join('')}</div>` : '';
+    const last = state.step === mods.length - 1;
+    $app().innerHTML = header() + `
+      <div class="screen">
+        ${stepper()}
+        <h2>${esc(mod.title)}</h2>
+        <div class="modbody">${body}</div>
+        ${warnHtml}
+        <div class="navbtns">
+          <button class="btn" data-action="prev">${state.step === 0 ? 'Home' : 'Back'}</button>
+          <button class="btn primary" data-action="next">${last ? 'Review' : 'Next'}</button>
+        </div>
+        <div class="foot">Every question can be left blank. Progress saves automatically.</div>
+      </div>`;
+    window.scrollTo(0, y);
+  }
+
+  function renderReview() {
+    state.view = 'review';
+    const r = state.current;
+    const cols = EXPORTER.buildPlotColumns();
+    const rowsHtml = cols.map((c) => {
+      const v = EXPORTER.plotValue(r, c, true);
+      if (v === '' || v == null) return '';
+      return `<tr><td class="mono small">${esc(c.name)}</td><td>${esc(v)}</td></tr>`;
+    }).filter(Boolean).join('');
+
+    const vines = EXPORTER.realVines(r);
+    const vineHtml = vines.length ? `
+      <h3>Vines (${vines.length})</h3>
+      <table class="review"><tbody>${vines.map((v, i) => {
+        const signs = CONFIG.vineSigns
+          .filter((s) => v[s.key] === 'yes')
+          .map((s) => s.label + (v[s.key + '_count'] ? ` (${v[s.key + '_count']})` : ''))
+          .join(', ') || 'none seen';
+        const sp = v.species && v.species !== 'unknown'
+          ? (CONFIG.options.birdwing_species.find((x) => x.code === v.species) || {}).label : '';
+        const tree = v.host_tree === 'other' ? v.host_tree_other : v.host_tree;
+        return `<tr><td class="mono small">Vine ${i + 1}</td><td>${esc(tree || '(tree not named)')}${v.dbh_cm ? ` · DBH ${esc(v.dbh_cm)} cm` : ''}<br>
+          <span class="small">${esc(signs)}${sp ? ' · ' + esc(sp) : ''}</span></td></tr>`;
+      }).join('')}</tbody></table>` : '';
+
+    const flags = completeWarnings();
+    const flagHtml = flags.length
+      ? `<div class="review-consent miss">Check: ${esc(flags.join(' · '))}</div>` : '';
+
+    $app().innerHTML = header() + `
+      <div class="screen">
+        <h2>Review — ${esc(r.plot_code || '(no code)')}</h2>
+        ${flagHtml}
+        <div class="help">Only answered fields are shown${rowsHtml ? '' : ' (none yet)'}.</div>
+        <table class="review"><tbody>${rowsHtml}</tbody></table>
+        ${vineHtml}
+        <div class="navbtns">
+          <button class="btn" data-action="back-to-form">Back to edit</button>
+          <button class="btn primary" data-action="complete">Complete plot</button>
+        </div>
+      </div>`;
+  }
+
+  // --- First-run surveyor setup -------------------------------------------
+  function renderSurveyorSetup() {
+    state.view = 'setup';
+    $app().innerHTML = `
+      <div class="screen setup">
+        <h1>MCA Aristolochia Survey</h1>
+        <p>Before you start, enter your name or ID. It is stored on this device and recorded with each plot.</p>
+        <input class="txt" id="setup-name" type="text" placeholder="e.g. Jane K. or SUR-01" value="${esc(surveyorId())}">
+        <button class="btn primary big" data-action="save-surveyor">Save and continue</button>
+      </div>`;
+  }
+
+  // --- Event handling ------------------------------------------------------
+  function vineAt(idx) {
+    const list = vineList();
+    if (!list[idx]) list[idx] = SCHEMA.emptyVine();
+    return list[idx];
+  }
+
+  function onChange(e) {
+    const t = e.target;
+    // Vine sub-record edits
+    if (t.dataset && t.dataset.vine) {
+      const idx = parseInt(t.dataset.idx, 10);
+      const key = t.dataset.vine;
+      const v = vineAt(idx);
+      v[key] = t.value;
+      // Clearing a sign to "No" drops a count that would otherwise contradict it.
+      const sign = CONFIG.vineSigns.find((s) => s.key === key);
+      if (sign && sign.counted && t.value !== 'yes') v[key + '_count'] = '';
+      save();
+      if (state.view === 'module') {
+        // Radio/select choices reveal or hide fields, so they need the section
+        // rebuilt; a text or number edit only changes the derived readouts.
+        if (t.type === 'radio' || t.tagName === 'SELECT') renderModule(true);
+        else refreshDerived();
+      }
+      return;
+    }
+    if (!t.dataset || !t.dataset.field) return;
+    const field = t.dataset.field;
+    if (t.type === 'checkbox') {
+      setData(field, t.checked);
+    } else {
+      setData(field, t.value);
+    }
+    if (state.view !== 'module') return;
+    // A radio or dropdown choice can gate other fields, so rebuild the section.
+    // A text/number edit does not — refresh only the derived readouts, or
+    // rebuild if this particular field happens to gate something.
+    if (t.type === 'radio' || t.type === 'checkbox' || t.tagName === 'SELECT'
+      || triggerFields(SCHEMA.modules[state.step]).has(field)) {
+      renderModule(true);
+    } else {
+      refreshDerived();
+    }
+  }
+
+  function onInput(e) {
+    const t = e.target;
+    // Live-save typing without re-rendering (keeps focus). Debounced; the
+    // 'change' event on blur does the final save and re-render.
+    if (!t.dataset) return;
+    if (t.dataset.vine) {
+      if (t.type === 'text' || t.type === 'number' || t.tagName === 'TEXTAREA') {
+        vineAt(parseInt(t.dataset.idx, 10))[t.dataset.vine] = t.value;
+        saveDebounced();
+      }
+      return;
+    }
+    if (!t.dataset.field) return;
+    if (t.type === 'text' || t.type === 'number' || t.tagName === 'TEXTAREA') {
+      state.current.data[t.dataset.field] = t.value;
+      saveDebounced();
+    }
+  }
+
+  async function onClick(e) {
+    const a = e.target.closest('[data-action]');
+    if (!a) return;
+    const action = a.dataset.action;
+
+    switch (action) {
+      case 'save-surveyor': {
+        const v = document.getElementById('setup-name').value.trim();
+        if (!v) { alert('Please enter a name or ID.'); return; }
+        localStorage.setItem(LS.surveyor, v);
+        renderHome();
+        return;
+      }
+      case 'change-surveyor': renderSurveyorSetup(); return;
+
+      case 'new': {
+        state.current = newPlot();
+        state.step = 0;
+        await DB.put(state.current);
+        captureGPS();
+        renderModule();
+        return;
+      }
+      case 'open': {
+        const rec = await DB.get(a.dataset.id);
+        if (!rec) return;
+        if (!Array.isArray(rec.data.vines)) rec.data.vines = [];
+        state.current = rec;
+        state.step = 0;
+        renderModule();
+        return;
+      }
+      case 'delete': {
+        const rec = await DB.get(a.dataset.id);
+        const label = (rec && rec.plot_code) || 'this plot';
+        if (!confirm(`Delete ${label}? This cannot be undone.`)) return;
+        await DB.remove(a.dataset.id);
+        renderHome();
+        return;
+      }
+      case 'gps-retry': captureGPS(); return;
+
+      case 'vine-add': {
+        vineList().push(SCHEMA.emptyVine());
+        save();
+        renderModule(true);
+        return;
+      }
+      case 'vine-remove': {
+        const idx = parseInt(a.dataset.idx, 10);
+        const list = vineList();
+        if (EXPORTER.vineHasContent(list[idx]) && !confirm(`Remove vine ${idx + 1}?`)) return;
+        list.splice(idx, 1);
+        save();
+        renderModule(true);
+        return;
+      }
+
+      case 'goto-step': state.step = parseInt(a.dataset.step, 10); renderModule(); return;
+      case 'prev':
+        if (state.step === 0) { state.current = null; renderHome(); }
+        else { state.step -= 1; renderModule(); }
+        return;
+      case 'next':
+        if (state.step === SCHEMA.modules.length - 1) renderReview();
+        else { state.step += 1; renderModule(); }
+        return;
+      case 'back-to-form': renderModule(); return;
+      case 'complete': {
+        const flags = completeWarnings();
+        if (flags.length && !confirm(`This plot still has: ${flags.join('; ')}.\n\nComplete it anyway?`)) return;
+        state.current.plot_status = 'complete';
+        state.current.completed_at = new Date().toISOString();
+        await DB.put(state.current);
+        state.current = null;
+        renderHome();
+        return;
+      }
+
+      case 'export-today':   return doExport({ scope: 'today' });
+      case 'export-pending': return doExport({ scope: 'pending' });
+      case 'export-all':     return doExport({ scope: 'all' });
+      case 'export-anon':    return doExport({ scope: 'all', includeName: false });
+      case 'export-json':    return doExport({ scope: 'all', kind: 'json' });
+    }
+  }
+
+  // --- Export --------------------------------------------------------------
+  async function markExported(records) {
+    const now = new Date().toISOString();
+    for (const r of records) {
+      r.sync_status = 'exported';
+      r.exported_at = now;
+      await DB.put(r);
+    }
+  }
+
+  function scopeRecords(all, scope) {
+    const done = exportable(all);
+    if (scope === 'today') return done.filter((r) => r.survey_date === todayLocal());
+    if (scope === 'pending') return done.filter((r) => r.sync_status !== 'exported');
+    return done;
+  }
+
+  async function doExport(opts) {
+    const includeName = opts.includeName !== false;
+    const all = await DB.getAll();
+    const records = scopeRecords(all, opts.scope);
+    if (!records.length) {
+      alert(opts.scope === 'today'
+        ? 'No completed plots for today yet. A plot is exported once you tap “Complete plot”.'
+        : 'No completed plots to export yet.');
+      return;
+    }
+    // Daily files are named by survey day; anything wider carries a timestamp.
+    const stamp = opts.scope === 'today' ? todayLocal() : EXPORTER.timestamp();
+    const tag = includeName ? 'named' : 'anon';
+
+    if (opts.kind === 'json') {
+      EXPORTER.download(`mca_aristolochia_${tag}_${stamp}.json`,
+        EXPORTER.toJSON(records, includeName), 'application/json');
+    } else {
+      EXPORTER.download(`mca_aristolochia_plots_${tag}_${stamp}.csv`,
+        EXPORTER.plotsCSV(records, includeName), 'text/csv;charset=utf-8');
+      // Second download fires after a beat — browsers drop back-to-back ones.
+      await new Promise((res) => setTimeout(res, 600));
+      EXPORTER.download(`mca_aristolochia_vines_${stamp}.csv`,
+        EXPORTER.vinesCSV(records), 'text/csv;charset=utf-8');
+    }
+
+    await markExported(records);
+    if (state.view === 'home') renderHome();
+    alert(`Exported ${records.length} plot${records.length === 1 ? '' : 's'}.\n\nNow save the file(s) into the ${CONFIG.driveFolderName} folder in Drive.`);
+  }
+
+  // --- Bootstrap -----------------------------------------------------------
+  async function init() {
+    await DB.open();
+    await loadReference();
+    document.addEventListener('change', onChange);
+    document.addEventListener('input', onInput);
+    document.addEventListener('click', onClick);
+    if (!surveyorId()) renderSurveyorSetup(); else renderHome();
+
+    // Only register the service worker for the hosted build (http/https). The
+    // single-file build opened from disk (file://) is already fully offline.
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', init);
+})();
+
+  </script>
+</body>
+</html>

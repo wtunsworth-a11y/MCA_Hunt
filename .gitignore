@@ -12,6 +12,9 @@ received_data/*.json
 # Belt-and-braces: no interview exports / consolidated datasets anywhere
 **/mca_hunt*named*.csv
 **/*consolidated*.csv
+# Aristolochia survey exports (plots + vines, named or anonymised)
+**/mca_aristolochia*.csv
+**/mca_aristolochia*.json
 analysis/data/
 # Rendered deliverables carry verbatim quotes — keep out of the public repo
 *.pdf
