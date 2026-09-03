@@ -94,15 +94,24 @@ survey's and do not carry over. Sole surveyor: Avril Matawan.
   - Earlier practice files from v1.0.0/v1.1.0 are the older two-file shape
     (`..._plots_*.csv` + `..._vines_*.csv`).
 
-- **Practice data — exclude from analysis.** Records collected by Avril **in
-  Popondetta town** (GPS around −8.76, 148.24) are practice on the app, not
-  survey data. Real plots are on the Managalas plateau, so the GPS point
-  separates them. Keep them for provenance; never pool them with results.
-  - This applies to **this app only** — it says nothing about the hunting
-    survey's phases.
-  - The GPS point is the only marker. A practice record with no fix, or one
-    recorded in a survey village, cannot be caught this way — check the plot
-    against its recorded village and zone if anything looks off.
+- **Survey phases** (this app only — nothing here bears on the hunting
+  survey's phases):
+  - **2 Sep 2026 = practice — exclude from analysis.** Recorded in Popondetta
+    town (GPS around −8.76, 148.24) while the instrument was being built, on
+    app v1.0.0–1.3.0. Plots `Z7B-EX6-003`, `Z8-EX6-004`, `Z8-EX6-005`. Keep for
+    provenance; never pool with results.
+  - **Main survey = 3 Sep 2026 onward**, on the Managalas plateau, app v1.3.1
+    onward. This is real data.
+  - Practice is bounded by **date**, not by location. The Popondetta GPS
+    happens to separate the 2 Sep records, but plateau coordinates no longer
+    imply real data on their own — if practice is ever repeated in the field,
+    it must be marked explicitly, not inferred from the fix.
+
+- **Flagged point — `Z7A-EX6-012` (Kujina, 3 Sep).** Longitude 148.9677, about
+  60 km east of the three plots recorded around it the same day (148.42), while
+  reporting ±100 m accuracy. Retained pending checking against Kujina's actual
+  position. Do not use this point for distance, area or mapping work without
+  confirming it; the rest of the record is unaffected.
 
 ## App
 - Config-driven: `js/config.js` (species, methods, options, appVersion) is the
