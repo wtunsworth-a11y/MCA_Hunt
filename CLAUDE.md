@@ -107,6 +107,35 @@ survey's and do not carry over. Sole surveyor: Avril Matawan.
     imply real data on their own — if practice is ever repeated in the field,
     it must be marked explicitly, not inferred from the fix.
 
+- **One record per fallow age.** The unit of observation is a **garden**, not a
+  transect. A transect that crosses two fallows is two gardens and must be two
+  plot records — one clearing year, one abandonment year, one fallow age each.
+  A plot spanning several fallow ages stamps one age onto vines that were in
+  another, and its own year fields then describe neither garden.
+  - App v1.4.0 asks this before the year questions and records the answer as
+    `single_fallow`. **Exclude `single_fallow = no` records from any
+    fallow-age analysis** until they are split.
+  - Records from before v1.4.0 have no such column — check `plot_notes` for more
+    than one year (`Z7A-EX6-017`, `Z7A-EX6-018` are the known cases).
+
+- **Split pending — `Z7A-EX6-017` and `Z7A-EX6-018` (Kawoki, 4 Sep).** Each
+  transect crossed two fallows, so each is two gardens recorded as one plot.
+  Vine positions are largely recorded; the years are not resolved.
+  - `017` — plot notes name *"Fallow 2017 and fallow 2020"*; recorded
+    `year_abandoned` 2019 is neither. Vine 2 is noted in the 2020 area; vine 1
+    is unplaced.
+  - `018` — plot notes name *"fallow areas of 2022 and 2026"*; recorded
+    `year_abandoned` 2024 is neither. Both vines are noted at the end of the
+    transect in the **2026** portion, at the edge of a still-active garden; the
+    2022 portion has no vines recorded.
+  - In both, the recorded abandonment year sits between the two note years —
+    possibly a middle value rather than one garden's. **Do not reconstruct the
+    split without confirming with the surveyor**: which note year belongs to
+    which garden, where 017 vine 1 sat, and whether 018's 2022 portion was
+    actually searched (a zero only counts if it was walked).
+  - Hold both out of fallow-age analysis meanwhile. The clean set is then
+    `013`, `014`, `015`, `019`, `020` — n=5.
+
 - **Flagged point — `Z7A-EX6-012` (Kujina, 3 Sep).** Longitude 148.9677, about
   60 km east of the three plots recorded around it the same day (148.42), while
   reporting ±100 m accuracy. Retained pending checking against Kujina's actual
