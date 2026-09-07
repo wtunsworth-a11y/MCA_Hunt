@@ -31,17 +31,18 @@ hunting and fishing are legitimate landowner resource use; report as records.
   against which zones hold the montane habitat. Use per-zone elevation/altitude as
   a covariate if available. Species present across zones (pig, cassowary, cuscus,
   bandicoot, etc.) are compared on their own terms, separately.
-- **Update (data to 29 Aug):** the pattern now holds across **two** high-elevation
-  zones. Tree kangaroo: Zone 6 20/32 hunters and **Zone 10 10/26**, against ~1 in
-  30–40 in Zones 7A/7B/8/3; echidna concentrated in Zones 6 and 10. Zone 10 also
-  reaches the high peaks. Consistent with elevation/habitat availability, not
-  depletion.
-- **Owalama Range — possible additional TK habitat (UNCONFIRMED, 31 Aug 2026).**
-  Field note (WT): the Owalama Range may also hold tree kangaroos. Not yet
-  confirmed, and no interview references "Owalama" in ward/clan/notes so far, so it
-  is not mapped to a survey zone yet. Watch for TK records from whichever zone(s)
-  cover the Owalama Range; treat as a hypothesis to check, not a finding. Do not
-  state it as fact in any output.
+- **Update (data to 4 Sept):** the pattern holds across **three** high-elevation
+  zones. Tree kangaroo: Zone 6 20/32 hunters, Zone 10 10/26, and **Zone 9 24/40**;
+  echidna concentrated in the same three zones and near-absent in Zones 7A/7B/8/3.
+  Consistent with elevation/habitat availability, not depletion.
+- **Zone → mountain-range mapping (from WT; do not guess these):**
+  - **Zone 9 fringes the Sibium Range.**
+  - Owalama Range: WT field note that it may also hold tree kangaroos — still
+    UNCONFIRMED and not yet tied to a surveyed zone. Treat as a hypothesis to
+    check, not a finding; do not state as fact.
+  - Zones 6 and 10 reach the high peaks (Hydrographers Range noted earlier for
+    Zone 6). **Confirm the exact range for each zone with the team before naming
+    a range in any output — never infer a zone's mountain range from the data.**
 
 ## Echidna voucher
 - Long-beaked echidna (*Zaglossus*; likely *Z. bartoni* for mainland Oro — confirm
