@@ -1,0 +1,16 @@
+category,mass_kg,basis
+# Representative adult body mass per hunted category, for biomass estimates.
+# Indicative values for the PNG/Managalas taxa in each category, agreed with the
+# team. Provisional; refine as needed. Used by the biomass-per-trip analyses.
+bandicoot,0.8,"mid-range of commonly hunted spiny/Raffray's bandicoots (Echymipera, Peroryctes raffrayana); EXCLUDES the rare, very large Giant Bandicoot (Peroryctes broadbenti)"
+parrot,0.4,"PNG parrots incl. Eclectus-sized; cockatoos EXCLUDED (locally a separate category)"
+pigeon,0.6,"imperial pigeon (Ducula)"
+bats,0.6,"flying fox (Pteropus)"
+bushfowl,1.4,"megapode / scrubfowl"
+hornbill,1.8,"Rhyticeros plicatus"
+cuscus,3.0,"Phalanger / Spilocuscus"
+snake,4.0,"python; highly variable"
+wallaby,6.0,"forest wallaby (Dorcopsis)"
+tree_kangaroo,9.0,"Dendrolagus"
+cassowary,20.0,"dwarf cassowary (Casuarius bennetti) — all site records so far are dwarf, not the larger Southern/Northern cassowary"
+wild_pig,50.0,"Sus scrofa (feral); introduced, not native"
