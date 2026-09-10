@@ -51,6 +51,13 @@ it could be ambiguous.
 - Consolidated datasets: dedupe on `interview_id`, align columns by name to the
   current canonical layout (see `js/export.js`), keep the newest app-version
   header.
+- **Device exports are NOT reliably cumulative — consolidate the UNION OF ALL
+  files, never "the latest file per surveyor."** An export holds only what is on
+  the device now; a reset/reinstall truncates it, so later files can lose earlier
+  interviews (which survive only in that device's older files). Bani's device
+  reset ~26 Aug: the 10 Sep file spans only 26 Aug onward; 19–25 Aug interviews
+  live in the 25 Aug file. Always fetch and dedupe **every** raw CSV in the folder;
+  a shrinking zone/interview count between consolidations is the red flag.
 - **The raw device exports in the Drive Survey Data folder are the lodged data
   (source of truth).** Do not maintain a stored consolidated file in the Drive —
   **regenerate the consolidated dataset on request** (from the raw exports) and
