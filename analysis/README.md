@@ -17,6 +17,21 @@ it, and keep the outputs out of git.
 | `consolidate.py` | dedupe device exports on `interview_id` (last wins), **exclude 13 Aug practice**, align to the widest/newest header, flag v2.5.0 main-survey rows. `python analysis/consolidate.py <in_dir> <out.csv>` |
 | `summary.py` | headline figures on the v2.5.0 main survey: interviews, women, zones, species named, fishing. `python analysis/summary.py <consolidated.csv>` |
 | `heatmap_tool_cohort.py` | hunting-method × zone (or age cohort) heatmap, column-normalised. `python analysis/heatmap_tool_cohort.py <consolidated.csv> <out.png> [zone|cohort]` |
+| `build_review.py` | build the full **6-page data-review brief** (figures + HTML) from a consolidated CSV — every number computed, nothing hard-coded. Reads `species_body_mass.csv` and `review_template.css`. `python analysis/build_review.py <consolidated.csv> [out_dir]` |
+| `render_pdf.js` | render the brief HTML to A4 PDF with Playwright/Chromium. `node analysis/render_pdf.js <out_dir>/review.html <out_dir>/review.pdf` |
+| `species_body_mass.csv` | agreed per-category adult body masses (PNG taxa) for the biomass plots — edit here, every figure re-runs from it. |
+
+### Regenerate the data review (one flow)
+
+```
+python analysis/consolidate.py <folder_of_raw_exports> review_out/consolidated.csv
+python analysis/build_review.py review_out/consolidated.csv review_out
+node   analysis/render_pdf.js review_out/review.html review_out/review.pdf
+```
+
+The remote env needs `PW_CHROME=/opt/pw-browsers/chromium-*/chrome-linux/chrome`
+and `NODE_PATH=/opt/node22/lib/node_modules` for the render step. `review_out/`
+(HTML/PDF/PNG derived from survey data) is git-ignored — never commit it.
 
 ## Survey phases (all analysis)
 

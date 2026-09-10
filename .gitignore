@@ -22,3 +22,7 @@ analysis/data/
 # Python bytecode
 __pycache__/
 *.pyc
+
+# Generated review outputs (data-derived HTML/PDF/PNG)
+review_out/
+**/review_out/
