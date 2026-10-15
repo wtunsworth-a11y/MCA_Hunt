@@ -346,7 +346,7 @@ table.review td:first-child { color: var(--muted); width: 42%; word-break: break
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '1.3.1',
+  appVersion: '1.4.0',
 
   // Google Drive folder the day's exports are filed into. Shown on the export
   // screen as a tappable link; the app does not upload by itself.
@@ -429,6 +429,21 @@ const CONFIG = {
       { code: 'egg_laid_here', label: 'Egg was laid on this vine' },
       { code: 'moved_here',    label: 'Caterpillar was moved here' },
       { code: 'not_sure',      label: 'Not sure' },
+    ],
+    // Canopy over the plot, asked of every plot — garden and forest alike —
+    // because light reaching the ground is what Aristolochia and its host
+    // trees respond to, and it is the one habitat variable the surveyors were
+    // already describing in free text ("open canopy", "partially open
+    // canopy"). Ordinal, coarse enough to be judged by eye without a
+    // densiometer; the percentages are the band each label means, so two
+    // surveyors land on the same code. Codes are ordered closed -> open: keep
+    // that order, analysis treats the rank as the measurement.
+    canopy_cover: [
+      { code: 'closed',        label: 'Closed — almost no sky through the canopy (over 90% cover)' },
+      { code: 'mostly_closed', label: 'Mostly closed — a few gaps (75–90% cover)' },
+      { code: 'partly_open',   label: 'Partly open — scattered gaps (50–75% cover)' },
+      { code: 'open',          label: 'Open — more gap than canopy (25–50% cover)' },
+      { code: 'very_open',     label: 'Very open — little or no canopy (under 25% cover)' },
     ],
     // Recorded per vine, "where possible" — an unidentified caterpillar or egg
     // stays `unknown` rather than being forced to a species.
@@ -703,6 +718,12 @@ const SCHEMA = {
           help: 'Canopy, understorey, any sign of past gardening. Note an age only if someone actually knows it.',
           showIf: { field: 'plot_type', equals: 'forest' } },
 
+        // --- Asked of every plot, both branches. Deliberately NOT in
+        // BRANCH_FIELDS: switching garden <-> forest must not clear it. ---
+        { kind: 'single', name: 'canopy_cover', label: 'Canopy over the plot',
+          options: 'canopy_cover',
+          help: 'Judge by eye, standing in the middle of the plot and looking up. How much of the sky is blocked by leaves and branches?' },
+
         { kind: 'fallow_age' },
       ],
     },
@@ -762,6 +783,7 @@ const EXPORTER = (function () {
     add('garden_type'); add('garden_type_other'); add('garden_description');
     add('year_cleared'); add('garden_status'); add('year_abandoned');
     add('forest_type'); add('forest_type_other'); add('forest_description');
+    add('canopy_cover');
     add('fallow_age_years', 'derived');
     add('cultivation_years', 'derived');
 

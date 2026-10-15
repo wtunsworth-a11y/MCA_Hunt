@@ -37,6 +37,7 @@ const EXPORTER = (function () {
     add('garden_type'); add('garden_type_other'); add('garden_description');
     add('year_cleared'); add('garden_status'); add('year_abandoned');
     add('forest_type'); add('forest_type_other'); add('forest_description');
+    add('canopy_cover');
     add('fallow_age_years', 'derived');
     add('cultivation_years', 'derived');
 

@@ -116,7 +116,8 @@ function main() {
     'gps_lat', 'gps_lon', 'gps_accuracy', 'gps_time', 'village', 'zone', 'ward',
     'plot_notes', 'plot_type', 'garden_type', 'garden_type_other', 'garden_description',
     'year_cleared', 'garden_status', 'year_abandoned', 'forest_type', 'forest_type_other',
-    'forest_description', 'fallow_age_years', 'cultivation_years', 'aristolochia_present'];
+    'forest_description', 'canopy_cover', 'fallow_age_years', 'cultivation_years',
+    'aristolochia_present'];
   const summaryCols = ['vine_count'];
   CONFIG.vineSigns.forEach((s) => {
     summaryCols.push('vines_with_' + s.key);

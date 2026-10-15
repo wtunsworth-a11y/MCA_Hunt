@@ -129,6 +129,12 @@ const SCHEMA = {
           help: 'Canopy, understorey, any sign of past gardening. Note an age only if someone actually knows it.',
           showIf: { field: 'plot_type', equals: 'forest' } },
 
+        // --- Asked of every plot, both branches. Deliberately NOT in
+        // BRANCH_FIELDS: switching garden <-> forest must not clear it. ---
+        { kind: 'single', name: 'canopy_cover', label: 'Canopy over the plot',
+          options: 'canopy_cover',
+          help: 'Judge by eye, standing in the middle of the plot and looking up. How much of the sky is blocked by leaves and branches?' },
+
         { kind: 'fallow_age' },
       ],
     },

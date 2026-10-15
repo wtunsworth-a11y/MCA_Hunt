@@ -13,7 +13,7 @@
 const CONFIG = {
   // Bumped when the instrument/schema changes, written into every record as
   // `app_version` so exports can be traced to the build that produced them.
-  appVersion: '1.3.1',
+  appVersion: '1.4.0',
 
   // Google Drive folder the day's exports are filed into. Shown on the export
   // screen as a tappable link; the app does not upload by itself.
@@ -96,6 +96,21 @@ const CONFIG = {
       { code: 'egg_laid_here', label: 'Egg was laid on this vine' },
       { code: 'moved_here',    label: 'Caterpillar was moved here' },
       { code: 'not_sure',      label: 'Not sure' },
+    ],
+    // Canopy over the plot, asked of every plot — garden and forest alike —
+    // because light reaching the ground is what Aristolochia and its host
+    // trees respond to, and it is the one habitat variable the surveyors were
+    // already describing in free text ("open canopy", "partially open
+    // canopy"). Ordinal, coarse enough to be judged by eye without a
+    // densiometer; the percentages are the band each label means, so two
+    // surveyors land on the same code. Codes are ordered closed -> open: keep
+    // that order, analysis treats the rank as the measurement.
+    canopy_cover: [
+      { code: 'closed',        label: 'Closed — almost no sky through the canopy (over 90% cover)' },
+      { code: 'mostly_closed', label: 'Mostly closed — a few gaps (75–90% cover)' },
+      { code: 'partly_open',   label: 'Partly open — scattered gaps (50–75% cover)' },
+      { code: 'open',          label: 'Open — more gap than canopy (25–50% cover)' },
+      { code: 'very_open',     label: 'Very open — little or no canopy (under 25% cover)' },
     ],
     // Recorded per vine, "where possible" — an unidentified caterpillar or egg
     // stays `unknown` rather than being forced to a species.
